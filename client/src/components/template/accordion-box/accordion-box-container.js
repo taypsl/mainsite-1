@@ -38,7 +38,7 @@ export default class AccordionBoxContainer extends Component {
 	
 
     const renderedContent = [].concat(this.props.stageContent)
-    .sort((a, b) => a.fields.id > b.fields.id)
+    .sort((a, b) => a.fields.id - b.fields.id)
     .map((tab) => {
 		// const renderedContent = this.props.stageContent.map((tab) => {
 			const input = tab.fields.blockText

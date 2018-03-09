@@ -103,7 +103,7 @@ class SmallClaimsStage extends Component {
   renderMenuLinks() {
 
     return [].concat(this.props.stage)
-    .sort((a, b) => a.fields.id > b.fields.id)
+    .sort((a, b) => a.fields.id - b.fields.id)
     .map((stage) => {
       return (
         <div className="Stage-menu-item" onClick={(e) => this.onStageSelect(stage.fields.title, stage.sys.id, e)} key={stage.sys.id}>

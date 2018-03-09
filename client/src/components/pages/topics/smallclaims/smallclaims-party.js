@@ -47,7 +47,7 @@ class SmallClaimsParty extends Component {
 		})
 
     const renderedStages = [].concat(this.props.content)
-    .sort((a, b) => a.fields.id > b.fields.id)
+    .sort((a, b) => a.fields.id - b.fields.id)
     .map((stage) => {
       return (
       <div  className="Square-box-container" onClick={(e) => this.onStageSelect(stage.fields.title, stage.sys.id, e)} key={stage.sys.id}>

@@ -56,12 +56,6 @@ export default class NavbarBurger extends Component {
           </NavLink>
           <NavLink
             className='Menu-link-burger'
-            to='/locations'
-          >
-            Find a Courthouse
-          </NavLink>
-          <NavLink
-            className='Menu-link-burger'
             to='/contact-us'
           >
             Contact

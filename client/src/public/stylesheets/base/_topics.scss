@@ -68,13 +68,13 @@ h1.title-line-background {
 
 .Accordion-box-item {
   position: relative;
-  cursor: pointer;
   width: 100%;
   h3 {
     margin: 1.5rem 2.5rem 1rem 0;
     font-family: $font-family-sans-serif;
   }
   h3:hover {
+    cursor: pointer;
     color: $blue-accent-primary;
   }
 }
@@ -84,6 +84,9 @@ h1.title-line-background {
   right: 2rem;
   font-size: 3rem;
   top: -0.75rem;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .blue-font {

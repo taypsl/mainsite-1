@@ -83,7 +83,7 @@ class SmallClaims extends Component {
     })
 
     const renderedParties = [].concat(this.props.content)
-    .sort((a, b) => a.fields.id > b.fields.id)
+    .sort((a, b) => a.fields.id - b.fields.id)
     .map((party) => {
         return (
           <div className="Square-box-container" key={party.sys.id}>
