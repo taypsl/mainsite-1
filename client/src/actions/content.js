@@ -204,7 +204,7 @@ export function fetchContentByParty(label, party) {
         //create duplicate entries for different stages if existent
         for (let i=0; i < cur.fields.stage['en-US'].length; i++){
              acc.push({titles: cur.fields.title, blockTexts: cur.fields.blockText, id: cur.fields.id['en-US'], 
-                stageId: cur.fields.stage['en-US'][i].sys.id});
+                stageId: cur.fields.stage['en-US'][i].sys.id, children: cur.fields.children});
         }
         return acc;
         
