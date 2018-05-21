@@ -97,12 +97,7 @@ class AccordionBoxContainer extends Component {
                     )
                   })
                 }
-
-                {/*<div dangerouslySetInnerHTML={ { __html: input } }></div>*/}
               </div>
-              {/*           <div dangerouslySetInnerHTML={this.getParsedMarkdown(input)}></div>
-              */}         
-
 
             </div>
             <hr className="Accordion-box-line" />
@@ -120,13 +115,14 @@ class AccordionBoxContainer extends Component {
   		// 	const input = tab.fields.blockText[lang] || '';
   		renderedContent = this.props.stageContent
         .map((tab, key) => {
-        // console.log("tab: ", tab);	
+        // console.log("tab: ", tab);	 
         const tabLink = tab.titles['en-US'].replace(/\s+/g, '-').toLowerCase();
-        console.log(tabLink, "tabLink===///")
+        //console.log(tabLink, "tabLink===///")
         return (
   				<div className="Accordion-box-item " key={tab.id}>
-  					{ tab.children ? 
-            <Link to={tabLink}><h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
+  					
+            { tab.children ? 
+              <Link to={`${tabLink}`}><h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
               {tab.titles[lang]}
               {/*if content has children, return < or >*/}
               
@@ -142,16 +138,12 @@ class AccordionBoxContainer extends Component {
                 </span>
               </h3>
               }
-
             
   					<div className={this.state.activeId == tab.id && this.state.pressed == true ? " ": "hidden"}> 
   						<div className="Accordion-box-content">
   							<ReactMarkdown source={tab.blockTexts[lang]} />
 
-  							{/*<div dangerouslySetInnerHTML={ { __html: input } }></div>*/}
-  						</div>
-  						{/*						<div dangerouslySetInnerHTML={this.getParsedMarkdown(input)}></div>
-  						*/}					
+  						</div>		
 
   					</div>
   					<hr className="Accordion-box-line" />
@@ -210,3 +202,4 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(AccordionBoxContainer);
+
