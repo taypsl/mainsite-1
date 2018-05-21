@@ -125,7 +125,7 @@ class AccordionBoxContainer extends Component {
   				<div className="Accordion-box-item " key={tab.id}>
   					<h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
               {tab.titles[lang]}
-
+              {/*if content has children, return < or >*/}
               <span className="Accordion-box-icon">
                 {this.state.activeId == tab.id && this.state.pressed == true ? "-" : "+"}
               </span>
