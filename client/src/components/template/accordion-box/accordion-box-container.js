@@ -121,11 +121,11 @@ class AccordionBoxContainer extends Component {
         return (
   				<div className="Accordion-box-item " key={tab.id}>
   					
-            { tab.children ? 
-              <Link to={`${this.props.stageUrl}/${tabLink}`}><h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
+            { 
+              tab.children ? 
+              <Link to={`${this.props.stageUrl}/${tabLink}`}><h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
               {tab.titles[lang]}
-              {/*if content has children, return < or >*/}
-              
+                {/*if content has children, return < or >*/}
                 <span className="Accordion-box-icon">
                   {this.state.activeId == tab.id && this.state.pressed == true ? "<" : ">"}
                 </span>
@@ -137,28 +137,23 @@ class AccordionBoxContainer extends Component {
                   {this.state.activeId == tab.id && this.state.pressed == true ? "-" : "+"}
                 </span>
               </h3>
-              }
-            
+            }
+      
   					<div className={this.state.activeId == tab.id && this.state.pressed == true ? " ": "hidden"}> 
   						<div className="Accordion-box-content">
   							<ReactMarkdown source={tab.blockTexts[lang]} />
-
   						</div>		
-
   					</div>
-  					<hr className="Accordion-box-line" />
-  				</div> 
+            <hr className="Accordion-box-line" />
+
+          </div> 
   			)
   		})
     }
-		// const newContent = this.props.stageContent.filter((tab) => {
-  // 		tab.fields.stage.map((item) => item.sys.id == stageId)
-  // 	})
 
 		return (
 			<div className="Box AccordionBoxContainer ">
 				<hr className="Accordion-box-line" />
-
 				{renderedContent}
 			</div>
 		)

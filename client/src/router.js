@@ -146,7 +146,7 @@ class AppRouter extends Component {
                   <Route exact path="/smallclaims" component={SmallClaims} />
                   <Route exact path="/smallclaims/:party" component={SmallClaimsParty} />
                   <Route path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
-                  <Route exact path="/smallclaims/:party/:stage/:subcat" component={SmallClaimsSubStage} />
+                  <Route path="/smallclaims/:party/:stage/:subcat" component={SmallClaimsSubStage} />
                   <Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/eviction" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
