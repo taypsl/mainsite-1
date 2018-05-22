@@ -157,7 +157,27 @@ hr {
   }
 }
 
-.Search {
+.Topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -5rem;
+  .Search-m, .Languages-m {
+    i {
+      font-size: 4rem;
+    }
+    @include md {
+      display: none;
+    }
+  }
+  .Search, .Languages {
+    display: none;
+    @include md {
+      display: flex;
+    }
+  }
+}
+
+.Search-form {
   align-items: right;
   background-color: $white;
   display: -webkit-box;
