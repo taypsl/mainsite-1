@@ -44,7 +44,7 @@ class SmallClaimsSubStage extends Component {
       <div>
         <Bot />
 
-        <TitleLine title={currentTitle ? currentTitle : slugTitle} />
+        {/*<TitleLine title={currentTitle ? currentTitle : slugTitle} />*/}
 
         <AccordionBoxContainer stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
