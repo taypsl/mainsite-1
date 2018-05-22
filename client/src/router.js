@@ -8,6 +8,7 @@ import { fetchFooter } from './actions/content';
 import NotFoundPage from './components/pages/not-found-page';
 import UnderConstruction from './components/pages/under-construction';
 import Navbar from './components/template/navbar';
+import Topbar from './components/template/topbar';
 import Footer from './components/template/footer';
 import Search from './components/template/search';
 //import Layout from './components/Layout';
@@ -96,11 +97,11 @@ class AppRouter extends Component {
               
               <div className="App-mask" />
               <Navbar menuLinks={this.props.menuLinks} language={this.props.language}/> 
-              <Search />
-              
+              <Topbar />
+              {/*<Search />*/}              
+              {/*<Languages />*/}
 
-              {/*placeholder for language toggle*/}
-              <Languages />
+
               {/* DONT DELETE commented Bot out to hide from all views until bot works for all case types.
               for now bot will only live in small claims*/}
               {/*<Bot /> */}
@@ -159,6 +160,7 @@ class AppRouter extends Component {
                   <Route path="/add-case" component={RequireAuth(NewCase)} />
                   <Route path="/edit-profile" component={RequireAuth(EditProfile)} />
 
+                  <Route path="/search" component={Search} />
                   <Route path="/search-results/:query" component={SearchResults} />
 
 
