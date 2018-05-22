@@ -113,7 +113,7 @@ class SmallClaimsStage extends Component {
 
   
   render() {
-    const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
+    //const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
     //const currentSlug = this.props.match.params.stage
     //const slugTitle = this.toSentenceCase(currentSlug);
     //const currentSection = this.props.match.params.party
@@ -139,7 +139,7 @@ class SmallClaimsStage extends Component {
       {/* place holder, need to work out how to display the title w/out relying on redux store */}
         <TitleLine title={this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]} />
         {/*this.filterContent(this.props.content, this.state.selectedStageId, this.props.language)*/}
-        <AccordionBoxContainer stageContent={ 
+        <AccordionBoxContainer stageUrl={this.props.match.params.stage} stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
             .sort((a, b) => a.id - b.id )} />
       </div>
