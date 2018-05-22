@@ -94,7 +94,6 @@ class SmallClaimsStage extends Component {
   }
 
   renderMenuLinks(lang) {
-
     return this.props.stages
     .map((stage) => {
       return stage.url !== this.props.match.params.stage && (
