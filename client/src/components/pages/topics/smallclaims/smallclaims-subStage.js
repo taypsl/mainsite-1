@@ -9,7 +9,6 @@ import SquareBoxStatic from '../../../template/square-box-static';
 import ChecklistIcon from '../../../../img/icn_checklist.svg';
 import InfoBox from '../../../template/info-box';
 import AccordionBoxContainer from '../../../template/accordion-box/accordion-box-container';
-import { fetchContentByParty, fetchStages } from '../../../../actions/content.js';
 import Bot from '../../../chatbot/Bot.jsx'; 
 import { DEFAULT_LANG } from '../../../../actions/types';
 import { bindActionCreators } from 'redux';
@@ -19,13 +18,14 @@ class SmallClaimsSubStage extends Component {
   constructor(props) {
     super(props)
     this.state = {
+    	loaded: false
     }
     this.toSentenceCase = this.toSentenceCase.bind(this);
   }
   componentWillMount() {
-
+  	console.log('component smallclaimsSubStage will load')
+  	this.setState({loaded: true})
   }
-
 
   toSentenceCase(str) {
     return str.split('-').map(function(word) {
@@ -33,42 +33,41 @@ class SmallClaimsSubStage extends Component {
     }).join(' ');
   }
 
-  
   render() {
     const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
     const currentSlug = this.props.match.params.stage
     const slugTitle = this.toSentenceCase(currentSlug);
     //const currentSection = this.props.match.params.party
 
-    return this.props.stages.length !== 0 && this.props.stageContent.length !== 0 && (
+    return (
       <div>
-        <Bot />
+        {/*<Bot />*/}
 
         {/*<TitleLine title={currentTitle ? currentTitle : slugTitle} />*/}
 
-        <AccordionBoxContainer stageContent={ 
+        {/*<AccordionBoxContainer stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
             .sort((a, b) => a.id - b.id )} />
+          */}
+
+          test text
       </div>
     )
   } 
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchStages, fetchContentByParty}, dispatch);
-}
 
-function mapStateToProps(state) {
-  return { 
-    stageContent: state.content.tabs,
-    stages: state.content.stages,
-    content: state.content, 
-    stageId: state.content.stageId,
-    language: state.content.language
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(SmallClaimsSubStage);
-
+// function mapStateToProps(state) {
+//   return { 
+//     stageContent: state.content.tabs,
+//     stages: state.content.stages,
+//     content: state.content, 
+//     stageId: state.content.stageId,
+//     language: state.content.language
+//   };
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(SmallClaimsSubStage);
+export default SmallClaimsSubStage
 
   // componentWillUpdate() {
 
