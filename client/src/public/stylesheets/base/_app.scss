@@ -160,10 +160,15 @@ hr {
 .Topbar {
   display: flex;
   justify-content: flex-end;
-  margin-top: -5rem;
-  .Search-m, .Languages-m, .Bot-div-m {
+  //margin-top: -5rem;
+  .Topbar-nav {
+    height: 80px;
     i {
-      font-size: 4rem;
+      font-size: 3rem;
+      @include sm {
+        font-size: 4rem;
+        margin-top: 0;
+      }
     }
     @include md {
       display: none;
@@ -175,13 +180,72 @@ hr {
       color: $blue-accent-primary;
     }
   }
-  .Search, .Languages {
-    display: none;
-    @include md {
-      display: flex;
-    }
+  
+}
+
+.Topbar-desktop {
+  display: none;
+  @include md {
+    display: flex;
+    justify-content: flex-end;
   }
 }
+
+.Topbar-nav {
+  display: block;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  li {
+    display: block;
+    float: left;
+    margin: 0 2px 0 0;
+    padding: 8px;
+    position: relative;
+    text-decoration: none;
+    div {
+      text-decoration: none;
+      display: block;
+    }
+    &:hover {
+      // @include transition(background, 0.2s);
+      cursor: pointer;
+    }
+    ul {
+      visibility: hidden;
+      float: left;
+      min-width: 150px;
+      //position: absolute;
+      transition: visibility 0.65s ease-in;
+      z-index: 999;
+      margin: 0;
+      li {
+        clear: both;
+        padding: 5px 0 5px 18px;
+        width: 100%;
+        &:hover {
+          color: $blue-accent-primary;
+        }
+      }
+    }
+    &:hover > ul, ul:hover {
+      visibility: visible;
+    }
+  }
+  .dropdown {
+    font-size: 2rem;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    border: 1px solid $light-grey-secondary;
+    background-color: $white;
+    right: 0;
+  }
+}
+
+
 
 .Search-form {
   align-items: right;

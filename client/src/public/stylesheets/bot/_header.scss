@@ -76,9 +76,8 @@
 }
 
 .open-bot-icon-circle {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  //display: flex;
+  
 
   width: 100px;
   height: 54px;
@@ -92,14 +91,18 @@
 
   position: fixed;
   // z-index: 1010;
-
-  @include xxs {
+  
+  // right: 1.75rem;
+  // bottom: 3.5rem;
+  display: none;
+  @include md {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     right: 2rem;
     bottom: 2rem;
   } 
-  @include mobile {
-    display: none;
-  }
+
 }
 
 .open-bot-icon-circle:hover {
@@ -163,8 +166,8 @@
   position: absolute;
   right: 1rem;
   bottom: 3.5rem;
-  @include sm {
-
+  @include md {
+    //display: none;
   }
   
     display: none;
@@ -293,9 +296,9 @@ button.button-chatbot-email:active {
 //********************************** MEDIA QUERIES **********************************//
 @media (max-width: 2000px) and (min-width: 600px) {
   .open-bot-icon-circle {
-    position: fixed;
-    right: 1.75rem;
-    bottom: 3.5rem;
+    // position: fixed;
+    // right: 1.75rem;
+    // bottom: 3.5rem;
   }
 }
 
@@ -311,6 +314,6 @@ button.button-chatbot-email:active {
 //hides mobile chat icon until <600
 @media (min-width: 600px) and (max-width: 2000px) {
   .open-bot-icon-m-circle {
-    display: none;
+    //display: none;
   }
 }
