@@ -150,24 +150,25 @@
 
 /* icon displays for mobile views <600 and links to mbot route */
 .open-bot-icon-m-circle { 
+
   text-align: center;
-  // padding-top: 6px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
   text-align: center;  
-  position: absolute;
   cursor: pointer;
   background-color: $blue-accent-primary;
+  position: absolute;
   right: 1rem;
-  top: 1rem;
-  //z-index: 2000;
+  bottom: 3.5rem;
   @include sm {
 
   }
   
+    display: none;
+
   // display: flex;
   // -webkit-box-pack: end;
   // -ms-flex-pack: end;

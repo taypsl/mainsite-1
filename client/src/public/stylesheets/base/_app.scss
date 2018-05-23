@@ -161,12 +161,18 @@ hr {
   display: flex;
   justify-content: flex-end;
   margin-top: -5rem;
-  .Search-m, .Languages-m {
+  .Search-m, .Languages-m, .Bot-div-m {
     i {
       font-size: 4rem;
     }
     @include md {
       display: none;
+    }
+    a {
+      color: $dark-grey-primary
+    }
+    a:hover {
+      color: $blue-accent-primary;
     }
   }
   .Search, .Languages {
