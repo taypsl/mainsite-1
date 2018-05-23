@@ -100,7 +100,7 @@ class Chatbar extends React.Component {
               type="button"
               // ref="sendButton" //a react attrib
               value="send"
-              className="circle-m"
+              className="circle-x"
               onClick={this.props.onClick.bind(this)}
             >
               <i className="material-icons" style={{ fontSize: '20px' }}>
