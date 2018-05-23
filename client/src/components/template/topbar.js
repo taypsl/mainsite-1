@@ -20,6 +20,9 @@ class Topbar extends Component {
 	}
 
 	render() {
+		const currentUrl = window.location.href
+		const concatUrl = currentUrl.split('/').slice(-1).pop()
+		console.log(concatUrl, '-----concatUrl')
 		return (
 			<div className="Topbar" >
 				<div className="Topbar-desktop">
@@ -39,11 +42,15 @@ class Topbar extends Component {
 			        <li className="topbar-nav-item sub-menu" ><option value="zh" onClick={this.handleClick}><div disabled={this.props.language === 'zh'}>中文</div></option></li>
 			      </ul>
 				  </li>
-					<li className="Bot-div-m topbar-nav-item"><i className="material-icons">chat</i>
-						<ul className="dropdown">
-			        <Link to="/mbot"><li className="topbar-nav-item sub-menu"><div>Go to Chat</div></li></Link>
-			      </ul>
-					</li>
+				  { concatUrl == 'smallclaims' ?
+						<li className="Bot-div-m topbar-nav-item"><i className="material-icons">chat</i>
+							<ul className="dropdown">
+				        <Link to="/mbot"><li className="topbar-nav-item sub-menu"><div>Go to Chat</div></li></Link>
+				      </ul>
+						</li> 
+						: 
+						<li></li>
+					}
 				</ul>
 			</div>
 		)
