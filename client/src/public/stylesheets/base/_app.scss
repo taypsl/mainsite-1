@@ -176,6 +176,7 @@ hr {
   .Topbar-nav {
     height: 80px;
     i {
+      color: $dark-grey-primary;
       font-size: 3rem;
       @include xs {
         font-size: 4rem;
@@ -185,6 +186,9 @@ hr {
         font-size: 3rem;
         margin-top: 1.25rem;
         margin-bottom: 1rem;
+      }
+      &:hover {
+        color: $blue-accent-primary;
       }
     }
     @include md {
@@ -246,6 +250,7 @@ hr {
       z-index: 999;
       margin: 0;
       li {
+        color: $white;
         clear: both;
         padding: 5px 0 5px 18px;
         width: 100%;
@@ -264,7 +269,7 @@ hr {
     position: fixed;
     width: 100%;
     border: 1px solid $light-grey-secondary;
-    background-color: $white;
+    background-color: $dark-grey-primary;
     right: 0;
   }
 }
@@ -276,15 +281,14 @@ hr {
 }
 
 .Search-form {
-  background-color: $white;
-  padding-bottom: 1.5rem;
+  //background-color: $white;
+  padding: 1.5rem 0;
   z-index: 1;
   @include xs {
     top: 1rem;
   }
   @include md {
-    //margin-left: 1rem; 
-    //margin-top: 1rem;
+    padding: 0;
     top: 3rem;
   }
   
