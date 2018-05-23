@@ -32,15 +32,17 @@
     margin: 0;
     font-size: 1.4rem;
   }
-  @include mobile {
-    display: none;
-  }
-  @include lg {
+  display: none;
+  // @include mobile {
+  //   display: none;
+  // }
+  @include md {
+    display:block;
     bottom: 10rem;
     width: 330px;
     height: 120px;
   }
-  display: block;
+  //display: block;
   z-index: 1000;
 }
 
