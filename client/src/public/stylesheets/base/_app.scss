@@ -158,8 +158,12 @@ hr {
 }
 
 .Topbar {
-  display: flex;
-  justify-content: flex-end;
+  display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
   margin-top: -2.5rem;
   border-bottom: 6px solid $dark-grey-primary;
   @include xs {
@@ -207,8 +211,12 @@ hr {
 .Topbar-desktop {
   display: none;
   @include md {
-    display: flex;
-    justify-content: flex-end;
+    display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+    -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
   }
 }
 
@@ -245,8 +253,10 @@ hr {
       visibility: hidden;
       float: left;
       min-width: 150px;
-      //position: absolute;
-      transition: visibility 0.65s ease-in;
+      position: relative;
+      -webkit-transition: visibility 0.65s ease-in;
+        -o-transition: visibility 0.65s ease-in;
+        transition: visibility 0.65s ease-in;
       z-index: 999;
       margin: 0;
       li {

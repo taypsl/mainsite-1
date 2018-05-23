@@ -12,11 +12,17 @@ class Topbar extends Component {
 	constructor(props){
 		super(props);
 		// this.state = {lang : 'en-US'};
+		this.state = {
+			language: ''
+		}
 		this.handleClick = this.handleClick.bind(this);
 	}
 
 	handleClick(e){
-		this.props.toggleLanguages(e.target.value);
+		// this.setState({
+		// 	language: e.target.value
+		// })
+		this.props.toggleLanguages(e.target.getAttribute('value'));
 	}
 
 	render() {
@@ -38,9 +44,9 @@ class Topbar extends Component {
 					</li>
 					<li className="Languages-m topbar-nav-item"><i className="material-icons">language</i>
 			      <ul className="dropdown">
-			        <li className="topbar-nav-item sub-menu" ><option value="en-US" onClick={this.handleClick}><div disabled={this.props.language === 'en-US'}>English</div></option></li>
-			        <li className="topbar-nav-item sub-menu" ><option value="es" onClick={this.handleClick}><div disabled={this.props.language === 'es'}>Español</div></option></li>
-			        <li className="topbar-nav-item sub-menu" ><option value="zh" onClick={this.handleClick}><div disabled={this.props.language === 'zh'}>中文</div></option></li>
+			        <li className="topbar-nav-item sub-menu" onClick={this.handleClick} key="en-US"><div value="en-US" disabled={this.props.language === 'en-US'}>English</div></li>
+			        <li className="topbar-nav-item sub-menu" onClick={this.handleClick} key="es"><div value="es" disabled={this.props.language === 'es'}>Español</div></li>
+			        <li className="topbar-nav-item sub-menu" onClick={this.handleClick} key="zh"><div value="zh" disabled={this.props.language === 'zh'}>中文</div></li>
 			      </ul>
 				  </li>
 				  { splitUrl == 'smallclaims' ?
