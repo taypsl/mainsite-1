@@ -192,6 +192,7 @@ hr {
 }
 
 .Topbar-nav {
+  z-index: 1;
   display: block;
   ul {
     list-style: none;
@@ -245,16 +246,19 @@ hr {
   }
 }
 
-
+.Search {
+  @include lg {
+    z-index: 100;
+  }
+}
 
 .Search-form {
-  align-items: right;
+  // align-items: right;
   background-color: $white;
-  display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  // width: 75%;
-  position: relative; 
+  // display: -webkit-box;
+  //   display: -ms-flexbox;
+  //   display: flex;
+  //position: relative; 
   z-index: 1;
   @include xs {
     top: 1rem;
@@ -262,14 +266,10 @@ hr {
   @include md {
     margin-left: 1rem; 
     margin-top: 1rem;
-    z-index: 100;
+    //z-index: 100;
     top: 3rem;
-    // width: 100%;
   }
-  @include lg {
-    margin-left: 20rem;
-    position: fixed; // to have search bar fixed on top
-  }
+  
   margin-top: 2rem;
   margin-left: 2rem;
   
@@ -279,13 +279,13 @@ hr {
   height: 3.3rem;
   margin-right: 2rem;
   padding-top: 0;
-  //width: 8rem;
   @include xs {
     width: 10rem;
   }
   @include md {
     width: 30rem;
   }
+
 }
 
 .Search-button {
@@ -307,10 +307,10 @@ hr {
 
 // Language select
 .Languages {
-  display: inline-block;
-  position: absolute;
-  right: 2rem;
-  top: 1rem;
+  // display: inline-block;
+  // position: absolute;
+  // right: 2rem;
+  // top: 1rem;
 
   z-index: 1;
   @include lg {
