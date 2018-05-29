@@ -3,8 +3,6 @@ import ChatContainer from './ChatContainer.jsx';
 import OpenBot from './OpenBot.jsx';
 import { connect } from 'react-redux';
 
-
-
 class Bot extends Component {
 	constructor(props) {
 		super(props);
@@ -35,7 +33,6 @@ class Bot extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   visible: state.chat.botVisibility,
