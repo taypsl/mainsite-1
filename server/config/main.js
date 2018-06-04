@@ -1,4 +1,5 @@
-// var env = require('dotenv').load();
+require('dotenv').config();
+
 const { TEST_DB_URL,
  MAILGUN_KEY,
  MAILGUN_DOMAIN,
@@ -9,7 +10,15 @@ const { TEST_DB_URL,
  COSMOSDB_CONNSTR,
  COSMOSDB_DBNAME,
  JWT_SECRET,
- NODE_ENV } = require('../../secret.env');
+ REDIRECT_URL,
+ DESTROY_URL,
+ KEY_FILENAME_PATH,
+ ENVIRONMENT_ID,
+ PROJECT_ID,
+ USER,
+ CLIENT_EMAIL,
+ PRIVATE_KEY,
+ NODE_ENV } = process.env;
 // console.log(process.env);
 
 //auth settings
@@ -33,12 +42,7 @@ const creds = {
   responseMode: 'form_post', 
 
   // Required, the reply URL registered in AAD for your app
-  //local dev
-  redirectUrl: (NODE_ENV === 'dev_server') ? 
-  'http://dev-vshs-portal.ad.cc-courts.org/api/auth/openid/return': 
-  'http://localhost:3000/api/auth/openid/return',
-  //dev server
-  // redirectUrl: 'http://dev-vshs-portal.ad.cc-courts.org/api/auth/openid/return',
+  redirectUrl: REDIRECT_URL,
 
   // Required if we use http for redirectUrl
   allowHttpForRedirectUrl: true,
@@ -68,7 +72,7 @@ const creds = {
   // Required if `useCookieInsteadOfSession` is set to true. You can provide multiple set of key/iv pairs for key
   // rollover purpose. We always use the first set of key/iv pair to encrypt cookie, but we will try every set of
   // key/iv pair to decrypt cookie. Key can be any string of length 32, and iv can be any string of length 12.
-  cookieEncryptionKeys: COOKIE_ENCRYPTION_KEYS,
+  cookieEncryptionKeys: JSON.parse(COOKIE_ENCRYPTION_KEYS),
 
   // Optional. The additional scope you want besides 'openid', for example: ['email', 'profile'].
   scope: null,
@@ -87,18 +91,20 @@ const creds = {
 };
 
 module.exports = {
+  testPort: 3000,
   // Secret key for JWT signing and encryption
   secret: JWT_SECRET,
-  // Database connection information
-  // database: 'mongodb://localhost:27017',
-  // test_database: TEST_DB_URL,
+  
+  //TEMPORARY - USE COSMOSDB EMULATOR FOR BOTH LOCAL AND DMZ DEV 
+  database: 
+    NODE_ENV !== 'prod' ? 
+    // use cosmos db emulator for 
+    TEST_DB_URL : 
+    //azure cosmos db
+    COSMOSDB_CONNSTR+COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb"
+  ,
 
-  //Cosmos DB Emulator
-  test_database: 'mongodb://localhost:C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==@localhost:10255/admin?ssl=true',
-  // test_db_url: 'https://localhost:8081',
-  database: COSMOSDB_CONNSTR+COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb",
-  // Setting port for server
-  // port: 3000,
+//smtp mail setup
   // Configuring Mailgun API for sending transactional email
   // Rt now using authorized accounts only for testing -->
   mailgun_priv_key: MAILGUN_KEY,
@@ -110,29 +116,29 @@ module.exports = {
   sendgridApiKey: 'sendgrid api key here',
   // Stripe API key
   stripeApiKey: 'stripe api key goes here',
-  // necessary in order to run tests in parallel of the main app
-  test_port: 3000,
-  test_db: 'mern-starter-test',
-  // dev_server: 'development',
+  
+//credentials for Azure sign-in
   creds: creds,
+    // Optional.
+  // If you want to get access_token for a specific resource, you can provide the resource here; otherwise, 
+  // set the value to null.
+  // Note that in order to get access_token, the responseType must be 'code', 'code id_token' or 'id_token code'.
+  resourceURL: 'https://graph.windows.net',
+  // The url you need to go to destroy the session with AAD
+  destroySessionUrl: DESTROY_URL,
+  // If you want to use the mongoDB session store for session middleware; otherwise we will use the default
+  // session store provided by express-session.
+  // Note that the default session store is designed for development purpose only.
+  useMongoDBSessionStore: true,
+  // How long you want to keep session in mongoDB.
+  mongoDBSessionMaxAge: 24 * 60 * 60,  // 1 day (unit is second),
 
-  // Optional.
-// If you want to get access_token for a specific resource, you can provide the resource here; otherwise, 
-// set the value to null.
-// Note that in order to get access_token, the responseType must be 'code', 'code id_token' or 'id_token code'.
-resourceURL: 'https://graph.windows.net',
+//dialogflow
+  keyFilename: KEY_FILENAME_PATH,
+  environmentId: ENVIRONMENT_ID,
+  projectId: PROJECT_ID,
+  user: USER,
+  clientEmail: CLIENT_EMAIL,
+  privateKey: process.env.NODE_ENV === 'local' ? PRIVATE_KEY : JSON.parse(PRIVATE_KEY) //use JSON.parse in dev and prod env to parse env vars
 
-// The url you need to go to destroy the session with AAD
-destroySessionUrl: (NODE_ENV === 'dev_server') ?
-'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://dev-vshs-portal.ad.cc-courts.org':
-'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:3000',
-
-// If you want to use the mongoDB session store for session middleware; otherwise we will use the default
-// session store provided by express-session.
-// Note that the default session store is designed for development purpose only.
-useMongoDBSessionStore: true,
-
-
-// How long you want to keep session in mongoDB.
-mongoDBSessionMaxAge: 24 * 60 * 60  // 1 day (unit is second)
 };

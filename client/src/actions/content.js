@@ -23,12 +23,11 @@ import { STORE_STAGE_ID } from './types'
 // export const FETCH_POST = 'FETCH_POST';
 // export const FETCH_ASSET = 'FETCH_ASSET';
 
-import {
-  API_BASE_URL,
-  API_SPACE_ID,
-  API_TOKEN,
-  SMALL_CLAIMS_ID 
-} from '../../../secret.env'
+const API_BASE_URL = process.env.API_BASE_URL;
+const API_SPACE_ID = process.env.API_SPACE_ID;
+const API_TOKEN = process.env.API_TOKEN;
+const SMALL_CLAIMS_ID = process.env.SMALL_CLAIMS_ID;
+
 
 export function fetchContact() {
   return function(dispatch){

@@ -37,9 +37,6 @@ class ChatBubble extends React.Component {
         </div>
       );
     } else if (this.props.type === 'image') {
-      // className = 'rcorner';
-      // console.log(this.props.message);
-      // const attr = JSON.parse(this.props.message);
       return <ImageViewer src={this.props.message.src} alt={this.props.message.alt} />;
     } else if (this.props.type === 'map') {
       return (
@@ -51,6 +48,7 @@ class ChatBubble extends React.Component {
       console.log('executed');
       return (
         <div>
+          <a href={this.props.message.url} target='_blank'>
           <table onClick={this.props.onClick.bind(this)}>
             <thead>
               <tr>
@@ -81,6 +79,7 @@ class ChatBubble extends React.Component {
               )}
             </tbody>
           </table>
+          </a>
         </div>
       );
     } else if (this.props.isBot === false) {
@@ -147,147 +146,52 @@ const mapDispatchToProps = dispatch => ({
       inputData.ai = true;
     }
     axios
-      .post('/api/chat/message', inputData) // redux way of saying once we send a POST request to server, then if we receive a response(Promise) from server
+      .post('/api/chat/message', inputData) 
       .then((response) => {
         console.log('Response:', response);
-        // response = JSON.parse(response);
-
-        if (response.status === 200) {
-          // axios.response.data, get speech from api.ai
-
-          const msg = response.data.result.fulfillment.speech;
-          if (!msg.startsWith('\\n')) {
-            // single paragraph
+        response.data.fulfillmentMessages.forEach((ffmtMsg ) => {
+          
+          if (ffmtMsg.message === 'text'){ //text response
             dispatch({
               type: 'CHAT_ADD_MESSAGE',
               payload: {
-                message: msg,
+                message: ffmtMsg.text.text[0],
                 type: 'text',
+                source: 'dialogflow',
                 isBot: true,
-              },
+              }
             });
-          } else {
-            // multi-paragraphs
-
-            const paragraphs = msg.slice(2, -1).trim().split(/\\n/);
-            console.log(paragraphs);
-            let i = 0;
-            // msg="";
-            for (i = 0; i < paragraphs.length; i++) {
-              // msg+=paragraphs[i];
+          }else if (ffmtMsg.message == 'payload'){ // payload response
+            // console.log("payload buttons: ", ffmtMsg.payload.fields.buttons)
+            //if buttons in payload
+            ffmtMsg.payload.fields.buttons &&
+            ffmtMsg.payload.fields.buttons.listValue.values.forEach((btn) => {
+              
               dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: paragraphs[i].trim(),
-                  type: 'text',
-                  isBot: true,
-                },
-              });
-            }
-          }
-          // console.log('case type: ', response.data.caseType.toLowerCase());
-          response.data.caseType && dispatch({ type: response.data.caseType });
-          // if there's a custom payload attached to api.ai response
-          let customPayload;
-          if (!response.data.result.fulfillment.data) {
-            const messages = response.data.result.fulfillment.messages;
-            console.log('Messages:', messages);
-            if (messages.length > 1 && messages[1].type == 4) {
-              // buttons in payload
-              if (messages[1].payload.buttons) {
-                // get custom payload from api.ai
-                // console.log("buttons:", response.data.messages[1].payload.buttons);
-                customPayload = messages[1].payload.buttons;
-                customPayload.forEach((btn) => {
-                  dispatch({
                     type: 'CHAT_ADD_MESSAGE',
                     payload: {
-                      message: btn,
+                      message: btn.stringValue,
                       type: 'button',
                       isBot: true,
                     },
                   });
-                });
-              }
-              // if image in payload
-              if (messages[1].payload.image) {
-                customPayload = messages[1].payload.image;
-                dispatch({
+            });
+            //if image in payload
+            ffmtMsg.payload.fields.image &&
+            dispatch({
                   type: 'CHAT_ADD_MESSAGE',
                   payload: {
-                    message: customPayload,
+                    message: {
+                      src: ffmtMsg.payload.fields.image.structValue.fields.src.stringValue,
+                      alt: ffmtMsg.payload.fields.image.structValue.fields.alt.stringValue
+                    },
                     type: 'image',
                     isBot: true,
                   },
-                });
-              }
-              // if map in payload
-              if (messages[1].payload.map) {
-                customPayload = messages[1].payload.map;
-                dispatch({
-                  type: 'CHAT_ADD_MESSAGE',
-                  payload: {
-                    message: customPayload,
-                    type: 'map',
-                    isBot: true,
-                  },
-                });
-              }
-            }
-          } else {
-            const data = response.data.result.fulfillment.data;
-            console.log('DATA: ', data);
-            if (data.buttons) {
-              customPayload = data.buttons;
-              customPayload.forEach((btn) => {
-                dispatch({
-                  type: 'CHAT_ADD_MESSAGE',
-                  payload: {
-                    message: btn,
-                    type: 'button',
-                    isBot: true,
-                  },
-                });
               });
             }
-            if (data.image) {
-              customPayload = data.image;
-              dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: customPayload,
-                  type: 'image',
-                  isBot: true,
-                },
-              });
-            }
-            if (data.map) {
-              customPayload = data.map;
-              dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: customPayload,
-                  type: 'map',
-                  isBot: true,
-                },
-              });
-            }
-
-            if (data.table) {
-              customPayload = data;
-              console.log('CUSTOMPAYLOAD', customPayload);
-              dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: customPayload,
-                  type: 'table',
-                  isBot: true,
-                },
-              });
-            }
-          }
-        }
-      })
+          }); 
+        })
       .catch((error) => {
         console.error('Error:', error);
       });

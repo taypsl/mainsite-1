@@ -5,11 +5,10 @@ import axios from 'axios';
 // import ChatButton from './ChatButton.jsx';
 
 // import and set up SpeechRecognition object
-let msg,
-  recognition,
+let recognition,
   synth,
-  voices,
-  utt;
+  voices;
+
 let defaultVoiceIdx = 0;
 const defaultVoiceNames = {
   pc: 'Microsoft Zira Desktop - English (United States)',
@@ -29,7 +28,6 @@ try {
 
   recognition = new SpeechRecognition();
   recognition.lang = 'en-US';
-  // const result = {};
   synth = window.speechSynthesis;
   // SpeechSynthesis.getVoices is async operation
   // voices=synth.getVoices();
@@ -44,6 +42,7 @@ try {
   };
 } catch (e) {
   // do nothing yet, user will be alerted later when they press the mic button
+  console.log("error: ", e);
 }
 
 class Chatbar extends React.Component {
@@ -146,140 +145,94 @@ const mapDispatchToProps = (dispatch) => {
     axios
       .post('/api/chat/message', inputData)
       .then((response) => {
-        console.log('Response:', response);
+        let speech;
         // response.data is a data envelope by redux
         // it contains the fulfillment section of the data object which the backend chooses to return.
-        msg = response.data.result.fulfillment.speech;
-        if (response.status === 200) {
-          if (!msg.startsWith('\\n')) {
+        
+        //dialogflow fulfillment messages, possible multiple messages and multiple formats 
+        response.data.fulfillmentMessages.forEach((ffmtMsg ) => {
+          
+          if (ffmtMsg.message === 'text'){ //text response
+            speech += ffmtMsg.text.text[0]
             dispatch({
               type: 'CHAT_ADD_MESSAGE',
               payload: {
-                message: msg,
+                message: ffmtMsg.text.text[0],
                 type: 'text',
                 source: 'dialogflow',
                 isBot: true,
-              },
+              }
             });
-          } else {
-            // multi-paragraphs
-
-            const paragraphs = msg.slice(2, -1).trim().split(/\\n/);
-            console.log(paragraphs);
-            let i = 0;
-            msg = '';
-            for (i = 0; i < paragraphs.length; i++) {
-              msg += paragraphs[i];
+          }else if (ffmtMsg.message == 'payload'){ // payload response
+            console.log("payload buttons: ", ffmtMsg.payload.fields.buttons)
+            //if buttons in payload
+            ffmtMsg.payload.fields.buttons &&
+            ffmtMsg.payload.fields.buttons.listValue.values.forEach((btn) => {
+              
               dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: paragraphs[i].trim(),
-                  type: 'text',
-                  isBot: true,
-                },
-              });
-            }
-          }
-          // console.log('case type: ', response.data.caseType.toLowerCase());
-          response.data.caseType && dispatch({ type: response.data.caseType });
-          let customPayload;
-          if (!response.data.result.fulfillment.data) {
-            const messages = response.data.result.fulfillment.messages;
-            console.log('Messages:', messages);
-            if (messages.length > 1 && messages[1].type == 4) {
-              // buttons in payload
-              if (messages[1].payload.buttons) {
-                // get custom payload from api.ai
-                // console.log("buttons:", response.data.messages[1].payload.buttons);
-                customPayload = messages[1].payload.buttons;
-                customPayload.forEach((btn) => {
-                  dispatch({
                     type: 'CHAT_ADD_MESSAGE',
                     payload: {
-                      message: btn,
+                      message: btn.stringValue,
                       type: 'button',
                       isBot: true,
                     },
                   });
-                });
-              }
-              // if image in payload
-              if (messages[1].payload.image) {
-                customPayload = messages[1].payload.image;
-                dispatch({
+            });
+            //if image in payload
+            ffmtMsg.payload.fields.image &&
+            dispatch({
                   type: 'CHAT_ADD_MESSAGE',
                   payload: {
-                    message: customPayload,
+                    message: {
+                      src: ffmtMsg.payload.fields.image.structValue.fields.src.stringValue,
+                      alt: ffmtMsg.payload.fields.image.structValue.fields.alt.stringValue
+                    },
                     type: 'image',
                     isBot: true,
                   },
                 });
-              }
-              // if map in payload
-              if (messages[1].payload.map) {
-                customPayload = messages[1].payload.map;
-                dispatch({
-                  type: 'CHAT_ADD_MESSAGE',
-                  payload: {
-                    message: customPayload,
-                    type: 'map',
-                    isBot: true,
-                  },
-                });
-              }
-            }
-          } else {
-            // server response
-            const data = response.data.result.fulfillment.data;
-            if (data.buttons) {
-              customPayload = data.buttons;
-              customPayload.forEach((btn) => {
-                dispatch({
-                  type: 'CHAT_ADD_MESSAGE',
-                  payload: {
-                    message: btn,
-                    type: 'button',
-                    isBot: true,
-                  },
-                });
-              });
-            }
-            if (data.image) {
-              customPayload = data.image;
-              dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: customPayload,
-                  type: 'image',
-                  isBot: true,
-                },
-              });
-            }
-            if (data.map) {
-              customPayload = data.map;
-              dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: customPayload,
-                  type: 'map',
-                  isBot: true,
-                },
-              });
-            }
-            if (data.table) {
-              customPayload = data;
-              console.log('CUSTOMPAYLOAD', customPayload);
-              dispatch({
-                type: 'CHAT_ADD_MESSAGE',
-                payload: {
-                  message: customPayload,
-                  type: 'table',
-                  isBot: true,
-                },
-              });
-            }
           }
+        });
+
+        //webhookPayload
+        const webhookPayload = response.data.webhookPayload;
+        if (webhookPayload) {
+          webhookPayload.fields.map &&
+          dispatch({
+            type: 'CHAT_ADD_MESSAGE',
+            payload: {
+              message: {
+                src: webhookPayload.fields.map.structValue.fields.src.stringValue, 
+                name: webhookPayload.fields.map.structValue.fields.name.stringValue
+              },
+              type: 'map',
+              isBot: true,
+            }
+          });
+
+          // console.log(webhookPayload.fields);
+          webhookPayload.fields.table &&           
+          dispatch({
+            type: 'CHAT_ADD_MESSAGE',
+            payload: {
+              message: { table:
+                webhookPayload.fields.table.listValue.values.map((item) => {
+                  return {
+                      agentOfService: item.structValue.fields.agentOfService.stringValue,
+                      companyName: item.structValue.fields.companyName.stringValue,
+                      entityNum: item.structValue.fields.entityNum.stringValue,
+                      jurisdiction: item.structValue.fields.jurisdiction.stringValue
+                    };
+                  }),
+                url: webhookPayload.fields.url.stringValue
+                },
+              
+              type: 'table',
+              isBot: true
+            }
+          });
         }
+
         if (speak) {
           speak();
         }
@@ -290,11 +243,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 
   // speech synthesis for reading responses from api.ai
-  const speak = function () {
-    utt = new SpeechSynthesisUtterance();
+  const speak = function (speech) {
+    const utt = new SpeechSynthesisUtterance();
     utt.lang = defaultLang;
-    utt.text = msg;
-    // console.log(msg);
+    utt.text = speech;
     utt.voice = voices[defaultVoiceIdx];
     utt.rate = defaultRate;
     utt.pitch = defaultPitch;
@@ -323,30 +275,6 @@ const mapDispatchToProps = (dispatch) => {
           // recognition.abort();
           synth.cancel();
         }
-        // else{
-        // try {
-        // const SpeechRecognition =
-        // SpeechRecognition || webkitSpeechRecognition;
-        // const SpeechGrammarList =
-        // SpeechGrammarList || webkitSpeechGrammarList;
-        // const SpeechRecognitionEvent =
-        // SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
-
-        // recognition = new SpeechRecognition();
-        // recognition.lang = 'en-US';
-        // // const result = {};
-        // synth = window.speechSynthesis;
-        // // SpeechSynthesis.getVoices is async operation
-        // voices=synth.getVoices();
-        // synth.onvoiceschanged = ()=> {
-        // voices = synth.getVoices();
-        // }
-        // console.log('voices: ', voices);
-        // } catch (e) {
-        // alert('your browser may not support speech recognition');
-        // return;
-        // }
-        // }
         try {
           recognition.start();
         } catch (e) {
