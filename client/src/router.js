@@ -39,7 +39,7 @@ import SearchResults from './components/pages/search-results-page'
 import SmallClaims from './components/pages/topics/smallclaims/smallclaims';
 import SmallClaimsParty from './components/pages/topics/smallclaims/smallclaims-party';
 import SmallClaimsStage from './components/pages/topics/smallclaims/smallclaims-stage';
-import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-substage';
+import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-subStage';
 import Guardianship from './components/pages/topics/guardianship';
 import Eviction from './components/pages/topics/eviction';
 import Traffic from './components/pages/topics/traffic';
@@ -146,8 +146,9 @@ class AppRouter extends Component {
 
                   <Route exact path="/smallclaims" component={SmallClaims} />
                   <Route exact path="/smallclaims/:party" component={SmallClaimsParty} />
-                  <Route path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
-                  <Route path="/smallclaims/:party/:stage/:subcat" component={SmallClaimsSubStage} />
+                  <Route exact path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
+                  <Route path="/smallclaims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
+                 
                   <Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/eviction" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
