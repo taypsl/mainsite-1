@@ -106,15 +106,11 @@ const config = (env) => {
   devServer: {
     historyApiFallback: true,
     contentBase: './client',
+    //publicPath: '/', default; otherwise use sth like "/assets/"
     // hot: true,
-    // inline: true
-    // proxy: { '/api': 'http://localhost:3000' },
-    host: '0.0.0.0',
+    // inline: true, both called on cmd
+    host: '0.0.0.0', //necessary for docker
     port: 8000
-    /* settings for serving from remote server
-    port:80,
-    proxy: {'/api':'http://52.39.81.245:3000'},
-    */
   },
   plugins: 
     function(){
@@ -167,7 +163,8 @@ const config = (env) => {
           return [
             new Dotenv(), 
             new webpack.optimize.OccurrenceOrderPlugin(),
-            new ExtractTextPlugin({ filename: '/src/public/stylesheets/app.css', allChunks: true, disable: false}),
+            //disable the plugin for frontend testing
+            new ExtractTextPlugin({ filename: '/src/public/stylesheets/app.css', allChunks: true, disable: true}),
           ];
         default:
           return;
