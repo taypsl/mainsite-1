@@ -121,21 +121,7 @@ class AccordionBoxContainer extends Component {
         return (
   				<div className="Accordion-box-item " key={tab.id}>
   					
-            { 
-              tab.children ? 
-              <div>
-                <Link to={`${this.props.stageUrl}/sub/${tabLink}`}>
-                  <h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
-                  {tab.titles[lang]}
-                  {/*if content has children, return < or >*/}
-                    <span className="Accordion-box-icon">
-                      {this.state.activeId == tab.id && this.state.pressed == true ? "<" : ">"}
-                    </span>
-                  </h3>
-                </Link>
-                <div>{tab.children['en-US'].sys}</div>
-              </div>
-              : 
+            
               <div>
                 <h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
                 {tab.titles[lang]}
@@ -150,7 +136,7 @@ class AccordionBoxContainer extends Component {
                   </div>    
                 </div>
               </div>
-            }
+          
       
             <hr className="Accordion-box-line" />
 
@@ -210,3 +196,36 @@ function mapStateToProps(state){
 
 export default connect(mapStateToProps)(AccordionBoxContainer);
 
+/*
+{ 
+              tab.children ? 
+              <div>
+                <Link to={`${this.props.stageUrl}/sub/${tabLink}`}>
+                  <h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
+                  {tab.titles[lang]}
+                  
+                    <span className="Accordion-box-icon">
+                      {this.state.activeId == tab.id && this.state.pressed == true ? "<" : ">"}
+                    </span>
+                  </h3>
+                </Link>
+                <div>{tab.children['en-US'].sys}</div>
+              </div>
+              : 
+              <div>
+                <h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
+                {tab.titles[lang]}
+                  <span className="Accordion-box-icon">
+                    {this.state.activeId == tab.id && this.state.pressed == true ? "-" : "+"}
+                  </span>
+                </h3>
+
+                <div className={this.state.activeId == tab.id && this.state.pressed == true ? " ": "hidden"}> 
+                  <div className="Accordion-box-content">
+                    <ReactMarkdown source={tab.blockTexts[lang]} />
+                  </div>    
+                </div>
+              </div>
+            }
+
+            */
