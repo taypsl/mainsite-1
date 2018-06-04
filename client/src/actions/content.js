@@ -10,6 +10,7 @@ import { FETCH_FAQS } from './types'
 import { FETCH_FAQ_LAYOUT } from './types'
 import { FETCH_FAQ_SUBCATEGORIES } from './types'
 import { FETCH_CONTENT } from './types'
+import { FETCH_CONTENT_BY_ID } from './types'
 import { FETCH_CONTACT_LAYOUT } from './types'
 import { FETCH_RESOURCE_LINKS } from './types'
 import { FETCH_STAGES } from './types'
@@ -218,14 +219,16 @@ export function fetchContentByParty(label, party) {
   }
 }
 
+export function fetchContentById(id) {
+  const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries/${id}?access_token=${API_TOKEN}&order=sys.createdAt&locale=*`)
+   return {
+    type: FETCH_CONTENT_BY_ID,
+    payload: request
+   }
+}
+
 
 export function fetchResourceLinks(label) {
-  // const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categoryLabel=${label}&locale=*`);
-  // console.log('fetch resource links action')
-  // return {
-  //   type: FETCH_RESOURCE_LINKS,
-  //   payload: request
-  // };
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categoryLabel=${label}&locale=*`)
       .then((response) => {

@@ -8,7 +8,7 @@ import axios from 'axios';
 let msg,
   recognition,
   synth,
-  voices,
+  voices, 
   utt;
 let defaultVoiceIdx = 0;
 const defaultVoiceNames = {
@@ -68,7 +68,7 @@ class Chatbar extends React.Component {
     return (
       // this empty div wraps everything, and lets the chatbar view correctly in safari*/}
       <div>
-        <div className="chatbar">
+        <div className="chatbar-m">
           <div>
             <button
               type="button"
