@@ -123,27 +123,35 @@ class AccordionBoxContainer extends Component {
   					
             { 
               tab.children ? 
-              <Link to={`${this.props.stageUrl}/${tabLink}`}><h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
-              {tab.titles[lang]}
-                {/*if content has children, return < or >*/}
-                <span className="Accordion-box-icon">
-                  {this.state.activeId == tab.id && this.state.pressed == true ? "<" : ">"}
-                </span>
-              </h3></Link>
+              <div>
+                <Link to={`${this.props.stageUrl}/sub/${tabLink}`}>
+                  <h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
+                  {tab.titles[lang]}
+                  {/*if content has children, return < or >*/}
+                    <span className="Accordion-box-icon">
+                      {this.state.activeId == tab.id && this.state.pressed == true ? "<" : ">"}
+                    </span>
+                  </h3>
+                </Link>
+                <div>{tab.children['en-US'].sys}</div>
+              </div>
               : 
-              <h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
-              {tab.titles[lang]}
-                <span className="Accordion-box-icon">
-                  {this.state.activeId == tab.id && this.state.pressed == true ? "-" : "+"}
-                </span>
-              </h3>
+              <div>
+                <h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
+                {tab.titles[lang]}
+                  <span className="Accordion-box-icon">
+                    {this.state.activeId == tab.id && this.state.pressed == true ? "-" : "+"}
+                  </span>
+                </h3>
+
+                <div className={this.state.activeId == tab.id && this.state.pressed == true ? " ": "hidden"}> 
+                  <div className="Accordion-box-content">
+                    <ReactMarkdown source={tab.blockTexts[lang]} />
+                  </div>    
+                </div>
+              </div>
             }
       
-  					<div className={this.state.activeId == tab.id && this.state.pressed == true ? " ": "hidden"}> 
-  						<div className="Accordion-box-content">
-  							<ReactMarkdown source={tab.blockTexts[lang]} />
-  						</div>		
-  					</div>
             <hr className="Accordion-box-line" />
 
           </div> 
@@ -192,6 +200,10 @@ class AccordionBoxContainer extends Component {
 	}
 } 
 */
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchAction }, dispatch)
+}
+
 function mapStateToProps(state){
   return { language: state.content.language };
 }

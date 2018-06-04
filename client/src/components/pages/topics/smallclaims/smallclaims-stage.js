@@ -109,7 +109,6 @@ class SmallClaimsStage extends Component {
   //     return (word.charAt(0).toUpperCase() + word.slice(1));
   //   }).join(' ');
   // }
-
   
   render() {
     //const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
