@@ -9,3 +9,10 @@ client/.DS_Store
 client/src/.DS_Store
 client/src/img/.DS_Store
 client/src/public/stylesheets/app.css
+client/assets
+Courtney-SmallClaims-Test-49ee3be58ac8.json
+server/static_files
+dockerfile
+Jenkinsfile
+npm-debug.*
+OldMobileChatbox.jsx

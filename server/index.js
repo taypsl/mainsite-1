@@ -16,22 +16,15 @@ const express = require('express'),
 // Database Setup
 mongoose.Promise = require('bluebird');
 //connect to test database
-mongoose.connect(config.test_database, { useMongoClient: true })
+mongoose.connect(config.database, { useMongoClient: true })
         .then(
             ()=> {console.log("Connected to DB")},
             (err) => {console.log("error: ", err)}
-          );
-//connec to database
-// mongoose.connect(config.database, { useMongoClient: true })
-//         .then(
-//             ()=> {console.log("Connected to DB")},
-//             (err) => {console.log("error: ", err)}
-//           );
-
+          )
 
 // Start the server
 let server;
-const port = process.env.PORT || config.test_port; 
+const port = process.env.PORT || config.testPort; 
 server = app.listen(port);
 console.log(`Your server is running on port ${port}.`);
 

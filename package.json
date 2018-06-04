@@ -4,8 +4,8 @@
   "description": "working code for mainsite",
   "main": "index.js",
   "scripts": {
-    "test": "webpack-dev-server --env.NODE_ENV=dev --hot --inline",
-    "start": "webpack --env.NODE_ENV=prod && nodemon ./server/index.js"
+    "test": "webpack-dev-server --env.NODE_ENV=frontend_test --hot --inline",
+    "start": "webpack --env.NODE_ENV=full_test && nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,9 @@
     "cookie-parser": "^1.4.3",
     "cross-fetch": "^1.1.1",
     "deepcopy": "^0.6.3",
+    "dialogflow": "^0.4.0",
+    "dotenv": "^5.0.1",
+    "dotenv-webpack": "^1.5.5",
     "express": "^4.13.4",
     "express-session": "^1.15.6",
     "file-loader": "^0.11.2",
@@ -48,7 +51,7 @@
     "mongodb": "^2.2.31",
     "mongoose": "^4.4.13",
     "morgan": "^1.7.0",
-    "npm": "^5.4.2",
+    "npm": "^5.10.0",
     "opn": "^5.1.0",
     "passport": "^0.3.2",
     "passport-azure-ad": "^3.0.9",

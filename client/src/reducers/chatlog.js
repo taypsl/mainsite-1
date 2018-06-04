@@ -21,17 +21,17 @@ const defaultState = [
     isBot: true
   },
   {
-    message: "Claim Limit",
+    message: "Forms",
     type:'button',    
     isBot: true
   },
   {
-    message: "Types of Cases Heard",
+    message: "Suing",
     type:'button',
     isBot: true
   }, 
   {
-    message: "Forms",
+    message: "Being Sued",
     type:'button',
     isBot: true
   }
