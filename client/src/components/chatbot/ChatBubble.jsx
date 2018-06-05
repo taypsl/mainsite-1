@@ -4,6 +4,8 @@ import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
 import ImageViewer from './ImageViewer.jsx';
 // const opn = require('opn');
+const uuid = require('uuid/v4');
+
 const CASETYPES = {
   'Small Claims': 0,
   Guardianship: 1,
@@ -149,8 +151,17 @@ const mapDispatchToProps = dispatch => ({
       .post('/api/chat/message', inputData) 
       .then((response) => {
         console.log('Response:', response);
-        response.data.fulfillmentMessages.forEach((ffmtMsg ) => {
-          
+        let newMsg = true;
+        response.data.fulfillmentMessages.forEach((ffmtMsg, index) => {
+          let id;
+          if (index === 0){
+            id = uuid();
+            dispatch({
+              type: 'SET_FOCUS',
+              payload: {id} 
+            }) 
+            // newMsg = false;
+          }
           if (ffmtMsg.message === 'text'){ //text response
             dispatch({
               type: 'CHAT_ADD_MESSAGE',
@@ -159,6 +170,7 @@ const mapDispatchToProps = dispatch => ({
                 type: 'text',
                 source: 'dialogflow',
                 isBot: true,
+                id: id ? id : uuid()
               }
             });
           }else if (ffmtMsg.message == 'payload'){ // payload response
@@ -173,6 +185,7 @@ const mapDispatchToProps = dispatch => ({
                       message: btn.stringValue,
                       type: 'button',
                       isBot: true,
+                      id: uuid()
                     },
                   });
             });
@@ -187,9 +200,12 @@ const mapDispatchToProps = dispatch => ({
                     },
                     type: 'image',
                     isBot: true,
+                    id: uuid()
                   },
               });
             }
+
+            //so far no webhook responses are serviced from button clicks
           }); 
         })
       .catch((error) => {

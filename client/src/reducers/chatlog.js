@@ -1,39 +1,46 @@
 // var deepcopy = require('deepcopy');
-
+// const uuid = require('uuid/v4');
+//hard coded ids
 const defaultState = [
   {
     message:
       "Hello, I'm Courtney!",
     type: 'text',
     source: 'server',
-    isBot: true
+    isBot: true,
+    id: '1371a65c-2932-4331-9918-768b39a68156'
   },
   {
     message:
       "I'm here to help you learn about the small claims process. I DO NOT offer legal advice. Ask me a question or click on a button to begin.",
     type: 'text',
     source: 'server',
-    isBot: true
+    isBot: true,
+    id: '4963d1fe-21c0-437c-993c-4722fddc1d57'
   },
   {
     message: "What is small claims court?",
     type:'button',
-    isBot: true
+    isBot: true,
+    id: '362891f8-e7eb-4f3c-afdf-c0dd7b29df5e'
   },
   {
     message: "Forms",
     type:'button',    
-    isBot: true
+    isBot: true,
+    id: 'a13a1668-4a0b-4cb9-b0f5-42228824a6a6'
   },
   {
     message: "Suing",
     type:'button',
-    isBot: true
+    isBot: true,
+    id: '0b0470ea-78a5-41c6-98c9-b3569f82a031'
   }, 
   {
     message: "Being Sued",
     type:'button',
-    isBot: true
+    isBot: true,
+    id: '99028cc1-130f-4fb3-b2b5-033c0b2706c7'
   }
   
 

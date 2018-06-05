@@ -3,7 +3,7 @@ import { connect, dispatch } from 'react-redux';
 
 import axios from 'axios';
 // import ChatButton from './ChatButton.jsx';
-
+const uuid = require('uuid/v4');
 // import and set up SpeechRecognition object
 let recognition,
   synth,
@@ -150,7 +150,17 @@ const mapDispatchToProps = (dispatch) => {
         // it contains the fulfillment section of the data object which the backend chooses to return.
         
         //dialogflow fulfillment messages, possible multiple messages and multiple formats 
-        response.data.fulfillmentMessages.forEach((ffmtMsg ) => {
+        response.data.fulfillmentMessages.forEach((ffmtMsg, index) => {
+          let id;
+          //set focus to beginning of new message in redux 
+          if (index === 0){ 
+            id = uuid();
+            dispatch({
+              type: 'SET_FOCUS',
+              payload: {id} 
+            }) 
+            // newMsg = false;
+          }
           
           if (ffmtMsg.message === 'text'){ //text response
             speech += ffmtMsg.text.text[0]
@@ -161,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'text',
                 source: 'dialogflow',
                 isBot: true,
+                id: id ? id : uuid()  //texts will head all response msgs
               }
             });
           }else if (ffmtMsg.message == 'payload'){ // payload response
@@ -175,6 +186,7 @@ const mapDispatchToProps = (dispatch) => {
                       message: btn.stringValue,
                       type: 'button',
                       isBot: true,
+                      id: uuid()
                     },
                   });
             });
@@ -189,6 +201,7 @@ const mapDispatchToProps = (dispatch) => {
                     },
                     type: 'image',
                     isBot: true,
+                    id: uuid()
                   },
                 });
           }
@@ -207,6 +220,7 @@ const mapDispatchToProps = (dispatch) => {
               },
               type: 'map',
               isBot: true,
+              id: uuid()
             }
           });
 
@@ -228,7 +242,8 @@ const mapDispatchToProps = (dispatch) => {
                 },
               
               type: 'table',
-              isBot: true
+              isBot: true,
+              id: uuid()
             }
           });
         }
