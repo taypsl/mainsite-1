@@ -38,13 +38,28 @@ class SmallClaimsSubStage extends Component {
     // const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
     // const currentSlug = this.props.match.params.stage
     // const slugTitle = this.toSentenceCase(currentSlug);
+    // const currentSection = this.props.match.params.party
+    const tabsWithChildren = this.props.tabs.reduce((acc, cur) => {
+        // create duplicate entries for different stages if existent
+        for (let i=0; i < this.props.tabs.length; i++){
+          if (cur.sysId === this.props.tabId) { 
+            acc = cur.children['en-US'];
+          } else { return acc }
+        }
+        console.log(',,,,,,,,,,,acc', acc) // now I have single array with 4 items nested. what next?
+        return acc;
+        
+      }, []);
 
-    //const currentSection = this.props.match.params.party
+    
+    // "content_type": "xxxxxxxx",
+    // "fields.tags.sys.id[in]": "tagId1, tagId2",
 
+    // const selectedTabs = this.props.stageContent.tabs.find(tab => tab.children.)
     return (
       <div>
         {/*<Bot />*/}
-        hello
+        hi
         {/*<TitleLine title={currentTitle ? currentTitle : slugTitle} />*/}
 
         {/*<AccordionBoxContainer stageContent={ 
@@ -55,6 +70,8 @@ class SmallClaimsSubStage extends Component {
     )
   } 
 }
+
+
 
 // function mapStateToProps(state) {
 //   return { 
