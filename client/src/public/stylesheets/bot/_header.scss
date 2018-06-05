@@ -189,14 +189,13 @@
 .header-x {
   width: 100vw;
   height: 4.2em;
-  background-color: $white;
+  background: rgba(255,255,255,0.85); //white opaque
   box-shadow: 0px 2px 2px rgba(179, 179, 179, 0.7);
   top: 0px;
   position: fixed;
   @include md {
     width: 25em;
     height: 3em;
-    background-color: #ffffff;
     box-shadow: 0px 2px 2px rgba(179, 179, 179, 0.7);
     top: 0px;
     position: fixed;
@@ -209,11 +208,21 @@
 
 /* contains icons in bot header */
 .icon-container {
-  width: 24em; // 20rem when settings icon present
-  height: 3em;
-  @include flex-center(space-between, center);
-  padding: .5em;
   display: flex;
+  width: 78vw;
+  height: 3em;
+  margin-left: .6em;
+  padding: .5em;
+  @include md {
+    width: 24em; // 20rem when settings icon present
+    height: 3em;
+    margin: 0;
+    padding: 0;
+  }
+  @include flex-center(space-between, center);
+  @include xxs {
+    width: 75vw;
+  }
 }
 
 /* close button */
@@ -271,7 +280,6 @@ button.button-chatbot-email:active {
   // transition: 0s;
   // transition: 0s;
 }
-
 
 /* this is actually the settings icon (bm-cross-button is default name from package) */
 /* Position and sizing of clickable settings button */

@@ -1,10 +1,9 @@
 //styling chatbar
 .chatbar {
   height: 4.2em;
-  width: 25em;
-  padding: 16px;
-  padding-left: 8px;
-  padding-right: 10px;
+  width: 100vw;
+  padding: .3em .7em .3em .3em;
+
   border-top: 1px solid $light-grey-secondary;
   background-color: $white;
   color: $dark-grey-primary;
@@ -19,15 +18,20 @@
   align-items: center;
   position: fixed;
   bottom: 0px;
-  // right: 100px;
-  // border-left: 1px solid $not-black;
-  @include xxs {
-    width: 22em;
+  @include md {
+    width: 25em;
+    padding: 16px;
+    padding-left: 8px;
+    padding-right: 10px;
   }
+  @include xxs {
+    width: 100vw;
+  } 
 }
 
 .chatbar input[type=text] {
-  width: 17em;
+  //width: 17em;
+  width: 18em;
   height: 2.3em;
   font-size: 1em;
   margin: 0px;
@@ -36,19 +40,24 @@
   font-family: $bot-font;
   -webkit-font-smoothing: antialiased;
   font-weight: lighter;
-  margin-right: 6px;
+  //margin-right: 6px;
   padding-left: 1em;
   border-radius: 0;
-  background-color: #ffffff;
+  background-color: $white;
+  @include xxs {
+    width: 14.5em;
+    height: 2.6em;
+    position: relative;
+    padding-left: 1em;
+  }
 }
 
 button.circle-x {
   background-color: $dark-grey-primary;
-  color: #ffffff;
+  color: $white;
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  margin-right: 5px;
   border: none;
   cursor: pointer;
   outline: none;
@@ -61,7 +70,18 @@ button.circle-x {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0px;
+  padding: 0.6em 0.5em 0.5em 0.5em;
+  @include md {
+    margin-right: 5px;
+    padding: 0px;
+  }
+  @include xxs {
+    @include flex-center;
+    width: 35px;
+    height: 35px;
+    //padding-left will look incorrect on chrome dev tools, but views correctly on iphon5
+    padding: 0 0 0 0.5em;
+  }
 }
 
 button.circle-x:hover {
@@ -90,6 +110,12 @@ button.mic {
   -o-transition-duration: 0.1s;
   transition-duration: 0.1s;
   transition: 0.1s;
+
+  @include xxs {
+    padding-top: 6px;
+    font-size: 29px;
+    margin-top: 7px;
+  }
 }
 
 button.mic:hover {

@@ -68,7 +68,7 @@ class Chatbar extends React.Component {
     return (
       // this empty div wraps everything, and lets the chatbar view correctly in safari*/}
       <div>
-        <div className="chatbar-m">
+        <div className="chatbar">
           <div>
             <button
               type="button"

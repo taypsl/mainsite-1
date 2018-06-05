@@ -1,47 +1,47 @@
 //styling chat container and chatbox
 
-.chat-container-bg-m {
-  height: 100vh;
-  padding-top: 73px;
-  // padding-top: 125px;
-  //padding-bottom helps chat dialog clear chat bar.  views correctly on device. not in chrome dev tools. don't change.
-  padding-bottom: 5em;
-  vertical-align: bottom;
-  border-left: 1px solid #000000;
-  //adding the overflows fixes header and chatbar in fixed position
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: $light-grey-primary;
-  @include xxs {
-    height: 100vh;
-    width: 100vw;
-  }
-}
+// .chat-container-bg-m {
+//   height: 100vh;
+//   padding-top: 73px;
+//   // padding-top: 125px;
+//   //padding-bottom helps chat dialog clear chat bar.  views correctly on device. not in chrome dev tools. don't change.
+//   padding-bottom: 5em;
+//   vertical-align: bottom;
+//   border-left: 1px solid #000000;
+//   //adding the overflows fixes header and chatbar in fixed position
+//   overflow-y: auto;
+//   overflow-x: hidden;
+//   background-color: $light-grey-primary;
+//   @include xxs {
+//     height: 100vh;
+//     width: 100vw;
+//   }
+// }
 
-.chatbox-alignment-m {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -ms-flex-line-pack: end;
-  align-content: flex-end;
-  font-size: 1em;
-  line-height: 1.375em;
-  padding-right: 18px;
-  padding-left: 18px;
-  width: 100vw;
-  height: auto;
-  margin-bottom: 75px;
-  @include xxs {
-    width: 100vw;
-    padding-left: 1.5em;
-  }
-}
+// .chatbox-alignment-m {
+//   display: -webkit-box;
+//   display: -ms-flexbox;
+//   display: flex;
+//   -ms-flex-wrap: wrap;
+//   flex-wrap: wrap;
+//   -webkit-box-pack: justify;
+//   -ms-flex-pack: justify;
+//   justify-content: space-between;
+//   -ms-flex-line-pack: end;
+//   align-content: flex-end;
+//   font-size: 1em;
+//   line-height: 1.375em;
+//   padding-right: 18px;
+//   padding-left: 18px;
+//   width: 100vw;
+//   height: auto;
+//   margin-bottom: 75px;
+//   @include xxs {
+//     width: 100vw;
+//     padding-left: 1.5em;
+//   }
+// }
 
-.clear-m {
-  display: none;
-}
+// .clear-m {
+//   display: none;
+// }
