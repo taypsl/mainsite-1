@@ -61,7 +61,7 @@ class SmallClaimsParty extends Component {
          <Link to={`${this.props.match.url}/${stage.url}`}>
            <SquareBox
              id={stage.id}
-             boxTitle={stage.titles[lang]}
+             boxTitle={stage.title[lang]}
              assetId={stage.imageId}
            />
          </Link>

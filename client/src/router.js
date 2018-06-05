@@ -8,6 +8,7 @@ import { fetchFooter } from './actions/content';
 import NotFoundPage from './components/pages/not-found-page';
 import UnderConstruction from './components/pages/under-construction';
 import Navbar from './components/template/navbar';
+import Topbar from './components/template/topbar';
 import Footer from './components/template/footer';
 import Search from './components/template/search';
 //import Layout from './components/Layout';
@@ -38,6 +39,7 @@ import SearchResults from './components/pages/search-results-page'
 import SmallClaims from './components/pages/topics/smallclaims/smallclaims';
 import SmallClaimsParty from './components/pages/topics/smallclaims/smallclaims-party';
 import SmallClaimsStage from './components/pages/topics/smallclaims/smallclaims-stage';
+import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-subStage';
 import Guardianship from './components/pages/topics/guardianship';
 import Eviction from './components/pages/topics/eviction';
 import Traffic from './components/pages/topics/traffic';
@@ -95,11 +97,11 @@ class AppRouter extends Component {
               
               <div className="App-mask" />
               <Navbar menuLinks={this.props.menuLinks} language={this.props.language}/> 
-              <Search />
-              
+              <Topbar />
+              {/*<Search />*/}              
+              {/*<Languages />*/}
 
-              {/*placeholder for language toggle*/}
-              <Languages />
+
               {/* DONT DELETE commented Bot out to hide from all views until bot works for all case types.
               for now bot will only live in small claims*/}
               {/*<Bot /> */}
@@ -144,7 +146,9 @@ class AppRouter extends Component {
 
                   <Route exact path="/smallclaims" component={SmallClaims} />
                   <Route exact path="/smallclaims/:party" component={SmallClaimsParty} />
-                  <Route path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
+                  <Route exact path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
+                  <Route path="/smallclaims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
+                 
                   <Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/eviction" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
@@ -157,6 +161,7 @@ class AppRouter extends Component {
                   <Route path="/add-case" component={RequireAuth(NewCase)} />
                   <Route path="/edit-profile" component={RequireAuth(EditProfile)} />
 
+                  <Route path="/search" component={Search} />
                   <Route path="/search-results/:query" component={SearchResults} />
 
 

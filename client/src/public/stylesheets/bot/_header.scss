@@ -4,7 +4,7 @@
 .material-icons {
   line-height: 2;
 }
-
+ 
 .material-icons.md-48 {
   font-size: 48px;
 }
@@ -32,15 +32,17 @@
     margin: 0;
     font-size: 1.4rem;
   }
-  @include mobile {
-    display: none;
-  }
-  @include lg {
+  display: none;
+  // @include mobile {
+  //   display: none;
+  // }
+  @include md {
+    display:block;
     bottom: 10rem;
     width: 330px;
     height: 120px;
   }
-  display: block;
+  //display: block;
   z-index: 1000;
 }
 
@@ -76,9 +78,8 @@
 }
 
 .open-bot-icon-circle {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  //display: flex;
+  
 
   width: 100px;
   height: 54px;
@@ -92,14 +93,18 @@
 
   position: fixed;
   // z-index: 1010;
-
-  @include xxs {
+  
+  // right: 1.75rem;
+  // bottom: 3.5rem;
+  display: none;
+  @include md {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     right: 2rem;
     bottom: 2rem;
   } 
-  @include mobile {
-    display: none;
-  }
+
 }
 
 .open-bot-icon-circle:hover {
@@ -150,24 +155,25 @@
 
 /* icon displays for mobile views <600 and links to mbot route */
 .open-bot-icon-m-circle { 
+
   text-align: center;
-  // padding-top: 6px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
   text-align: center;  
-  position: absolute;
   cursor: pointer;
   background-color: $blue-accent-primary;
+  position: absolute;
   right: 1rem;
-  top: 1rem;
-  //z-index: 2000;
-  @include sm {
-
+  bottom: 3.5rem;
+  @include md {
+    //display: none;
   }
   
+    display: none;
+
   // display: flex;
   // -webkit-box-pack: end;
   // -ms-flex-pack: end;
@@ -181,13 +187,24 @@
 
 /* bot header */
 .header-x {
-  width: 25em;
-  height: 3em;
-  background-color: #ffffff;
+  width: 100vw;
+  height: 4.2em;
+  background-color: $white;
   box-shadow: 0px 2px 2px rgba(179, 179, 179, 0.7);
   top: 0px;
   position: fixed;
+  @include md {
+    width: 25em;
+    height: 3em;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 2px rgba(179, 179, 179, 0.7);
+    top: 0px;
+    position: fixed;
+  }
   @include flex-center(none, center);
+  @include xxs {
+    width: 100vw;
+  }
 }
 
 /* contains icons in bot header */
@@ -292,9 +309,9 @@ button.button-chatbot-email:active {
 //********************************** MEDIA QUERIES **********************************//
 @media (max-width: 2000px) and (min-width: 600px) {
   .open-bot-icon-circle {
-    position: fixed;
-    right: 1.75rem;
-    bottom: 3.5rem;
+    // position: fixed;
+    // right: 1.75rem;
+    // bottom: 3.5rem;
   }
 }
 
@@ -310,6 +327,6 @@ button.button-chatbot-email:active {
 //hides mobile chat icon until <600
 @media (min-width: 600px) and (max-width: 2000px) {
   .open-bot-icon-m-circle {
-    display: none;
+    //display: none;
   }
 }

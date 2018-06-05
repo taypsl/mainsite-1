@@ -68,7 +68,7 @@ class SmallClaimsStage extends Component {
     this.renderMenuLinks = this.renderMenuLinks.bind(this)
     // this.filterContent = this.filterContent.bind(this)
     // this.onStageSelect = this.onStageSelect.bind(this);
-    this.toUpperCase = this.toUpperCase.bind(this);
+    //this.toSentenceCase = this.toSentenceCase.bind(this);
   }
   componentWillMount() {
     // before component mounts, load content by selected party 
@@ -94,7 +94,6 @@ class SmallClaimsStage extends Component {
   }
 
   renderMenuLinks(lang) {
-
     return this.props.stages
     .map((stage) => {
       return stage.url !== this.props.match.params.stage && (
@@ -105,19 +104,24 @@ class SmallClaimsStage extends Component {
     })
   }
 
-  toUpperCase(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
+  // toSentenceCase(str) {
+  //   return str.split('-').map(function(word) {
+  //     return (word.charAt(0).toUpperCase() + word.slice(1));
+  //   }).join(' ');
+  // }
   
   render() {
-    const currentTitle = this.state.selectedStageTitle
-    const currentSection = this.props.match.params.party
+    //const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
+    //const currentSlug = this.props.match.params.stage
+    //const slugTitle = this.toSentenceCase(currentSlug);
+    //const currentSection = this.props.match.params.party
+
     console.log("current stage: ", this.props.stages);
     console.log("lang: ", this.props.language);
     return this.props.stages.length !== 0 && this.props.stageContent.length !== 0 && (
       <div>
         <Bot />
+        {/*Temporarily removing breadcrumbs while we contend with multple stages */}
         {/*<div className="Stage-top-bar">
           <div className="breadcrumbs">
             <Link to="/">Home</Link>
@@ -131,11 +135,11 @@ class SmallClaimsStage extends Component {
           </div>
         </div>*/}
       {/* place holder, need to work out how to display the title w/out relying on redux store */}
-        <TitleLine title={this.props.stages.find(stage => stage.url === this.props.match.params.stage).titles[this.props.language]} />
+        <TitleLine title={this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]} />
         {/*this.filterContent(this.props.content, this.state.selectedStageId, this.props.language)*/}
-        <AccordionBoxContainer stageContent={ 
+        <AccordionBoxContainer stageUrl={this.props.match.params.stage} stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
-                      .sort((a, b) => a.id - b.id )} />
+            .sort((a, b) => a.id - b.id )} />
       </div>
     )
   } 
