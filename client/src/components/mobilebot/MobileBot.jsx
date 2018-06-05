@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ChatContainer from './ChatContainer.jsx';
-
+import ChatContainer from '../chatbot/ChatContainer.jsx';
+ 
 class MobileBot extends React.Component {
 	constructor(props) {
 	    super(props);

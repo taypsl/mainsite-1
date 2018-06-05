@@ -6,13 +6,29 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { width: 0, height: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+ 
   render() {
     return (
       // this empty div wraps everything, and lets header view correctly in safari*/}
       <div>
-        <div className="header-m">
+        <div className="header-x">
           <div className="icon-container">
             <button
               type="button"
@@ -78,8 +94,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: 'General' });
         this.props.resetSession();
       }
-    } else if (event.currentTarget.id === 'close-button') {
+    } else if (event.currentTarget.id === 'close-button' && this.state.width > 768) {
         dispatch({ type: 'TOGGLE_BOT' });
+    } else if (event.currentTarget.id === 'close-button' && this.state.width < 768) {
+        this.props.history.goBack();
     } else if (event.currentTarget.id === 'open-settings-button') {
         this.props.toggleMenu();    
     } else if (event.currentTarget.id === 'email'){

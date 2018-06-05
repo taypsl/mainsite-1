@@ -61,7 +61,7 @@ class SmallClaimsParty extends Component {
          <Link to={`${this.props.match.url}/${stage.url}`}>
            <SquareBox
              id={stage.id}
-             boxTitle={stage.titles[lang]}
+             boxTitle={stage.title[lang]}
              assetId={stage.imageId}
            />
          </Link>
@@ -79,15 +79,18 @@ class SmallClaimsParty extends Component {
 
         <TitleLine title="More Resources" />
         <div className="grid grid-pad">  
-          <TextIconBox 
-        		boxTitle="Small Claims Checklist"
-        		boxContent="Use our interactive checklist to help you manage your small claims case before you file, during your case, and after a judgement has been made."
-        		iconLarge={ChecklistIcon}
-        		TextIconBoxClass="Box Text-icon-box Blue-border Grey-background medium-box"
-        		buttonLink="/checklist"
-            caseType='smallClaims'
-            party={this.props.match.params.party}
-      		/>
+          <Link className="Text-icon-box-link" to={{pathname: "/checklist", state: {caseType: "smallClaims", party: this.props.match.params.party}}}>
+            <TextIconBox 
+              className="Text-icon-box-container"
+              boxTitle="Small Claims Checklist"
+              boxContent="Use our interactive checklist to help you manage your small claims case before you file, during your case, and after a judgement has been made."
+              iconLarge={ChecklistIcon}
+              TextIconBoxClass="Box Text-icon-box Blue-border Grey-background medium-box"
+              buttonLink="/checklist"
+              caseType='smallClaims'
+              party={this.props.match.params.party}
+            />
+          </Link>
         	<InfoBox 
         		boxTitle="Resource Links"
         		boxContent={resources}

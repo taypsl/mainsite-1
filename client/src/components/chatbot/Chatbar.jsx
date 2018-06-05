@@ -7,7 +7,8 @@ const uuid = require('uuid/v4');
 // import and set up SpeechRecognition object
 let recognition,
   synth,
-  voices;
+  voices, 
+  utt;
 
 let defaultVoiceIdx = 0;
 const defaultVoiceNames = {

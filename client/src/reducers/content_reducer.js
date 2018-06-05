@@ -11,6 +11,7 @@ import { FETCH_FOOTER_LAYOUT } from '../actions/types';
 import { FETCH_MENU_LINKS } from '../actions/types';
 import { FETCH_FAQ_SUBCATEGORIES } from '../actions/types';
 import { FETCH_CONTENT } from '../actions/types';
+import { SAVE_ID } from '../actions/types';
 import { FETCH_RESOURCE_LINKS } from '../actions/types';
 import { FETCH_STAGES } from '../actions/types';
 import { FETCH_VIDEOS } from '../actions/types';
@@ -74,6 +75,8 @@ export default function(state = INITIAL_STATE, action) {
     return { ...state, contactTitle, contactSections };
   case FETCH_CONTENT:
     return { ...state, tabs: action.payload };
+  case SAVE_ID:
+    return { ...state, tabId: action.payload };
   case FETCH_STAGES:
     return { ...state, stages: action.payload };
   

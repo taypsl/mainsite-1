@@ -157,30 +157,152 @@ hr {
   }
 }
 
-.Search {
-  align-items: right;
-  background-color: $white;
+.Topbar {
   display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-  // width: 75%;
-  position: relative; 
+  -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+  margin-top: -2.5rem;
+  border-bottom: 6px solid $dark-grey-primary;
+  @include xs {
+    //margin-top: -2.5rem;
+  }
+  @include sm {
+    //justify-content: flex-end;
+    margin-top: -3.25rem;
+    border-bottom: none;
+  }
+  @include md {
+    margin-top: 0;
+  }
+  .Topbar-nav {
+    height: 80px;
+    i {
+      color: $dark-grey-primary;
+      font-size: 3rem;
+      @include xs {
+        font-size: 4rem;
+        margin-top: 0;
+      }
+      @include xxs {
+        font-size: 3rem;
+        margin-top: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      &:hover {
+        color: $blue-accent-primary;
+      }
+    }
+    @include md {
+      display: none;
+    }
+    a {
+      color: $dark-grey-primary
+    }
+    a:hover {
+      color: $blue-accent-primary;
+    }
+  }
+  
+}
+
+.Topbar-desktop {
+  display: none;
+  @include md {
+    display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+    -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+  }
+}
+
+.Topbar-nav {
+  z-index: 1;
+  display: block;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  li {
+    display: block;
+    float: left;
+    margin: 0 2px 0 0;
+    padding: 2px;
+    @include sm {
+      padding: 6px;
+    }
+    @include md {
+      padding: 8px;
+    }
+    position: relative;
+    text-decoration: none;
+    div {
+      text-decoration: none;
+      display: block;
+    }
+    &:hover {
+      // @include transition(background, 0.2s);
+      cursor: pointer;
+    }
+    ul {
+      visibility: hidden;
+      float: left;
+      min-width: 150px;
+      position: relative;
+      -webkit-transition: visibility 0.65s ease-in;
+        -o-transition: visibility 0.65s ease-in;
+        transition: visibility 0.65s ease-in;
+      z-index: 999;
+      margin: 0;
+      li {
+        color: $white;
+        clear: both;
+        padding: 5px 0 5px 18px;
+        width: 100%;
+        &:hover {
+          color: $blue-accent-primary;
+        }
+      }
+    }
+    &:hover > ul, ul:hover {
+      visibility: visible;
+    }
+  }
+  .dropdown {
+    font-size: 2rem;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    border: 1px solid $light-grey-secondary;
+    background-color: $dark-grey-primary;
+    right: 0;
+  }
+}
+
+.Search {
+  @include lg {
+    z-index: 100;
+  }
+}
+
+.Search-form {
+  //background-color: $white;
+  padding: 1.5rem 0;
   z-index: 1;
   @include xs {
     top: 1rem;
   }
   @include md {
-    margin-left: 1rem; 
-    margin-top: 1rem;
-    z-index: 100;
+    padding: 0;
     top: 3rem;
-    // width: 100%;
   }
-  @include lg {
-    margin-left: 20rem;
-    position: fixed; // to have search bar fixed on top
-  }
-  margin-top: 2rem;
+  
+  //margin-top: 2rem;
   margin-left: 2rem;
   
 }
@@ -189,13 +311,14 @@ hr {
   height: 3.3rem;
   margin-right: 2rem;
   padding-top: 0;
-  //width: 8rem;
-  @include xs {
-    width: 10rem;
-  }
+  width: 70%;
+  // @include xs {
+  //   width: 10rem;
+  // }
   @include md {
     width: 30rem;
   }
+
 }
 
 .Search-button {
@@ -204,7 +327,10 @@ hr {
   color: $white;
   cursor: pointer;
   font-size: 1.5rem;
-  padding: 0.7rem 2rem;
+  padding: 0.7rem 1rem;
+  @include md {
+    padding: 0.7rem 2rem;
+  }
 }
 
 .Search-button:disabled {
@@ -217,15 +343,14 @@ hr {
 
 // Language select
 .Languages {
-  display: inline-block;
-  position: absolute;
-  right: 2rem;
-  top: 1rem;
-
+  // display: inline-block;
+  // position: absolute;
+  // right: 2rem;
+  // top: 1rem;
+  margin-left: 1.5rem;
   z-index: 1;
   @include lg {
     z-index: 100;
-    position: fixed;
     top: 3rem;
     right: 4rem;
   }
@@ -278,13 +403,13 @@ hr {
 
 
 .Page {
-  margin: 4rem 0rem;
+  margin: 0rem 0rem 4rem 0rem;
   max-width: 95rem;
   @include sm {
     margin: 4rem 2rem;
   }
   @include lg {
-    margin: 8rem 10rem 0 20rem;
+    margin: 5rem 10rem 0 20rem;
   }
 }
 
@@ -301,7 +426,7 @@ hr {
 
   margin-top: -3rem;
   margin-left: 2rem;
-  padding-bottom: 2rem;
+  //padding-bottom: 2rem;
 
   @include md {
     margin-top: -4rem;
@@ -323,13 +448,19 @@ hr {
   left: 3rem;
   margin-left: 2rem;
   margin-right: 2rem;
-  width: 13rem;
+  width: 10rem;
   .Menu-logo-img {
     display: none;
   }
-
+  @include xs {
+    width: 12rem;
+  }
+  @include sm {
+    width: 13rem;
+  }
   @include md {
     margin-left: 1.5rem;
+    width: 14rem;
   }
 
   @include lg {
@@ -713,16 +844,31 @@ hr {
   }
 }
 
-.Text-icon-box {
+.Text-icon-box-link {
+  color: $black;
+  z-index: 100;
+}
+
+.Text-icon-box-link:hover {
+  color: $blue-accent-primary;
+}
+
+.Text-icon-box { 
+  z-index: 1;
   width: 66%;
   overflow: none;
   .text-icon-box-grid {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    //color: $black;
   }
   img {
-    width: 400px;
+    @include md {
+      width: 400px;
+      display: block;
+    }
+    display: none;
 
   }
   padding: 2rem;

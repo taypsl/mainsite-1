@@ -10,6 +10,7 @@ import { FETCH_FAQS } from './types'
 import { FETCH_FAQ_LAYOUT } from './types'
 import { FETCH_FAQ_SUBCATEGORIES } from './types'
 import { FETCH_CONTENT } from './types'
+import { SAVE_ID } from './types'
 import { FETCH_CONTACT_LAYOUT } from './types'
 import { FETCH_RESOURCE_LINKS } from './types'
 import { FETCH_STAGES } from './types'
@@ -158,7 +159,7 @@ export function fetchStages() {
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stage&order=fields.order&locale=*`)
     .then((response) => {
       console.log('action fetchStages response', response)
-       const stages = response.data.items.map((stage) => ({partyLabel: stage.fields.partyLabel, party: stage.fields.party, titles: stage.fields.title, imageId: stage.fields.image['en-US'].sys.id, id: stage.fields.order['en-US'], url: stage.fields.url['en-US']}))
+       const stages = response.data.items.map((stage) => ({partyLabel: stage.fields.partyLabel, party: stage.fields.party, title: stage.fields.title, imageId: stage.fields.image['en-US'].sys.id, id: stage.fields.order['en-US'], url: stage.fields.url['en-US']}))
                                          .sort((a, b) => a.order - b.order);
        console.log("returned ordered stages: ", stages);
        dispatch({
@@ -199,17 +200,18 @@ export function fetchVideoCategories() {
 }
 
 export function fetchContentByParty(label, party) {
-  console.log('fetch stageContent action')
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.label=${label}&fields.parties.sys.id=${party}&order=sys.createdAt&locale=*`)
     .then( (response) => { 
+        console.log('fetch stageContent action', response)
+
       // dispatch({type: 'STORE_URL', lastCall: {url: url, dispatchAction: FETCH_CONTENT}});
       //retrieve essential data
       const tabs = response.data.items.reduce((acc, cur) => {
         //create duplicate entries for different stages if existent
         for (let i=0; i < cur.fields.stage['en-US'].length; i++){
-             acc.push({titles: cur.fields.title, blockTexts: cur.fields.blockText, id: cur.fields.id['en-US'], 
-                stageId: cur.fields.stage['en-US'][i].sys.id});
+             acc.push({titles: cur.fields.title, blockTexts: cur.fields.blockText, id: cur.fields.id['en-US'], sysId: cur.sys.id, 
+                stageId: cur.fields.stage['en-US'][i].sys.id, children: cur.fields.children});
         }
         return acc;
         
@@ -222,14 +224,16 @@ export function fetchContentByParty(label, party) {
   }
 }
 
+export function saveId(id) {
+  //const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries/${id}?access_token=${API_TOKEN}&order=sys.createdAt&locale=*`)
+   return {
+    type: SAVE_ID,
+    payload: id
+   }
+}
+
 
 export function fetchResourceLinks(label) {
-  // const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categoryLabel=${label}&locale=*`);
-  // console.log('fetch resource links action')
-  // return {
-  //   type: FETCH_RESOURCE_LINKS,
-  //   payload: request
-  // };
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categoryLabel=${label}&locale=*`)
       .then((response) => {
