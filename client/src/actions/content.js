@@ -10,7 +10,7 @@ import { FETCH_FAQS } from './types'
 import { FETCH_FAQ_LAYOUT } from './types'
 import { FETCH_FAQ_SUBCATEGORIES } from './types'
 import { FETCH_CONTENT } from './types'
-import { FETCH_CONTENT_BY_ID } from './types'
+import { SAVE_ID } from './types'
 import { FETCH_CONTACT_LAYOUT } from './types'
 import { FETCH_RESOURCE_LINKS } from './types'
 import { FETCH_STAGES } from './types'
@@ -224,11 +224,11 @@ export function fetchContentByParty(label, party) {
   }
 }
 
-export function fetchContentById(id) {
-  const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries/${id}?access_token=${API_TOKEN}&order=sys.createdAt&locale=*`)
+export function saveId(id) {
+  //const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries/${id}?access_token=${API_TOKEN}&order=sys.createdAt&locale=*`)
    return {
-    type: FETCH_CONTENT_BY_ID,
-    payload: request
+    type: SAVE_ID,
+    payload: id
    }
 }
 

@@ -73,17 +73,18 @@ class SmallClaimsSubStage extends Component {
 
 
 
-// function mapStateToProps(state) {
-//   return { 
-//     stageContent: state.content.tabs,
-//     // stages: state.content.stages,
-//     // content: state.content, 
-//     // stageId: state.content.stageId,
-//     // language: state.content.language
-//   };
-// }
-//export default connect(mapStateToProps)(SmallClaimsSubStage);
-export default SmallClaimsSubStage
+function mapStateToProps(state) {
+  return { 
+    stageContent: state.content.tabs,
+    tabId: state.content.tabId
+    // stages: state.content.stages,
+    // content: state.content, 
+    // stageId: state.content.stageId,
+    // language: state.content.language
+  };
+}
+export default connect(mapStateToProps)(SmallClaimsSubStage);
+// export default SmallClaimsSubStage
 
   // componentWillUpdate() {
 

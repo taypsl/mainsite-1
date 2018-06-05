@@ -5,6 +5,8 @@ import { CSSTransitionGroup } from 'react-transition-group'
 const ReactMarkdown = require('react-markdown')
 import { DEFAULT_LANG } from '../../../actions/types';
 import { connect } from 'react-redux';
+import { saveId } from '../../../actions/content.js';
+import { bindActionCreators } from 'redux';
 
 const uuid = require('uuid/v4')
 
@@ -16,6 +18,7 @@ class AccordionBoxContainer extends Component {
 			pressed: false
 		}
 		this.toggleClass = this.toggleClass.bind(this);
+    this.saveIdToState = this.saveIdToState.bind(this);
 		// this.getParsedMarkdown = this.getParsedMarkdown.bind(this);
 	}
 
@@ -42,6 +45,9 @@ class AccordionBoxContainer extends Component {
   	// console.log("Next Page: this.props.stageContent", this.props.stageContent)
   }
 
+  saveIdToState(id) {
+    this.props.saveId(id)
+  }
   // getParsedMarkdown(content) {
   // 	return {
   // 		__html: marked(content, {sanitize: true})
@@ -124,7 +130,7 @@ class AccordionBoxContainer extends Component {
             { 
               tab.children ? 
               <div>
-                <Link to={`${this.props.stageUrl}/sub/${tabLink}`}>
+                <Link to={`${this.props.stageUrl}/sub/${tabLink}`} onClick={() => this.saveIdToState(tabId)} >
                   <h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
                   {tab.titles[lang]}
                   {/*if content has children, return < or >*/}
@@ -201,12 +207,12 @@ class AccordionBoxContainer extends Component {
 } 
 */
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchAction }, dispatch)
+  return bindActionCreators({ saveId }, dispatch)
 }
 
 function mapStateToProps(state){
   return { language: state.content.language };
 }
 
-export default connect(mapStateToProps)(AccordionBoxContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AccordionBoxContainer);
 
