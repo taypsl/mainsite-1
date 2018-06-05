@@ -1,11 +1,13 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Todo from './Todo'
 import { getData } from '../../../../actions/index.js'
+import PropTypes from 'prop-types';
 
 class TodoList extends React.Component{
   constructor(props){
     super(props);
   }
+  
 
   componentWillMount(){
     console.log("CaseType: ", this.props.caseType);

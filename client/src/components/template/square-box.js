@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import { routeCodes } from '../../App.js';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import ResponsiveImage from './responsive-image';
 import Asset from './responsive-image';
 
 export default class SquareBox extends Component {
+	static defaultProps = { 
+	  squareBoxClass: 'Box Square-box col-2 ',
+	  buttonVisibilityClass: ' ',
+	};
 	render() {
 		return (
 			<div className={this.props.squareBoxClass} id={this.props.id}>
@@ -21,11 +25,7 @@ export default class SquareBox extends Component {
 	}
 } 
 
-SquareBox.propTypes = { limit: React.PropTypes.number };
-SquareBox.defaultProps = { 
-  squareBoxClass: 'Box Square-box col-2 ',
-  buttonVisibilityClass: ' ',
-};
+SquareBox.propTypes = { limit: PropTypes.number };
 
 //<img src={this.props.imgSrc} />
  

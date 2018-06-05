@@ -7,6 +7,7 @@ import AdoptiveParentIcon from '../../../../img/adoption_adoptive-parent.svg';
 import BirthParentIcon from '../../../../img/adoption_birth-parent.svg';
 import ChildIcon from '../../../../img/guardianship_child.svg';
 
+import PropTypes from 'prop-types';
 export default class Adoption extends Component {
 	constructor(){
     super(); 
@@ -14,6 +15,8 @@ export default class Adoption extends Component {
       topics:[]
     }
   }
+  
+  static defaultProps = { limit: 4 };
  
   componentDidMount() {
     return fetch('https://case-data.glitch.me/courtdata')
@@ -96,6 +99,5 @@ export default class Adoption extends Component {
 	}
 }
 
-Adoption.propTypes = { limit: React.PropTypes.number };
-Adoption.defaultProps = { limit: 4 };
+Adoption.propTypes = { limit: PropTypes.number };
 

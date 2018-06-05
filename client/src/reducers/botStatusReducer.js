@@ -73,4 +73,15 @@ const aiReducer = (state= defaultState , action)=>{
 
 }
 
-module.exports = {themeReducer, visibilityReducer, botMenuVisibilityReducer, aiReducer};
+//keep track of where the new message block begins
+const currentViewReducer = (state= {id: '1371a65c-2932-4331-9918-768b39a68156'}, action) => {
+	switch (action.type) {
+		case "SET_FOCUS":
+			return {id: action.payload.id};
+		default:
+			return state;
+	}
+
+}
+
+module.exports = {themeReducer, visibilityReducer, botMenuVisibilityReducer, aiReducer, currentViewReducer};

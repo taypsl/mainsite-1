@@ -8,6 +8,8 @@ import SeekingProtectionIcon from '../../../img/dv_psp_1.svg';
 import PersonAccusedIcon from '../../../img/dv_paa_1.svg';
 import OtherPersonIcon from '../../../img/dv_opp_1.svg';
 
+import PropTypes from 'prop-types';
+
 export default class Dv extends Component {
 	constructor(){
     super(); 
@@ -15,6 +17,8 @@ export default class Dv extends Component {
       topics:[]
     }
   }
+  
+  static defaultProps = { limit: 4 };
 
   // static defaultProps() {
   //   return {
@@ -104,8 +108,8 @@ export default class Dv extends Component {
 	}
 }
 
-Dv.propTypes = { limit: React.PropTypes.number };
-Dv.defaultProps = { limit: 4 };
+Dv.propTypes = { limit: PropTypes.number };
+
 
 /* 
    		console.log(JSON.stringify(list.faqs, null, 4));

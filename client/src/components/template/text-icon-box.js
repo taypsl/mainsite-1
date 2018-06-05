@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class TextIconBox extends Component {
+	static defaultProps = { 
+		TextIconBoxClass: 'Box Text-icon-box Grey-background medium-box' 
+	};
 	render() {
 		return (
 			<div className={this.props.TextIconBoxClass}>
@@ -22,7 +26,4 @@ export default class TextIconBox extends Component {
 	}
 } 
 
-TextIconBox.propTypes = { limit: React.PropTypes.number };
-TextIconBox.defaultProps = { 
-	TextIconBoxClass: 'Box Text-icon-box Grey-background medium-box' 
-};
+TextIconBox.propTypes = { limit: PropTypes.number };

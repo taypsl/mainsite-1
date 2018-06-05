@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 export default class Infobox extends Component {
+	static defaultProps = { 
+		infoboxClass: 'Box Info-box ',
+		buttonVisibilityClass: ' ',
+	};
 	render() {
 		return (
 			<div className={this.props.infoboxClass}>
@@ -13,10 +17,6 @@ export default class Infobox extends Component {
 	}
 } 
 
-Infobox.propTypes = { limit: React.PropTypes.number };
-Infobox.defaultProps = { 
-	infoboxClass: 'Box Info-box ',
-	buttonVisibilityClass: ' ',
-};
+Infobox.propTypes = { limit: PropTypes.number };
 
 //			<div className="Box Info-box">

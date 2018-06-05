@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Squarebox from '../../template/square-box';
 import Bannerbox from '../../template/banner-box';
 import Infobox from '../../template/info-box';
+import PropTypes from 'prop-types';
 
 // images
 import IcnPG from '../../../img/guardianship_pg_1.svg';
@@ -9,13 +10,15 @@ import IcnParent from '../../../img/guardianship_parent_1.svg';
 import IcnChild from '../../../img/guardianship_child_1.svg';
 
 export default class Guardianship extends Component {
+	
 	constructor(){
-    super(); 
-    this.state={
-      topics:[]
-    }
-  }
-
+		super(); 
+		this.state={
+		  topics:[]
+		}
+	  }
+	
+	static defaultProps = { limit: 4 };
   // static defaultProps() {
   //   return {
   //     limit: 4
@@ -103,8 +106,8 @@ export default class Guardianship extends Component {
 	}
 }
 
-Guardianship.propTypes = { limit: React.PropTypes.number };
-Guardianship.defaultProps = { limit: 4 };
+Guardianship.propTypes = { limit: PropTypes.number };
+
 
 /* 
    		console.log(JSON.stringify(list.faqs, null, 4));

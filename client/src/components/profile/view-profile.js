@@ -10,6 +10,7 @@ import UserInfo from './user-info';
 // import PropTypes from 'prop-types';
 
 class ViewProfile extends Component {
+	static defaultProps = { classStyle: 'Box Profile-box ' }; 
   // componentWillMount() {
   //   // Fetch user data prior to component mounting
   //   const user = cookie.get('user');
@@ -45,4 +46,3 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, { fetchUser })(ViewProfile);
 
-ViewProfile.defaultProps = { classStyle: 'Box Profile-box ' }; 

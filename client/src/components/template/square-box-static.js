@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 // import Asset from './responsive-image';
 
 export default class SquareBoxStatic extends Component {
+	static defaultProps = { 
+	  squareBoxClass: 'Box Square-box col-2 ',
+	  buttonVisibilityClass: ' ',
+	};
 	render() {
 		return (
 			<div className={this.props.squareBoxClass} id={this.props.id}>
@@ -20,11 +24,7 @@ export default class SquareBoxStatic extends Component {
 	}
 } 
 
-SquareBoxStatic.propTypes = { limit: React.PropTypes.number };
-SquareBoxStatic.defaultProps = { 
-  squareBoxClass: 'Box Square-box col-2 ',
-  buttonVisibilityClass: ' ',
-};
+SquareBoxStatic.propTypes = { limit: PropTypes.number };
 
 //<img src={this.props.imgSrc} />
  

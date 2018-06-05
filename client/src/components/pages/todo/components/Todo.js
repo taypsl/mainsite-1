@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import PropTypes from 'prop-types';
 
 const Todo = ({ onClick, onToggle, completed, expanded, title, blockText }) => (
   <div 

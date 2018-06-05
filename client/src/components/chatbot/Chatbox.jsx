@@ -6,19 +6,26 @@ import ChatBubble from './ChatBubble.jsx';
 class Chatbox extends React.Component {
   constructor(props) {
     super(props);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.scrollToView = this.scrollToView.bind(this);
+    this.state = { key: 0 };
+    this.newMsgRef = React.createRef();
   }
 
-  scrollToBottom() {
-    this.messagesEnd.scrollIntoView({ behavior: 'instant' });
+  scrollToView() {
+    console.log("ref: ", this.msgBegins);
+    // this.newMsgRef.current && this.newMsgRef.current.scrollIntoView({ behavior: 'instant' });
+    // this.msgBegins && this.msgBegins.scrollIntoView({behavior: 'instant'}); //scroll to the center
+    this.msgBegins && this.msgBegins.scrollIntoView(true); //set to scroll to the top 
   }
 
   componentDidMount() {
-    this.scrollToBottom();
+    this.scrollToView();
+    // this.setState({ key: this.props.chatlog.length })
   }
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    this.scrollToView();
+    // this.setState({ key: this.props.chatlog.length })
   }
   render() {
     let className = '';
@@ -31,23 +38,31 @@ class Chatbox extends React.Component {
 
     return (
       <div className={className}>
-        {this.props.chatlog.map((value, key) => {
-          console.log(value);
+
+        {this.props.chatlog.map((msg) => {
+          console.log("currentView: ", this.props.currentView.id);
+          console.log("id: ", msg.id);
+         
           return (
-            <ChatBubble
-              {...value} // spread operator
-              key={key}
-              sessionId={this.props.sessionId}
-              theme={this.props.theme}
-            />
-          );
+            <div key={msg.id}>
+              {this.props.currentView.id === msg.id && <div ref={el => this.msgBegins = el} style={{paddingTop: 30}} />}  {/*set inline style to account for header height*/}
+              <ChatBubble
+                {...msg} // spread operator                
+                sessionId={this.props.sessionId}
+                theme={this.props.theme}
+              />
+            </div>
+            );
         })}
-        <div
+
+       {/* <div
           className="clear"
           ref={(el) => {
             this.messagesEnd = el;
           }}
-        />
+        /> */} 
+
+        
       </div>
     );
   }
@@ -55,6 +70,7 @@ class Chatbox extends React.Component {
 
 const mapStateToProps = state => ({
   chatlog: state.chat.log,
+  currentView: state.chat.currentView
 });
 
 

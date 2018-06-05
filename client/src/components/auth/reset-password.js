@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { resetPassword } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 const form = reduxForm({
   form: 'resetPassword',
@@ -35,7 +36,7 @@ const renderField = field => (
 
 class ResetPassword extends Component {
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   componentWillMount() {

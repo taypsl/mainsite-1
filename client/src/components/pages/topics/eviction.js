@@ -7,6 +7,7 @@ import PropertyOwnerIcon from '../../../img/eviction_landlord_1.svg';
 import TenantIcon from '../../../img/eviction_tenant_1.svg';
 import OccupantIcon from '../../../img/eviction_oo_1.svg';
 
+import PropTypes from 'prop-types';
 export default class Eviction extends Component {
 	constructor(){
     super(); 
@@ -14,6 +15,7 @@ export default class Eviction extends Component {
       topics:[]
     }
   }
+   static defaultProps = { limit: 4 };
 
   // static defaultProps() {
   //   return {
@@ -104,8 +106,7 @@ export default class Eviction extends Component {
 	}
 }
 
-Eviction.propTypes = { limit: React.PropTypes.number };
-Eviction.defaultProps = { limit: 4 };
+Eviction.propTypes = { limit: PropTypes.number };
 
 /* 
    		console.log(JSON.stringify(list.faqs, null, 4));

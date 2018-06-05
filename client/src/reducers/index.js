@@ -31,6 +31,7 @@ const chatReducer = combineReducers({
 	theme:botStatusReducer.themeReducer,
   botVisibility:botStatusReducer.visibilityReducer,
   ai: botStatusReducer.aiReducer,
+  currentView: botStatusReducer.currentViewReducer
 	// router:routerStateReducer
 });
 

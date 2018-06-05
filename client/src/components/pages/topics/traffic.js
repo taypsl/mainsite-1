@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Squarebox from '../../template/square-box';
 import Bannerbox from '../../template/banner-box';
 import Infobox from '../../template/info-box';
-
+import PropTypes from 'prop-types';
 // import BeforeIcon from '../../../img/before_1.svg';
 // import DuringIcon from '../../../img/during_1.svg';
 // import AfterIcon from '../../../img/after_1.svg';
@@ -15,6 +15,7 @@ export default class Traffic extends Component {
     }
   }
 
+   static defaultProps = { limit: 4 };
   // static defaultProps() {
   //   return {
   //     limit: 4
@@ -102,8 +103,7 @@ export default class Traffic extends Component {
 	}
 }
 
-Traffic.propTypes = { limit: React.PropTypes.number };
-Traffic.defaultProps = { limit: 4 };
+Traffic.propTypes = { limit: PropTypes.number };
 
 /* 
    		console.log(JSON.stringify(list.faqs, null, 4));
