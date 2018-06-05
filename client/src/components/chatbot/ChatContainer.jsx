@@ -76,7 +76,7 @@ class ChatContainer extends React.Component {
           {/* botContainer wraps header and chatbar in fixed position*/}
           <div className={botContainer}>
             <Chatbox sessionId={this.state.id} theme={this.props.theme} />
-            <Header resetSession={this.resetSession} toggleMenu ={this.toggleMenu} theme={this.props.theme} />
+            <Header resetSession={this.resetSession} toggleMenu ={this.toggleMenu} theme={this.props.theme} history={this.props.history}/> {/*added history from mbot*/}
             <Chatbar sessionId={this.state.id} theme={this.props.theme} />
           </div>
         </main>

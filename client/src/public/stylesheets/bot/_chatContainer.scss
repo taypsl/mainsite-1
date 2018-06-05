@@ -8,19 +8,58 @@
 
 .chat-container-bg {
   //increased width from standard 25em to 26em to hide scroll. cross-browser friendly.
-  width: 26em;
+  @include md {
+    width: 26em;
+    height: 100vh;
+    bottom: 75px;
+    padding-top: 73px;
+    vertical-align: bottom;
+    border-left: 1px solid $light-grey-secondary;
+    //adding the overflows fixes header and chatbar in fixed position
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: $light-grey-primary; 
+  }
   height: 100vh;
-  bottom: 75px;
   padding-top: 73px;
+  // padding-top: 125px;
+  //padding-bottom helps chat dialog clear chat bar.  views correctly on device. not in chrome dev tools. don't change.
+  padding-bottom: 5em;
   vertical-align: bottom;
-  border-left: 1px solid $light-grey-secondary;
+  border-left: 1px solid #000000;
   //adding the overflows fixes header and chatbar in fixed position
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: $light-grey-primary; 
+  background-color: $light-grey-primary;
+  @include xxs {
+    height: 100vh;
+    width: 100vw;
+  }
 }
 
 .chatbox-alignment {
+  @include md {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-line-pack: end;
+    align-content: flex-end;
+    font-size: 1em;
+    line-height: 1.375em;
+    padding: 18px;
+    width: 25em;
+    height: auto;
+    margin-bottom: 75px;
+  }
+  // @include xxs {
+  //   width: 22em;
+  //   padding-left: 1.5em;
+  // }
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -33,18 +72,34 @@
   align-content: flex-end;
   font-size: 1em;
   line-height: 1.375em;
-  padding: 18px;
-  width: 25em;
+  padding-right: 18px;
+  padding-left: 18px;
+  width: 100vw;
   height: auto;
   margin-bottom: 75px;
   @include xxs {
-    width: 22em;
+    width: 100vw;
     padding-left: 1.5em;
   }
 }
 
 .clear {
-  float: left;
-  clear: both;
-  margin: 0px 10px;
+  display: none;
+  @include md {
+    float: left;
+    clear: both;
+    margin: 0px 10px;
+  }
 }
+
+.chat-container-bg-m {
+  
+}
+
+.chatbox-alignment-m {
+  
+}
+
+.clear-m {
+}
+

@@ -4,7 +4,7 @@
 .material-icons {
   line-height: 2;
 }
-
+ 
 .material-icons.md-48 {
   font-size: 48px;
 }
@@ -187,13 +187,24 @@
 
 /* bot header */
 .header-x {
-  width: 25em;
-  height: 3em;
-  background-color: #ffffff;
+  width: 100vw;
+  height: 4.2em;
+  background-color: $white;
   box-shadow: 0px 2px 2px rgba(179, 179, 179, 0.7);
   top: 0px;
   position: fixed;
+  @include md {
+    width: 25em;
+    height: 3em;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 2px rgba(179, 179, 179, 0.7);
+    top: 0px;
+    position: fixed;
+  }
   @include flex-center(none, center);
+  @include xxs {
+    width: 100vw;
+  }
 }
 
 /* contains icons in bot header */

@@ -8,8 +8,6 @@ class Header extends React.Component {
     super(props);
   }
 
-  
-
   render() {
     return (
       // this empty div wraps everything, and lets header view correctly in safari*/}
