@@ -44,13 +44,12 @@ class Chatbox extends React.Component {
           console.log("id: ", msg.id);
          
           return (
-            <div>
-              {this.props.currentView.id === msg.id && <div ref={el => this.msgBegins = el} style={{'padding-top': 30}} />}  {/*set inline style to account for header height*/}
+            <div key={msg.id}>
+              {this.props.currentView.id === msg.id && <div ref={el => this.msgBegins = el} style={{paddingTop: 30}} />}  {/*set inline style to account for header height*/}
               <ChatBubble
                 {...msg} // spread operator                
                 sessionId={this.props.sessionId}
                 theme={this.props.theme}
-                key={msg.id}              
               />
             </div>
             );
