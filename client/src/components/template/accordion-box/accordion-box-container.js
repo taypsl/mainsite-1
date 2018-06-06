@@ -7,7 +7,7 @@ import { DEFAULT_LANG } from '../../../actions/types';
 import { connect } from 'react-redux';
 import { saveId } from '../../../actions/content.js';
 import { bindActionCreators } from 'redux';
-
+ 
 const uuid = require('uuid/v4')
 
 class AccordionBoxContainer extends Component {
@@ -37,9 +37,6 @@ class AccordionBoxContainer extends Component {
     } 
 		//console.log(this.state, 'print this.state for toggleClass')
   }
-
-  // when the active id is pressed, need to have it display open the box that is clicked... 
-  // so should I store the class in the state?
 
   componentWillMount() {
   	// console.log("Next Page: this.props.stageContent", this.props.stageContent)
@@ -122,7 +119,7 @@ class AccordionBoxContainer extends Component {
   		renderedContent = this.props.stageContent
         .map((tab, key) => {
         // console.log("tab: ", tab);	 
-        const tabLink = tab.titles['en-US'].replace(/\s+/g, '-').toLowerCase();
+        const tabLink = tab.title['en-US'].replace(/\s+/g, '-').toLowerCase();
         //console.log(tabLink, "tabLink===///")
         return (
   				<div className="Accordion-box-item " key={tab.id}>
@@ -130,21 +127,21 @@ class AccordionBoxContainer extends Component {
             { 
               tab.children ? 
               <div>
-                <Link to={`${this.props.stageUrl}/sub/${tabLink}`} onClick={() => this.saveIdToState(tabId)} >
+                <Link to={`${this.props.stageUrl}/sub/${tabLink}`} onClick={() => this.saveIdToState(tab.sysId)} >
                   <h3 className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
-                  {tab.titles[lang]}
+                  {tab.title[lang]}
                   {/*if content has children, return < or >*/}
                     <span className="Accordion-box-icon">
-                      {this.state.activeId == tab.id && this.state.pressed == true ? "<" : ">"}
+                      {this.state.activeId == tab.id && this.state.pressed == true ? "←" : "→"}
                     </span>
                   </h3>
                 </Link>
-                <div>{tab.children['en-US'].sys}</div>
+                {/*<div>{tab.children['en-US'].sys}</div>*/}
               </div>
               : 
               <div>
                 <h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
-                {tab.titles[lang]}
+                {tab.title[lang]}
                   <span className="Accordion-box-icon">
                     {this.state.activeId == tab.id && this.state.pressed == true ? "-" : "+"}
                   </span>
@@ -152,7 +149,7 @@ class AccordionBoxContainer extends Component {
 
                 <div className={this.state.activeId == tab.id && this.state.pressed == true ? " ": "hidden"}> 
                   <div className="Accordion-box-content">
-                    <ReactMarkdown source={tab.blockTexts[lang]} />
+                    <ReactMarkdown source={tab.blockText[lang]} />
                   </div>    
                 </div>
               </div>

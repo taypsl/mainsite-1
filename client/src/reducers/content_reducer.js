@@ -11,6 +11,7 @@ import { FETCH_FOOTER_LAYOUT } from '../actions/types';
 import { FETCH_MENU_LINKS } from '../actions/types';
 import { FETCH_FAQ_SUBCATEGORIES } from '../actions/types';
 import { FETCH_CONTENT } from '../actions/types';
+import { FETCH_SUBCONTENT } from '../actions/types';
 import { SAVE_ID } from '../actions/types';
 import { FETCH_RESOURCE_LINKS } from '../actions/types';
 import { FETCH_STAGES } from '../actions/types';
@@ -38,7 +39,9 @@ const INITIAL_STATE = {
   faqSubcategories: [],
   footer: [],
   menuLinks: [],
+  subContent: [],
   tabs: [], 
+  tabId: '',
   videos: {},
   videoURLs: {},
   videoLinks: {},
@@ -74,7 +77,9 @@ export default function(state = INITIAL_STATE, action) {
     const contactSections = action.payload.data.includes.Entry;
     return { ...state, contactTitle, contactSections };
   case FETCH_CONTENT:
-    return { ...state, tabs: action.payload };
+    return { ...state, tabs: action.payload[1].tabs, tabChildren: action.payload[0].children };
+  case FETCH_SUBCONTENT:
+    return { ...state, subContent: action.payload };
   case SAVE_ID:
     return { ...state, tabId: action.payload };
   case FETCH_STAGES:

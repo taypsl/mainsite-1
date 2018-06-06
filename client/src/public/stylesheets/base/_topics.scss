@@ -39,6 +39,15 @@ h1.title-line-background {
 }
 
 // Stage selection + content rendering
+.Subcat-back {
+  font-size: 2rem;
+  a {color: $dark-grey-primary;}
+  a:hover {
+    color: $blue-accent-primary;
+  }
+  margin-top: 2rem;
+}
+
 .Stage-top-bar {
   position: relative;
   // z-index: 2000;
