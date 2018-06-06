@@ -238,7 +238,7 @@ export function saveId(id) {
 
 export function fetchSubContentById(id) {
   return function(dispatch) {
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.children.sys.id=1tRnU2HAiUqQUimKeQcq0k&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&sys.id=${id}&locale=*`)
     .then((response) => {
       console.log('fetch subcategories content by id', response)
       const subContent = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub").map(item => item.fields)

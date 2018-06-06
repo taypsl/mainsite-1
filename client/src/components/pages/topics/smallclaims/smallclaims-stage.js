@@ -42,7 +42,7 @@ const partyIds = [
 
 const stageIds = {
    'overview': '4ai240PycUw00eWUQqMwW4',
-   'filing-a-case': '5iDqJ92Rzqksq88gYWawE4',
+   'filing-a-claim': '5iDqJ92Rzqksq88gYWawE4',
    'responding-to-a-claim': '60tEp7giyceYKSuaoIUgUy',
    'day-in-court': '4HkTlYlsFqqIgscmGWOCkk',
    'judges-decision': '1cMyrIaZ680ukwwSi8YscC',

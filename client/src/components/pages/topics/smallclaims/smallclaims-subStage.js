@@ -21,76 +21,50 @@ class SmallClaimsSubStage extends Component {
     this.state = {
     	content: []
     }
-    this.renderSubContent = this.renderSubContent.bind(this);
+    this.toSentenceCase = this.toSentenceCase.bind(this);
+    this.toSlugCase = this.toSlugCase.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchSubContentById(this.props.tabId);
   }
 
-  // toSentenceCase(str) {
-  //   return str.split('-').map(function(word) {
-  //     return (word.charAt(0).toUpperCase() + word.slice(1));
-  //   }).join(' ');
-  // }
-
-  //<AccordionBoxSubContent stageContent={ 
-   //       this.props.subContent.map(item => { return item.fields })
-    //        .sort((a, b) => a.id - b.id )} />
-
-
-  renderSubContent() {
-    {this.props.subContent ? 
-        <div>there</div>
-      :
-        <div>hi</div>
-    }
+  toSentenceCase(str) {
+    // create a readable title from the slug
+    return str.split('-').map(function(word) {
+      return (word.charAt(0).toUpperCase() + word.slice(1));
+    }).join(' ');
   }
 
+  toSlugCase(str) {
+    // create a slug from the props.url
+    return str.split('/sub')[0]
+  }
+
+
   render() {
-    // const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
-    // const currentSlug = this.props.match.params.stage
-    // const slugTitle = this.toSentenceCase(currentSlug);
-    // const currentSection = this.props.match.params.party
-    // const tabsWithChildren = this.props.tabs.reduce((acc, cur) => {
-    //     // create duplicate entries for different stages if existent
-    //     for (let i=0; i < this.props.tabs.length; i++){
-    //       if (cur.sysId === this.props.tabId) { 
-    //         acc = cur.children['en-US'];
-    //       } else { return acc }
-    //     }
-    //     console.log(',,,,,,,,,,,acc', acc) // now I have single array with 4 items nested. what next?
-    //     return acc;
-        
-    //   }, []);
-
-    
-    //console.log(this.props.subContent, '~~~~~this.props.subcontent')
-    
-
-
-    //const subCatComponent = this.props.subContent.map(item => item.fields)
-   
-    //console.log(subCatComponent, "~~~~subCatComponent")
-    //this.state.subContent.length !== 0 &&
-    console.log('1 this.props.subContent', this.props.subContent)
+    // these vars get the page titles and back-page urls
+    const currentSlug = this.props.match.params.subcat
+    const currentTitle = this.toSentenceCase(currentSlug);
+    const lastPageSlug = this.props.match.params.stage;
+    const lastPageTitle = this.toSentenceCase(lastPageSlug);
+    const currentPageUrl = this.props.match.url
+    const lastPageUrl = this.toSlugCase(currentPageUrl)
 
     return  ( 
       <div>
-        {/*<Bot />*/}
-        {/*{this.renderSubContent()}*/}
+
+        <TitleLine title={currentTitle} />
         {this.props.subContent ? 
-        <AccordionBoxSubContent stageContent={ 
-          this.props.subContent
-            .sort((a, b) => a.id - b.id )} />
-      :
-        <div>hi</div>
-    }
-        {/*<TitleLine title={currentTitle ? currentTitle : slugTitle} />*/}
-        {/*<AccordionBoxSubContent stageContent={ 
-          this.props.subContent.map(item => { return item.fields })
-            .sort((a, b) => a.id - b.id )} />*/}
-        
+          <AccordionBoxSubContent stageContent={ 
+            this.props.subContent
+              .sort((a, b) => a.id - b.id )} />
+          :
+            <div>hi</div>
+        }
+
+        <div className="Subcat-back"><Link to={lastPageUrl}>← Back to {lastPageTitle}</Link></div>
+
       </div>
     )
   } 
@@ -105,50 +79,6 @@ function mapStateToProps(state) {
     stageContent: state.content.tabs,
     tabId: state.content.tabId,
     subContent: state.content.subContent
-    // stages: state.content.stages,
-    // content: state.content, 
-    // stageId: state.content.stageId,
-    // language: state.content.language
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SmallClaimsSubStage);
-// export default SmallClaimsSubStage
-
-  // componentWillUpdate() {
-
-  // }
-
-  // onStageSelect(title, _id, e) {
-  //   e.stopPropagation();
-  //   this.setState({
-  //     selectedStageId: _id, 
-  //     selectedStageTitle: title,
-  //     selectedContent: [] 
-  //   })
-  // }
-
-  // filterContent(content, findById, lang) {
-  //   let filledAry = [];
-  //   let emptyAry = [];
-  //   // filter content by party 
-  //   return content.tabs.reduce(function (acc, tab) {
-  //   // first reduce gets each tab 
-  //     const thisTab = tab;
-  //     console.log("tab", tab);
-  //     console.log("tabs-lang: ", tab.fields.stage[lang]);
-  //     // second reduce gets each tab's array of stages 
-  //     const aryTabs = tab.fields.stage[DEFAULT_LANG].reduce(function (acc, cat) {
-  //       // checks if ID is present in stage array
-  //       const tabStage = cat.sys.id.includes(findById);
-  //       console.log("tabstage: ", tabStage)
-  //       // if the ID matches, push the tab content to a new array
-  //       return !tabStage ? emptyAry.push(thisTab) : filledAry.push(thisTab)
-  //       // return !tabStage ? acc : acc.concat(Object.assign({}, cat, { tabStage }));
-  //     }, []); 
-  //     // console.log("7. filledAry", filledAry)
-  //     // pass content to AccordionBoxContainer as props
-  //     console.log("stageContent: ", filledAry);
-  //     return !filledAry.length ? <AccordionBoxContainer stageContent={null} /> : <AccordionBoxContainer stageContent={filledAry} />
-
-  //   }, []);
-  // }
