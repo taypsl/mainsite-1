@@ -74,7 +74,7 @@ export default function(state = INITIAL_STATE, action) {
     const contactSections = action.payload.data.includes.Entry;
     return { ...state, contactTitle, contactSections };
   case FETCH_CONTENT:
-    return { ...state, tabs: action.payload };
+    return { ...state, tabs: action.payload[1].tabs, children: action.payload[0].children };
   case SAVE_ID:
     return { ...state, tabId: action.payload };
   case FETCH_STAGES:

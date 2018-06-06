@@ -23,7 +23,7 @@ const partyIds = [
     name: 'plaintiff',
     id: '2zYmskK1EUW22uukow4CaU'
    }
-]
+] 
 
 // const stageIds = [
 //   {
@@ -115,7 +115,7 @@ class SmallClaimsStage extends Component {
     //const currentSlug = this.props.match.params.stage
     //const slugTitle = this.toSentenceCase(currentSlug);
     //const currentSection = this.props.match.params.party
-
+    console.log('state.content.tabs', this.props.stageContent)
     console.log("current stage: ", this.props.stages);
     console.log("lang: ", this.props.language);
     return this.props.stages.length !== 0 && this.props.stageContent.length !== 0 && (

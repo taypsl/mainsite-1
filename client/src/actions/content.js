@@ -203,11 +203,13 @@ export function fetchContentByParty(label, party) {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.label=${label}&fields.parties.sys.id=${party}&order=sys.createdAt&locale=*`)
     .then( (response) => { 
-        console.log('fetch stageContent action', response)
+      console.log('fetch stageContent action', response)
 
       // dispatch({type: 'STORE_URL', lastCall: {url: url, dispatchAction: FETCH_CONTENT}});
       //retrieve essential data
-      const tabs = response.data.items.reduce((acc, cur) => {
+      
+      const childEntries = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub")
+      const selectedTabs = response.data.items.reduce((acc, cur) => {
         //create duplicate entries for different stages if existent
         for (let i=0; i < cur.fields.stage['en-US'].length; i++){
              acc.push({titles: cur.fields.title, blockTexts: cur.fields.blockText, id: cur.fields.id['en-US'], sysId: cur.sys.id, 
@@ -216,7 +218,8 @@ export function fetchContentByParty(label, party) {
         return acc;
         
       }, []);
-      // console.log("tabs: ", tabs); 
+      let tabs = [{"children": childEntries}, {"tabs": selectedTabs}]
+      //console.log("tabs: ", tabs); 
       // .sort((a, b) => a.id - b.id);
       dispatch({type: FETCH_CONTENT, payload: tabs});
       })

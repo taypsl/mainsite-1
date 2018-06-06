@@ -7,7 +7,7 @@ import { DEFAULT_LANG } from '../../../actions/types';
 import { connect } from 'react-redux';
 import { saveId } from '../../../actions/content.js';
 import { bindActionCreators } from 'redux';
-
+ 
 const uuid = require('uuid/v4')
 
 class AccordionBoxContainer extends Component {
