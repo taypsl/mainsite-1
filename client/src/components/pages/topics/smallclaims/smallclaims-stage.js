@@ -136,7 +136,7 @@ class SmallClaimsStage extends Component {
         </div>*/}
       {/* place holder, need to work out how to display the title w/out relying on redux store */}
         <TitleLine title={this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]} />
-        {/*this.filterContent(this.props.content, this.state.selectedStageId, this.props.language)*/}
+
         <AccordionBoxContainer stageUrl={this.props.match.params.stage} stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
             .sort((a, b) => a.id - b.id )} />
