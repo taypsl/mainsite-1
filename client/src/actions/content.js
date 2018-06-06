@@ -10,6 +10,7 @@ import { FETCH_FAQS } from './types'
 import { FETCH_FAQ_LAYOUT } from './types'
 import { FETCH_FAQ_SUBCATEGORIES } from './types'
 import { FETCH_CONTENT } from './types'
+import { FETCH_SUBCONTENT } from './types'
 import { SAVE_ID } from './types'
 import { FETCH_CONTACT_LAYOUT } from './types'
 import { FETCH_RESOURCE_LINKS } from './types'
@@ -212,7 +213,7 @@ export function fetchContentByParty(label, party) {
       const selectedTabs = response.data.items.reduce((acc, cur) => {
         //create duplicate entries for different stages if existent
         for (let i=0; i < cur.fields.stage['en-US'].length; i++){
-             acc.push({titles: cur.fields.title, blockTexts: cur.fields.blockText, id: cur.fields.id['en-US'], sysId: cur.sys.id, 
+             acc.push({title: cur.fields.title, blockText: cur.fields.blockText, id: cur.fields.id['en-US'], sysId: cur.sys.id, 
                 stageId: cur.fields.stage['en-US'][i].sys.id, children: cur.fields.children});
         }
         return acc;
@@ -235,6 +236,21 @@ export function saveId(id) {
    }
 }
 
+export function fetchSubContentById(id) {
+  return function(dispatch) {
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.children.sys.id=1tRnU2HAiUqQUimKeQcq0k&locale=*`)
+    .then((response) => {
+      console.log('fetch subcategories content by id', response)
+      const subContent = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub").map(item => item.fields)
+      // const fields = subContent.reduce((acc, cur) => {
+      //   for (let i=0; i < subContent.length; i++){
+      //        acc.push({title: cur.title, blockText: cur.blockText, id: cur.id['en-US']});
+      //   }
+      // })
+      dispatch({type: FETCH_SUBCONTENT, payload: subContent})
+    })
+  }
+}
 
 export function fetchResourceLinks(label) {
   return function(dispatch){

@@ -8,25 +8,25 @@ import SquareBoxStatic from '../../../template/square-box-static';
 
 import ChecklistIcon from '../../../../img/icn_checklist.svg';
 import InfoBox from '../../../template/info-box';
-import AccordionBoxContainer from '../../../template/accordion-box/accordion-box-container';
+import AccordionBoxSubContent from '../../../template/accordion-box/accordion-box-subcontent';
 import Bot from '../../../chatbot/Bot.jsx'; 
 import { DEFAULT_LANG } from '../../../../actions/types';
 import { bindActionCreators } from 'redux';
+import { fetchSubContentById } from '../../../../actions/content.js';
 
-
+ 
 class SmallClaimsSubStage extends Component {
-  //constructor(props) {
-    // super(props)
-    // this.state = {
-    // 	loaded: false
-    // }
-    // this.toSentenceCase = this.toSentenceCase.bind(this);
-  //}
+  constructor(props) {
+    super(props)
+    this.state = {
+    	content: []
+    }
+    this.renderSubContent = this.renderSubContent.bind(this);
+  }
 
-  //componentWillMount() {
-  	// console.log('component smallclaimsSubStage will load')
-  	// this.setState({loaded: true})
-  //}
+  componentWillMount() {
+    this.props.fetchSubContentById(this.props.tabId);
+  }
 
   // toSentenceCase(str) {
   //   return str.split('-').map(function(word) {
@@ -34,36 +34,61 @@ class SmallClaimsSubStage extends Component {
   //   }).join(' ');
   // }
 
+  //<AccordionBoxSubContent stageContent={ 
+   //       this.props.subContent.map(item => { return item.fields })
+    //        .sort((a, b) => a.id - b.id )} />
+
+
+  renderSubContent() {
+    {this.props.subContent ? 
+        <div>there</div>
+      :
+        <div>hi</div>
+    }
+  }
+
   render() {
     // const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
     // const currentSlug = this.props.match.params.stage
     // const slugTitle = this.toSentenceCase(currentSlug);
     // const currentSection = this.props.match.params.party
-    const tabsWithChildren = this.props.tabs.reduce((acc, cur) => {
-        // create duplicate entries for different stages if existent
-        for (let i=0; i < this.props.tabs.length; i++){
-          if (cur.sysId === this.props.tabId) { 
-            acc = cur.children['en-US'];
-          } else { return acc }
-        }
-        console.log(',,,,,,,,,,,acc', acc) // now I have single array with 4 items nested. what next?
-        return acc;
+    // const tabsWithChildren = this.props.tabs.reduce((acc, cur) => {
+    //     // create duplicate entries for different stages if existent
+    //     for (let i=0; i < this.props.tabs.length; i++){
+    //       if (cur.sysId === this.props.tabId) { 
+    //         acc = cur.children['en-US'];
+    //       } else { return acc }
+    //     }
+    //     console.log(',,,,,,,,,,,acc', acc) // now I have single array with 4 items nested. what next?
+    //     return acc;
         
-      }, []);
+    //   }, []);
 
     
-    // "content_type": "xxxxxxxx",
-    // "fields.tags.sys.id[in]": "tagId1, tagId2",
+    //console.log(this.props.subContent, '~~~~~this.props.subcontent')
+    
 
-    // const selectedTabs = this.props.stageContent.tabs.find(tab => tab.children.)
-    return (
+
+    //const subCatComponent = this.props.subContent.map(item => item.fields)
+   
+    //console.log(subCatComponent, "~~~~subCatComponent")
+    //this.state.subContent.length !== 0 &&
+    console.log('1 this.props.subContent', this.props.subContent)
+
+    return  ( 
       <div>
         {/*<Bot />*/}
-        hi
+        {/*{this.renderSubContent()}*/}
+        {this.props.subContent ? 
+        <AccordionBoxSubContent stageContent={ 
+          this.props.subContent
+            .sort((a, b) => a.id - b.id )} />
+      :
+        <div>hi</div>
+    }
         {/*<TitleLine title={currentTitle ? currentTitle : slugTitle} />*/}
-
-        {/*<AccordionBoxContainer stageContent={ 
-          this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
+        {/*<AccordionBoxSubContent stageContent={ 
+          this.props.subContent.map(item => { return item.fields })
             .sort((a, b) => a.id - b.id )} />*/}
         
       </div>
@@ -71,19 +96,22 @@ class SmallClaimsSubStage extends Component {
   } 
 }
 
-
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchSubContentById}, dispatch);
+}
 
 function mapStateToProps(state) {
   return { 
     stageContent: state.content.tabs,
-    tabId: state.content.tabId
+    tabId: state.content.tabId,
+    subContent: state.content.subContent
     // stages: state.content.stages,
     // content: state.content, 
     // stageId: state.content.stageId,
     // language: state.content.language
   };
 }
-export default connect(mapStateToProps)(SmallClaimsSubStage);
+export default connect(mapStateToProps, mapDispatchToProps)(SmallClaimsSubStage);
 // export default SmallClaimsSubStage
 
   // componentWillUpdate() {
