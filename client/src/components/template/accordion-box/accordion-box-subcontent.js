@@ -43,7 +43,7 @@ class AccordionBoxSubContent extends Component {
 		renderedContent = this.props.stageContent
       .map((tab) => {
       return (
-				<div className="Accordion-box-item " key={tab['en-US'].id}>
+				<div className="Accordion-box-item " key={tab.id['en-US']}>
 					
             <div>
               <h3 onClick={() => this.toggleClass(tab.id)} className={this.state.activeId == tab.id && this.state.pressed == true ? "blue-font Accordion-box-grey": " "} >
