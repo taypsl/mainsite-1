@@ -844,16 +844,31 @@ hr {
   }
 }
 
-.Text-icon-box {
+.Text-icon-box-link {
+  color: $black;
+  z-index: 100;
+}
+
+.Text-icon-box-link:hover {
+  color: $blue-accent-primary;
+}
+
+.Text-icon-box { 
+  z-index: 1;
   width: 66%;
   overflow: none;
   .text-icon-box-grid {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    //color: $black;
   }
   img {
-    width: 400px;
+    @include md {
+      width: 400px;
+      display: block;
+    }
+    display: none;
 
   }
   padding: 2rem;

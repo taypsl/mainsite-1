@@ -71,6 +71,7 @@ export const FETCH_MENU_LINKS = "FETCH_MENU_LINKS";
 export const FETCH_FAQ_LAYOUT = "FETCH_FAQ_LAYOUT";
 export const FETCH_FAQ_SUBCATEGORIES = "FETCH_FAQ_SUBCATEGORIES";
 export const FETCH_CONTENT = "FETCH_CONTENT";
+export const FETCH_SUBCONTENT = "FETCH_SUBCONTENT";
 export const FETCH_CONTACT_LAYOUT = "FETCH_CONTACT_LAYOUT";
 export const FETCH_RESOURCE_LINKS = "FETCH_RESOURCE_LINKS";
 export const FETCH_STAGES = "FETCH_STAGES";
@@ -78,7 +79,7 @@ export const FETCH_VIDEOS = "FETCH_VIDEOS";
 export const FETCH_VIDEO_LINKS = "FETCH_VIDEO_LINKS";
 export const FETCH_VIDEO_CATEGORIES = "FETCH_VIDEO_CATEGORIES";
 export const STORE_STAGE_ID = "STORE_STAGE_ID";
-export const FETCH_CONTENT_BY_ID = "FETCH_CONTENT_BY_ID";
+export const SAVE_ID = "SAVE_ID";
 /* Not using these =====>
 
 //= =====================

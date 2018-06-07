@@ -7,7 +7,8 @@ const uuid = require('uuid/v4');
 // import and set up SpeechRecognition object
 let recognition,
   synth,
-  voices;
+  voices, 
+  utt;
 
 let defaultVoiceIdx = 0;
 const defaultVoiceNames = {
@@ -67,7 +68,7 @@ class Chatbar extends React.Component {
     return (
       // this empty div wraps everything, and lets the chatbar view correctly in safari*/}
       <div>
-        <div className="chatbar-m">
+        <div className="chatbar">
           <div>
             <button
               type="button"

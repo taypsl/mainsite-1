@@ -23,7 +23,7 @@ const partyIds = [
     name: 'plaintiff',
     id: '2zYmskK1EUW22uukow4CaU'
    }
-]
+] 
 
 // const stageIds = [
 //   {
@@ -42,7 +42,7 @@ const partyIds = [
 
 const stageIds = {
    'overview': '4ai240PycUw00eWUQqMwW4',
-   'filing-a-case': '5iDqJ92Rzqksq88gYWawE4',
+   'filing-a-claim': '5iDqJ92Rzqksq88gYWawE4',
    'responding-to-a-claim': '60tEp7giyceYKSuaoIUgUy',
    'day-in-court': '4HkTlYlsFqqIgscmGWOCkk',
    'judges-decision': '1cMyrIaZ680ukwwSi8YscC',
@@ -115,7 +115,7 @@ class SmallClaimsStage extends Component {
     //const currentSlug = this.props.match.params.stage
     //const slugTitle = this.toSentenceCase(currentSlug);
     //const currentSection = this.props.match.params.party
-
+    console.log('state.content.tabs', this.props.stageContent)
     console.log("current stage: ", this.props.stages);
     console.log("lang: ", this.props.language);
     return this.props.stages.length !== 0 && this.props.stageContent.length !== 0 && (
@@ -136,7 +136,6 @@ class SmallClaimsStage extends Component {
         </div>*/}
       {/* place holder, need to work out how to display the title w/out relying on redux store */}
         <TitleLine title={this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]} />
-        {/*this.filterContent(this.props.content, this.state.selectedStageId, this.props.language)*/}
         <AccordionBoxContainer stageUrl={this.props.match.params.stage} stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
             .sort((a, b) => a.id - b.id )} />

@@ -45,7 +45,6 @@
     color: black;
   }
 }
- 
 
 .bot-buttons {
   width: 11em;
@@ -85,10 +84,18 @@
 .bubble-breaker {
   /*div wraps user bubble forcing next bubble onto next line*/
   background-color: transparent;
-  width: 23em;
+  width: 93vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding: 0em 0em 0em 1em;
+  @include md {
+    width: 23em;
+    padding: none;
+  }
+  @include xxs {
+    width: 88vw;
+  }
 }
 
 .feedback{
