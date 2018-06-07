@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+const ReactMarkdown = require('react-markdown')
 
-export default class Footer extends Component {
-	render() {
+const Footer = props => {
+	const lang = props.lang;
+	const sections = props.sections.map((section) => {
 		return (
-			<div className='Footer'>
-				<div className='Footer-div Footer-left'>
-					<h3>About</h3>
-					<p>Legal information for all of California.</p>
-					<p>A project of Contra Costa Superior Court</p>
-					<p>&copy;2018 Superior Court of California, Contra Costa County</p>
-				</div>
-				<div className='Footer-div Footer-right'>
-					<h3>Contact</h3>
-					<p><Link target="_blank" to='http://www.cc-courts.org/'>Contra Costa Superior Court Main Site</Link></p>
-					<p><Link target="_blank" to='http://www.cc-courts.org/locations/locations.aspx'>Find a Courthouse</Link></p>
-					<p><Link target="_blank" to='#'>Report missing or bad content</Link></p>
-				</div>
+			<div className="Footer-div Footer-left" key={section.sys.id}>
+				<h3>{section.fields.title[lang]}</h3>
+				<ReactMarkdown source={section.fields.blockText[lang]} />
 			</div>
 		)
-	}
+	})
+	return (
+		<div className="Footer">
+			{sections}
+		</div>
+	)
 }
+
+export default Footer;

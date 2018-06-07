@@ -430,11 +430,10 @@ hr {
 
   @include md {
     margin-top: -4rem;
-
   }
   @include lg {
     position: fixed;
-    height: 100vh;
+    //height: 100vh;
     padding-bottom: 0;
     // display: inline-block;
     width: 18rem;
@@ -934,8 +933,8 @@ hr {
     display: flex; // somehow display:flex removes p margin whitespace at bottom
   color: $white;
 
-  z-index: -100;
-
+  //z-index: -100;
+  z-index: 1;
   // margin-top: 5rem;
   a {
     color: $white;
