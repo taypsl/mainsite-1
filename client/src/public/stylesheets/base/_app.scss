@@ -601,13 +601,14 @@ hr {
 .Menu-links-burger {
   display: block;
   position: absolute;
-  width: 120vw; // 350px
+  width: 90vw;
   height: 120vh; // 100vh
   margin: -100px 0 0 -50px;
   padding: 12rem 0 5rem 5rem;
   // padding-top: 125px;
   
-  background: $dark-grey-primary;
+  //background: $dark-grey-primary;
+  background: rgba(0,0,0,0.90); // $dark-grey-primary 51,51,51
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
@@ -623,6 +624,9 @@ hr {
     color: $blue-accent-primary;
   }
   z-index: 1;
+  @include md {
+    width: 60vw; // 350px
+  }
 }
 
 .Menu-link-burger {
