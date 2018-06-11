@@ -20,7 +20,7 @@ import { FETCH_VIDEO_LINKS } from './types'
 import { FETCH_VIDEO_CATEGORIES } from './types'
 import { FETCH_ASSET } from './types'
 import { STORE_STAGE_ID } from './types'
-
+import { FETCH_CHECKLIST } from './types'
 // export const FETCH_SITE_CONTENT = 'FETCH_SITE_CONTENT';
 // export const FETCH_POST = 'FETCH_POST';
 // export const FETCH_ASSET = 'FETCH_ASSET';
@@ -267,22 +267,26 @@ export function fetchResourceLinks(label) {
       })
       .catch((error) => console.log("err: ", error))
     }
+}
 
-  
+export function fetchChecklist() {
+  return function(dispatch){
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=checklist&locale=*`)
+      .then((response) => {
+        console.log('checklist fetch payload', response)
+        dispatch({
+          type: FETCH_CHECKLIST,
+          payload: response
+        })
+      })
+      .catch((error) => console.log("err: ", error))
+    }
 }
 
 export function fetchContactPage() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=contact&locale=*`)
       .then((response) => {
-        console.log("1");
-        // const pageTitle = response.data.items[0].fields.title;
-        // const pageSections = response.data.includes.Entry;
-        // const pageObject = {
-        //   title: pageTitle,
-        //   fields: pageSections
-        // }
-        // console.log("2")
         dispatch({
           type: FETCH_CONTACT_LAYOUT,
           payload: response

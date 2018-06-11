@@ -6,6 +6,7 @@ import { FETCH_FORMS } from '../actions/types';
 import { FETCH_PAGE } from '../actions/types';
 import { FETCH_FAQ_LAYOUT } from '../actions/types';
 import { FETCH_CONTACT_LAYOUT } from '../actions/types';
+import { FETCH_CHECKLIST } from '../actions/types';
 import { FETCH_FORM_LAYOUT } from '../actions/types';
 import { FETCH_FOOTER_LAYOUT } from '../actions/types';
 import { FETCH_MENU_LINKS } from '../actions/types';
@@ -80,6 +81,8 @@ export default function(state = INITIAL_STATE, action) {
     return { ...state, tabs: action.payload[1].tabs, tabChildren: action.payload[0].children };
   case FETCH_SUBCONTENT:
     return { ...state, subContent: action.payload };
+  case FETCH_CHECKLIST:
+    return { ...state, checklist: action.payload };
   case SAVE_ID:
     return { ...state, tabId: action.payload };
   case FETCH_STAGES:

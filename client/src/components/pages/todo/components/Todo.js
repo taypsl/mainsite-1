@@ -49,7 +49,7 @@ Todo.propTypes = {
   onToggle: PropTypes.func.isRequired,
   completed: PropTypes.bool.isRequired,
   blockText: PropTypes.string.isRequired, 
-  expanded: PropTypes.bool.isRequired
+  //expanded: PropTypes.bool.isRequired
 }
 
 export default Todo
