@@ -144,14 +144,13 @@ class AppRouter extends Component {
                   <Route exact path="/small-claims/:party/:stage" component={SmallClaimsStage} />
                   <Route path="/small-claims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
                  
-{/*                  <Route path="/family" component={FamilyHome} />
-*/}
-                  <Route path="/:topic" component={Topic} />
+                  {/*<Route path="/:topic" component={Topic} />*/}
 
-                  {/*<Route path="/guardianship" component={UnderConstruction} />
+                  <Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
-                  <Route path="/traffic" component={UnderConstruction} />*/}
-                  {/*<Route path="/adoption" component={UnderConstruction} />*/}
+                  <Route path="/traffic" component={UnderConstruction} />
+                  <Route path="/adoption" component={UnderConstruction} />
+                  <Route path="/family" component={UnderConstruction} />
 
                   <Route path="/profile" component={RequireAuth(ViewProfile)} />
 
