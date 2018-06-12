@@ -63,6 +63,7 @@ export function fetchParties(id) {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&fields.category.sys.id=${id}&locale=*`)
     .then( (response) => { 
+      console.log('~~fetchParties~~')
       //return an ordered parties object
       const parties = response.data.items.map((party) => ({
         partyId: party.sys.id, 
@@ -220,9 +221,9 @@ export function fetchSubContentById(id) {
   }
 }
 
-export function fetchResourceLinks(label) {
+export function fetchResourceLinks(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categoryLabel=${label}&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&&fields.unit.sys.id=${id}&locale=*`)
       .then((response) => {
         //console.log(response.data.items);
         const resources = response.data.items.map(resource => ({

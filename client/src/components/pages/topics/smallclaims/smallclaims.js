@@ -57,7 +57,7 @@ class SmallClaims extends Component {
     const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
     this.props.parties.length === 0 && this.props.fetchParties(smallClaimsId)    
     // this.props.fetchFaqs()
-    this.props.resources.length === 0 && this.props.fetchResourceLinks(unitLabel)
+    this.props.resources.length === 0 && this.props.fetchResourceLinks(smallClaimsId)
   }
 
   componentDidMount(){
@@ -82,6 +82,8 @@ class SmallClaims extends Component {
   }
 
   render() {
+        console.log('~~~~~this.props.content', this.props.content)
+
     const lang = this.props.language;
     const faqs = temporaryFaqs.map((faq, index) => {
       return (
@@ -152,6 +154,7 @@ class SmallClaims extends Component {
 
 function mapStateToProps(state) {
   return { 
+    content: state.content,
     parties: state.content.parties,
     resources: state.content.resources,
     language: state.content.language
