@@ -144,10 +144,10 @@ class AppRouter extends Component {
                   <Route path="/forgot-password" component={ForgotPassword} />
                   <Route path="/reset-password/:resetToken" component={ResetPassword} />
 
-                  <Route exact path="/smallclaims" component={SmallClaims} />
-                  <Route exact path="/smallclaims/:party" component={SmallClaimsParty} />
-                  <Route exact path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
-                  <Route path="/smallclaims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
+                  <Route exact path="/small-claims" component={SmallClaims} />
+                  <Route exact path="/small-claims/:party" component={SmallClaimsParty} />
+                  <Route exact path="/small-claims/:party/:stage" component={SmallClaimsStage} />
+                  <Route path="/small-claims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
                  
                   <Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/eviction" component={UnderConstruction} />
