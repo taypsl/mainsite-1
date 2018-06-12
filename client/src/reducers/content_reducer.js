@@ -69,7 +69,7 @@ export default function(state = INITIAL_STATE, action) {
   case FETCH_FAQ_SUBCATEGORIES:
     return { ...state, faqSubcategories: action.payload.data.items };
   case FETCH_FOOTER_LAYOUT:
-    return { ...state, footer: action.payload.data };
+    return { ...state, footer: action.payload };
   case FETCH_MENU_LINKS:
     return { ...state, menuLinks: action.payload.data.items };
   case FETCH_CONTACT_LAYOUT:

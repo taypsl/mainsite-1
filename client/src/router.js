@@ -172,7 +172,7 @@ class AppRouter extends Component {
             <div class="App-footer-push"></div>
 
           </Switch>
-          <Footer />
+          <Footer sections={this.props.footer} lang={this.props.language}/>
         </div>
       </BrowserRouter>
     );

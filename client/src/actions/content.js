@@ -309,9 +309,10 @@ export function fetchFooter() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=footer&locale=*`)
       .then((response) => {
+        const footerSections = response.data.includes.Entry;
         dispatch({
           type: FETCH_FOOTER_LAYOUT,
-          payload: response
+          payload: footerSections
         })
       })
       .catch((error) => console.log("err: ", error))
