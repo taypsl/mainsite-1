@@ -306,7 +306,7 @@ export function fetchAsset(id) {
         payload: asset })
     })
      .catch((error) => console.log("err: ", error))
-  console.log('fetch assets action');
+  //console.log('fetch assets action');
  }
 }
 
