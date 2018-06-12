@@ -9,9 +9,9 @@ import TitleLine from '../template/title-line';
 import { DEFAULT_LANG } from '../../actions/types'; 
 /* Testing integration with Contentful CMS */ 
 class HomePage extends React.Component {
-  constructor() {
-    super()
-  }
+  // constructor() {
+  //   super()
+  // }
 
   componentWillMount() {
       this.props.categories.length === 0 && this.props.fetchCategories()
@@ -66,47 +66,3 @@ function mapStateToProps(state) {
 // export default connect(mapStateToProps)(HomePage);
 
 export default connect(mapStateToProps, { fetchCategories })(HomePage);
-
-/*
-renderCategories() {
-    return this.props.content.map((category, index) => {
-      return (
-        <div key={category.sys.id}>
-          <Link to={category.fields.url}>
-            <Squarebox 
-              id={category.sys.id}
-              boxTitle={category.fields.title}  
-              assetId={category.fields.image.sys.id}
-            />
-
-          </Link>
-
-            
-        </div>
-      );
-    });
-  }
-
-  render() {
-    return (
-      <div className="mainpage">
-        <div className="mainpage-title">
-          <hr className="mainpage-title-line" />
-          <h1>Self-Help Law Center</h1>
-          <hr className="mainpage-title-line"/>
-        </div>
-        <div className="grid grid-pad">
-          {this.renderCategories()}
-        </div>
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return { content: state.content.all };
-}
-
-export default connect(mapStateToProps, { fetchCategories })(TestHomePage);
-
-*/

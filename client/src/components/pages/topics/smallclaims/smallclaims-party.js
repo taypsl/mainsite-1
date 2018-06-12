@@ -13,29 +13,21 @@ import ChecklistIcon from '../../../../img/icn_checklist.svg';
 import InfoBox from '../../../template/info-box';
 import AccordionBoxContainer from '../../../template/accordion-box/accordion-box-container';
 import SquareBox from '../../../template/square-box';
-//temporarily porting in bot here and on /smallclaims. eventually bring outside of topics pages
+// temporarily porting in bot here and on /smallclaims. eventually bring outside of topics pages
 import Bot from '../../../chatbot/Bot.jsx'; 
 import { DEFAULT_LANG } from '../../../../actions/types';
 
 class SmallClaimsParty extends Component {
-	constructor(props) {
-		super(props);
-		// this.state = {
-		// 	buttonSelected: false,
-		// 	stageTitle: '',
-    //  stageId: null
-		// }
-		// this.onStageSelect = this.onStageSelect.bind(this);
-	}
+	// constructor(props) {
+	// 	super(props);
+	// }
 
   componentWillMount() {
-    this.props.stages.length === 0 && this.props.fetchStages();
+    const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
+    this.props.stages.length === 0 && this.props.fetchStages(smallClaimsId);
     this.props.resources.length === 0 && this.props.fetchResourceLinks("SmallClaims");
     this.props.fetchChecklist();
 
-  }
-
-  filterStageButtons() {  
   }
 
 	render() {
@@ -53,7 +45,7 @@ class SmallClaimsParty extends Component {
       plaintiff: '2zYmskK1EUW22uukow4CaU',
       defendant: 'mI8A9AawXACAmYEmSyU0g'
     }
-
+    console.log('this.props.stages', this.props.stages)
     const renderedStages = this.props.stages.map((stage) => {
       const currentParty = this.props.match.params.party;
       console.log(currentParty, stage, '====currentParty')
@@ -107,7 +99,6 @@ class SmallClaimsParty extends Component {
 function mapStateToProps(state) {
   return { 
     stages: state.content.stages,
-    // stageId: state.content.stageId,
     resources: state.content.resources,
     language: state.content.language
   };

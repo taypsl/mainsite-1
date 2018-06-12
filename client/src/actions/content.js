@@ -157,9 +157,9 @@ export function fetchFaqSubcategories(label) {
   }
 }
 
-export function fetchStages() {
+export function fetchStages(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stage&order=fields.order&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stage&fields.category.sys.id=${id}&order=fields.order&locale=*`)
     .then((response) => {
       console.log('action fetchStages response', response)
        const stages = response.data.items.map((stage) => ({partyLabel: stage.fields.partyLabel, party: stage.fields.party, title: stage.fields.title, imageId: stage.fields.image['en-US'].sys.id, id: stage.fields.order['en-US'], url: stage.fields.url['en-US']}))
