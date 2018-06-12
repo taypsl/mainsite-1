@@ -7,7 +7,7 @@ import Asset from '../template/responsive-image';
 import client from '../../services/contentful-client'
 import TitleLine from '../template/title-line';
 import { DEFAULT_LANG } from '../../actions/types'; 
-/* Testing integration with Contentful CMS */ 
+
 class HomePage extends React.Component {
   // constructor() {
   //   super()
@@ -31,7 +31,7 @@ class HomePage extends React.Component {
     return this.props.categories.map((category) => {
       return (
         <div className="Square-box-container" key={category.id}>
-          <Link to={ category.url }>
+          <Link to={ category.slug }>
             <Squarebox 
               id={category.id}
               boxTitle={ category.titles[lang] }  

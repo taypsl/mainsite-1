@@ -45,7 +45,7 @@ export function fetchCategories() {
       //console.log("fetch categories response: ", response);
       const categories = response.data.items.map((category) => ({
         categoryId: category.sys.id,
-        url: category.fields.url['en-US'],
+        slug: category.fields.slug['en-US'],
         id: category.fields.id['en-US'],
         titles: category.fields.title,
         imageId: category.fields.image['en-US'].sys.id
@@ -223,7 +223,7 @@ export function fetchSubContentById(id) {
 
 export function fetchResourceLinks(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&&fields.unit.sys.id=${id}&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.unit.sys.id=${id}&locale=*`)
       .then((response) => {
         //console.log(response.data.items);
         const resources = response.data.items.map(resource => ({

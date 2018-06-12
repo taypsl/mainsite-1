@@ -40,11 +40,7 @@ import SmallClaimsParty from './components/pages/topics/smallclaims/smallclaims-
 import SmallClaimsStage from './components/pages/topics/smallclaims/smallclaims-stage';
 import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-subStage';
 import Topic from './components/pages/topics/topic';
-import Guardianship from './components/pages/topics/guardianship';
-import Eviction from './components/pages/topics/eviction';
-import Traffic from './components/pages/topics/traffic';
-import Dv from './components/pages/topics/dv';
-import FamilyHome from './components/pages/topics/family/family-home';
+// import FamilyHome from './components/pages/topics/family/family-home';
 import Adoption from './components/pages/topics/family/family-adoption';
 
 import TodoApp from './components/pages/todo/components/App';
@@ -148,12 +144,13 @@ class AppRouter extends Component {
                   <Route exact path="/small-claims/:party/:stage" component={SmallClaimsStage} />
                   <Route path="/small-claims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
                  
+{/*                  <Route path="/family" component={FamilyHome} />
+*/}
                   <Route path="/:topic" component={Topic} />
 
                   {/*<Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
                   <Route path="/traffic" component={UnderConstruction} />*/}
-                  <Route path="/family" component={UnderConstruction} />
                   {/*<Route path="/adoption" component={UnderConstruction} />*/}
 
                   <Route path="/profile" component={RequireAuth(ViewProfile)} />
