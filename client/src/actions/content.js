@@ -20,22 +20,12 @@ import { FETCH_VIDEO_LINKS } from './types'
 import { FETCH_VIDEO_CATEGORIES } from './types'
 import { FETCH_ASSET } from './types'
 import { STORE_STAGE_ID } from './types'
-
-// export const FETCH_SITE_CONTENT = 'FETCH_SITE_CONTENT';
-// export const FETCH_POST = 'FETCH_POST';
-// export const FETCH_ASSET = 'FETCH_ASSET';
+import { FETCH_CHECKLIST } from './types'
 
 const API_BASE_URL = process.env.API_BASE_URL;
 const API_SPACE_ID = process.env.API_SPACE_ID;
 const API_TOKEN = process.env.API_TOKEN;
 const SMALL_CLAIMS_ID = process.env.SMALL_CLAIMS_ID;
-
-
-// const API_BASE_URL = 'https://cdn.contentful.com';
-// const API_SPACE_ID = 'x8bmio1z72gj';
-// const API_TOKEN = 'd5bbad9aaee8876cceb673a9de9364b29cf477d2ca96f978e684ba25f55ec74a';
-// const SMALL_CLAIMS_ID = '5iJkGCIR2gUoMKaeQOqo6W';
-
 
 export function fetchContact() {
   return function(dispatch){
@@ -48,19 +38,14 @@ export function fetchContact() {
 }
 
 export function fetchCategories() {
-  // const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=category`);
-  console.log('fetch categories action')
-  // return {
-  //   type: FETCH_CATEGORIES,
-  //   payload: request
-  // };
+  //console.log('fetch categories action')
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=category&locale=*`)
     .then( (response) => { 
-      console.log("response: ", response);
+      //console.log("fetch categories response: ", response);
       const categories = response.data.items.map((category) => ({
         categoryId: category.sys.id,
-        url: category.fields.url['en-US'],
+        slug: category.fields.slug['en-US'],
         id: category.fields.id['en-US'],
         titles: category.fields.title,
         imageId: category.fields.image['en-US'].sys.id
@@ -74,26 +59,21 @@ export function fetchCategories() {
   }
 }
 
-export function fetchParties() {
-  // const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party`);
-  // console.log('fetch parties action')
-  // return {
-  //   type: FETCH_PARTIES,
-  //   payload: request
-  // };
+export function fetchParties(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&fields.category.sys.id=${id}&locale=*`)
     .then( (response) => { 
+      console.log('~~fetchParties~~')
       //return an ordered parties object
       const parties = response.data.items.map((party) => ({
         partyId: party.sys.id, 
         id: party.fields.id['en-US'],
         url: party.fields.url['en-US'],
         titles: party.fields.title,
-        imageId: party.fields.image['en-US'].sys.id
+        imageId: party.fields.image['en-US'].sys.id,
+        category: party.fields.category['en-US']
       }))
       .sort((a, b) => a.id - b.id);
-
 
       dispatch({type: FETCH_PARTIES, payload: parties});
       })
@@ -106,7 +86,7 @@ export function fetchFormLayout() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=formLayout&locale=*`)
     .then( (response) => { 
-      console.log('response', response)
+      //console.log('response', response)
       dispatch({type: FETCH_FORM_LAYOUT, payload: response});
       })
     .catch((error) => console.log('err: ', error));
@@ -127,7 +107,7 @@ export function fetchFaqLayout() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=faqLayout&locale=*`)
     .then( (response) => { 
-      console.log('response', response)
+      //console.log('response', response)
       dispatch({type: FETCH_FAQ_LAYOUT, payload: response});
       })
     .catch((error) => console.log('err: ', error));
@@ -155,11 +135,11 @@ export function fetchFaqSubcategories(label) {
   }
 }
 
-export function fetchStages() {
+export function fetchStages(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stage&order=fields.order&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stage&fields.category.sys.id=${id}&order=fields.order&locale=*`)
     .then((response) => {
-      console.log('action fetchStages response', response)
+      //console.log('action fetchStages response', response)
        const stages = response.data.items.map((stage) => ({partyLabel: stage.fields.partyLabel, party: stage.fields.party, title: stage.fields.title, imageId: stage.fields.image['en-US'].sys.id, id: stage.fields.order['en-US'], url: stage.fields.url['en-US']}))
                                          .sort((a, b) => a.order - b.order);
        console.log("returned ordered stages: ", stages);
@@ -175,7 +155,7 @@ export function fetchStages() {
 
 export function fetchVideos() {
   const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=video`)
-  console.log('fetchVideos action')
+  //console.log('fetchVideos action')
   return {
     type: FETCH_VIDEOS,
     payload: request
@@ -184,7 +164,7 @@ export function fetchVideos() {
 
 export function fetchVideoLinks() {
   const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=videoLink`)
-  console.log('fetchVideoLinks action')
+  //console.log('fetchVideoLinks action')
   return {
     type: FETCH_VIDEO_LINKS,
     payload: request
@@ -193,7 +173,7 @@ export function fetchVideoLinks() {
 
 export function fetchVideoCategories() {
   const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=videoSubcategory`)
-  console.log('fetchVideoCategories action')
+  //console.log('fetchVideoCategories action')
   return {
     type: FETCH_VIDEO_CATEGORIES,
     payload: request
@@ -204,11 +184,8 @@ export function fetchContentByParty(label, party) {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.label=${label}&fields.parties.sys.id=${party}&order=sys.createdAt&locale=*`)
     .then( (response) => { 
-      console.log('fetch stageContent action', response)
-
-      // dispatch({type: 'STORE_URL', lastCall: {url: url, dispatchAction: FETCH_CONTENT}});
-      //retrieve essential data
-      
+      //console.log('fetch stageContent action', response)
+      //retrieve essential data      
       const childEntries = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub")
       const selectedTabs = response.data.items.reduce((acc, cur) => {
         //create duplicate entries for different stages if existent
@@ -220,8 +197,6 @@ export function fetchContentByParty(label, party) {
         
       }, []);
       let tabs = [{"children": childEntries}, {"tabs": selectedTabs}]
-      //console.log("tabs: ", tabs); 
-      // .sort((a, b) => a.id - b.id);
       dispatch({type: FETCH_CONTENT, payload: tabs});
       })
     .catch((error) => console.log("err: ", error));
@@ -229,7 +204,6 @@ export function fetchContentByParty(label, party) {
 }
 
 export function saveId(id) {
-  //const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries/${id}?access_token=${API_TOKEN}&order=sys.createdAt&locale=*`)
    return {
     type: SAVE_ID,
     payload: id
@@ -240,23 +214,18 @@ export function fetchSubContentById(id) {
   return function(dispatch) {
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&sys.id=${id}&locale=*`)
     .then((response) => {
-      console.log('fetch subcategories content by id', response)
+      //console.log('fetch subcategories content by id', response)
       const subContent = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub").map(item => item.fields)
-      // const fields = subContent.reduce((acc, cur) => {
-      //   for (let i=0; i < subContent.length; i++){
-      //        acc.push({title: cur.title, blockText: cur.blockText, id: cur.id['en-US']});
-      //   }
-      // })
       dispatch({type: FETCH_SUBCONTENT, payload: subContent})
     })
   }
 }
 
-export function fetchResourceLinks(label) {
+export function fetchResourceLinks(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categoryLabel=${label}&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.unit.sys.id=${id}&locale=*`)
       .then((response) => {
-        console.log(response.data.items);
+        //console.log(response.data.items);
         const resources = response.data.items.map(resource => ({
           url: resource.fields.url['en-US'], titles: resource.fields.title, resourceId: resource.sys.id
         }));
@@ -267,27 +236,31 @@ export function fetchResourceLinks(label) {
       })
       .catch((error) => console.log("err: ", error))
     }
+}
 
-  
+export function fetchChecklist() {
+  return function(dispatch){
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=checklistItem&locale=*`)
+      .then((response) => {
+        console.log('checklist fetch payload', response.data.items)
+        dispatch({
+          type: FETCH_CHECKLIST,
+          payload: response
+        })
+      })
+      .catch((error) => console.log("err: ", error))
+    }
 }
 
 export function fetchContactPage() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=contact&locale=*`)
       .then((response) => {
-        console.log("1");
-        // const pageTitle = response.data.items[0].fields.title;
-        // const pageSections = response.data.includes.Entry;
-        // const pageObject = {
-        //   title: pageTitle,
-        //   fields: pageSections
-        // }
-        // console.log("2")
         dispatch({
           type: FETCH_CONTACT_LAYOUT,
           payload: response
         })
-      })
+      }) 
       .catch((error) => console.log("err: ", error))
     }
 }
@@ -320,13 +293,6 @@ export function fetchFooter() {
 }
 
 export function fetchAsset(id) {
-  // const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/assets/${id}?access_token=${API_TOKEN}`);
-  // console.log('fetch assets action');
-  // return {
-  //   type: FETCH_ASSET,
-  //   payload: request
-  // };
-
   return function(dispatch){
 
      axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/assets/${id}?access_token=${API_TOKEN}`)
@@ -336,18 +302,16 @@ export function fetchAsset(id) {
             url: response.data.fields.file.url,
             alt: response.data.fields.file.fileName,
      };
-     // console.log("asset: ", asset);
       dispatch({
         type: FETCH_ASSET,
         payload: asset })
     })
      .catch((error) => console.log("err: ", error))
-  console.log('fetch assets action');
+  //console.log('fetch assets action');
  }
 }
 
 export const storeStageId = (title, id) => {
-  console.log("storeStageId action", id)
   const newObject = {
     title: title,
     id: id
@@ -360,34 +324,7 @@ export const storeStageId = (title, id) => {
 
 export function toggleLanguages(lang){
   console.log("language toggled");
-  // return function(dispatch) {
-  //   const newUrl = lastCall.url+'&locale='+lang;
-  //   axios.get(newUrl)
-  //   .then((response) =>{
-  //     dispatch({ type: lastCall.dispatchAction, payload: response });
-  //   })
-  //   .catch((error) => {
-  //     console.log("err: ", error);
-  //   })
-  // }
   return function(dispatch) {
     dispatch({ type: "TOGGLE_LANGUAGE", language: lang})
   }
 }
-
-// export function storePartyId(id) {
-//   return {
-//     type: STORE_PARTY_ID,
-//     payload: id
-//   }
-// }
-
-// {space_id}/{asset_id}/{token}/{name}
-
-//  const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/assets/${id}?access_token=${API_TOKEN}`);
-
-
-// example image id 59Km2bLlde0SaGoK68GQWC
-
-//when I come back grom luch: figre out how to pass props to other components from test-home OR how to 
-// look up content using sys...? ??? or content_Type call/...

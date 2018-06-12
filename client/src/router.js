@@ -20,7 +20,6 @@ import MobileBot from './components/mobilebot/MobileBot.jsx';
 
 // Import static pages
 import HomePage from './components/pages/home-page';
-import TestAccordionBox from './components/template/accordion-box/accordion-box-container';
 import ContactPage from './components/pages/contact-page';
 import Forms from './components/pages/forms/forms-page';
 import FormSearch from './components/pages/forms-page';
@@ -40,11 +39,8 @@ import SmallClaims from './components/pages/topics/smallclaims/smallclaims';
 import SmallClaimsParty from './components/pages/topics/smallclaims/smallclaims-party';
 import SmallClaimsStage from './components/pages/topics/smallclaims/smallclaims-stage';
 import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-subStage';
-import Guardianship from './components/pages/topics/guardianship';
-import Eviction from './components/pages/topics/eviction';
-import Traffic from './components/pages/topics/traffic';
-import Dv from './components/pages/topics/dv';
-import FamilyHome from './components/pages/topics/family/family-home';
+import Topic from './components/pages/topics/topic';
+// import FamilyHome from './components/pages/topics/family/family-home';
 import Adoption from './components/pages/topics/family/family-adoption';
 
 import TodoApp from './components/pages/todo/components/App';
@@ -108,10 +104,9 @@ class AppRouter extends Component {
               <div className="Page">
                 <Switch>
                   <Route exact path="/" component={HomePage} />
-                  <Route path="/home" component={HomePage} />
+                  <Route exact path="/home" component={HomePage} />
                     {/*if I want to load app and navs separately in {App} component, and load CaseType modules here--> */}
                     {/*<IndexRoute component={TopicsList} /> */} 
-                  <Route path="/test" component={TestAccordionBox} />
                   <Route path="/checklist" component={TodoApp} />
                   <Route path="/contact-us" component={ContactPage} />
                   <Route path="/portal" component={Portal} />
@@ -144,17 +139,18 @@ class AppRouter extends Component {
                   <Route path="/forgot-password" component={ForgotPassword} />
                   <Route path="/reset-password/:resetToken" component={ResetPassword} />
 
-                  <Route exact path="/smallclaims" component={SmallClaims} />
-                  <Route exact path="/smallclaims/:party" component={SmallClaimsParty} />
-                  <Route exact path="/smallclaims/:party/:stage" component={SmallClaimsStage} />
-                  <Route path="/smallclaims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
+                  <Route exact path="/small-claims" component={SmallClaims} />
+                  <Route exact path="/small-claims/:party" component={SmallClaimsParty} />
+                  <Route exact path="/small-claims/:party/:stage" component={SmallClaimsStage} />
+                  <Route path="/small-claims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
                  
+                  {/*<Route path="/:topic" component={Topic} />*/}
+
                   <Route path="/guardianship" component={UnderConstruction} />
-                  <Route path="/eviction" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
                   <Route path="/traffic" component={UnderConstruction} />
-                  <Route path="/family" component={UnderConstruction} />
                   <Route path="/adoption" component={UnderConstruction} />
+                  <Route path="/family" component={UnderConstruction} />
 
                   <Route path="/profile" component={RequireAuth(ViewProfile)} />
 

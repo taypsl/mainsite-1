@@ -1,7 +1,7 @@
 import checklistTemplatePlaintiff from '../../data/checklist_plaintiff.js';
 import checklistTemplateDefendant from '../../data/checklist_defendant.js';
 import { LOAD_TODOS, SMALL_CLAIMS, PLAINTIFF, DEFENDANT } from '../actions/types'; 
-
+ 
 const todo = (state, action) => {
   switch (action.type) {
   case 'ADD_TODO':
@@ -26,7 +26,7 @@ const todo = (state, action) => {
     })
   default:
     return state
-  }
+  } 
 }
 
 const todos = (state=[] , action) => {
