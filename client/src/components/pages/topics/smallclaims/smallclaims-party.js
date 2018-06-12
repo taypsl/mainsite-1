@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchStages, fetchResourceLinks } from '../../../../actions/content.js';
+import { fetchStages, fetchResourceLinks, fetchChecklist } from '../../../../actions/content.js';
 import { storeStageId } from '../../../../actions/content.js';
 
 import TitleLine from '../../../template/title-line';
@@ -31,6 +31,7 @@ class SmallClaimsParty extends Component {
   componentWillMount() {
     this.props.stages.length === 0 && this.props.fetchStages();
     this.props.resources.length === 0 && this.props.fetchResourceLinks("SmallClaims");
+    this.props.fetchChecklist();
 
   }
 
@@ -64,7 +65,7 @@ class SmallClaimsParty extends Component {
              boxTitle={stage.title[lang]}
              assetId={stage.imageId}
            />
-         </Link>
+         </Link> 
        </div> 
       )
     })
@@ -113,7 +114,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchStages, fetchResourceLinks}, dispatch);
+  return bindActionCreators({fetchStages, fetchResourceLinks, fetchChecklist}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SmallClaimsParty);

@@ -54,12 +54,14 @@ class SmallClaims extends Component {
 
   componentWillMount() {
     const unitLabel = "SmallClaims"
-    this.props.parties.length === 0 && this.props.fetchParties()    
+    const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
+    this.props.parties.length === 0 && this.props.fetchParties(smallClaimsId)    
     // this.props.fetchFaqs()
     this.props.resources.length === 0 && this.props.fetchResourceLinks(unitLabel)
   }
 
   componentDidMount(){
+    // this is to display chatbot pop up on first visit of /small-claims page
     //check if they've visited
     let visited = localStorage["alreadyVisited"];
     if(visited) {
@@ -100,8 +102,11 @@ class SmallClaims extends Component {
       )
     })
 
-    const renderedParties = this.props.parties
-    .map((party) => {
+  // right now hard coding for smallclaims;
+  // in future, should make this dynamic so the whole site can be run
+  // on a few topics components
+    const currentUnit = this.props.match.url.split('/')[1];
+    const renderedParties = this.props.parties.map((party) => {
         return (
           <div className="Square-box-container" key={party.id}>
             <Link to={`/smallclaims/${party.url}`}>
@@ -112,7 +117,7 @@ class SmallClaims extends Component {
               />
             </Link>
           </div>
-        );
+        ); 
       });
 
 
@@ -144,7 +149,6 @@ class SmallClaims extends Component {
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return { 

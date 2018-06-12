@@ -9,14 +9,14 @@ import TitleLine from '../template/title-line';
 import { DEFAULT_LANG } from '../../actions/types'; 
 /* Testing integration with Contentful CMS */ 
 class HomePage extends React.Component {
+  constructor() {
+    super()
+  }
+
   componentWillMount() {
       this.props.categories.length === 0 && this.props.fetchCategories()
       //console.log(this.props.categories, 'this.props.categories')
   }
-  // constructor() {
-  //   super()
-  //   this.state = {categories: []}
-  // }
 
   // componentDidMount() {
   //   client.getEntries({content_type: 'category'}).then((response) => {
@@ -27,6 +27,7 @@ class HomePage extends React.Component {
   renderCategories() {
     const lang = this.props.language;
     console.log("language: ", lang);
+    console.log("this.props.categories", this.props.categories)
     return this.props.categories.map((category) => {
       return (
         <div className="Square-box-container" key={category.id}>
@@ -57,7 +58,7 @@ class HomePage extends React.Component {
 function mapStateToProps(state) {
   return { 
     categories: state.content.categories,
-    language: state.content.language
+    language: state.content.language,
            // assets: state.content.assets
    };
 }

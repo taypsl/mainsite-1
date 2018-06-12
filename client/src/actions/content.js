@@ -57,7 +57,7 @@ export function fetchCategories() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=category&locale=*`)
     .then( (response) => { 
-      console.log("response: ", response);
+      console.log("fetch categories response: ", response);
       const categories = response.data.items.map((category) => ({
         categoryId: category.sys.id,
         url: category.fields.url['en-US'],
@@ -74,7 +74,7 @@ export function fetchCategories() {
   }
 }
 
-export function fetchParties() {
+export function fetchParties(id) {
   // const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party`);
   // console.log('fetch parties action')
   // return {
@@ -82,15 +82,17 @@ export function fetchParties() {
   //   payload: request
   // };
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&fields.category.sys.id=${id}&locale=*`)
     .then( (response) => { 
       //return an ordered parties object
+      //console.log(response, "~~~fetch parties")
       const parties = response.data.items.map((party) => ({
         partyId: party.sys.id, 
         id: party.fields.id['en-US'],
         url: party.fields.url['en-US'],
         titles: party.fields.title,
-        imageId: party.fields.image['en-US'].sys.id
+        imageId: party.fields.image['en-US'].sys.id,
+        category: party.fields.category['en-US']
       }))
       .sort((a, b) => a.id - b.id);
 
@@ -271,9 +273,9 @@ export function fetchResourceLinks(label) {
 
 export function fetchChecklist() {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=checklist&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=checklistItem&locale=*`)
       .then((response) => {
-        console.log('checklist fetch payload', response)
+        console.log('checklist fetch payload', response.data.items)
         dispatch({
           type: FETCH_CHECKLIST,
           payload: response
@@ -291,7 +293,7 @@ export function fetchContactPage() {
           type: FETCH_CONTACT_LAYOUT,
           payload: response
         })
-      })
+      }) 
       .catch((error) => console.log("err: ", error))
     }
 }
