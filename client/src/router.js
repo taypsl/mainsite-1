@@ -20,7 +20,6 @@ import MobileBot from './components/mobilebot/MobileBot.jsx';
 
 // Import static pages
 import HomePage from './components/pages/home-page';
-import TestAccordionBox from './components/template/accordion-box/accordion-box-container';
 import ContactPage from './components/pages/contact-page';
 import Forms from './components/pages/forms/forms-page';
 import FormSearch from './components/pages/forms-page';
@@ -109,10 +108,9 @@ class AppRouter extends Component {
               <div className="Page">
                 <Switch>
                   <Route exact path="/" component={HomePage} />
-                  <Route path="/home" component={HomePage} />
+                  <Route exact path="/home" component={HomePage} />
                     {/*if I want to load app and navs separately in {App} component, and load CaseType modules here--> */}
                     {/*<IndexRoute component={TopicsList} /> */} 
-                  <Route path="/test" component={TestAccordionBox} />
                   <Route path="/checklist" component={TodoApp} />
                   <Route path="/contact-us" component={ContactPage} />
                   <Route path="/portal" component={Portal} />
@@ -150,13 +148,13 @@ class AppRouter extends Component {
                   <Route exact path="/small-claims/:party/:stage" component={SmallClaimsStage} />
                   <Route path="/small-claims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
                  
-                  <Route exact path="/eviction" component={Topic} />
+                  <Route path="/:topic" component={Topic} />
 
-                  <Route path="/guardianship" component={UnderConstruction} />
+                  {/*<Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
-                  <Route path="/traffic" component={UnderConstruction} />
+                  <Route path="/traffic" component={UnderConstruction} />*/}
                   <Route path="/family" component={UnderConstruction} />
-                  <Route path="/adoption" component={UnderConstruction} />
+                  {/*<Route path="/adoption" component={UnderConstruction} />*/}
 
                   <Route path="/profile" component={RequireAuth(ViewProfile)} />
 

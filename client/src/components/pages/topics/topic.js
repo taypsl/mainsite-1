@@ -63,8 +63,8 @@ class Topic extends Component {
     const pageTopicId = pageIds[url]
     console.log("pageTopicId: ", pageTopicId)
     
-    this.props.parties.length === 0 && this.props.fetchParties(pageTopicId)    
-    this.props.resources.length === 0 && this.props.fetchResourceLinks(pageTopicId)
+    this.props.fetchParties(pageTopicId)    
+    this.props.fetchResourceLinks(pageTopicId)
   }
 
   onPartyClick(_id, e){
