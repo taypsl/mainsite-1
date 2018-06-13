@@ -55,9 +55,11 @@ class SmallClaims extends Component {
   componentWillMount() {
     const unitLabel = "SmallClaims"
     const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
-    this.props.parties.length === 0 && this.props.fetchParties(smallClaimsId)    
+    // this.props.parties.length === 0 && this.props.fetchParties(smallClaimsId)    
+    // this.props.resources.length === 0 && this.props.fetchResourceLinks(smallClaimsId)
+    this.props.fetchParties(smallClaimsId)    
+    this.props.fetchResourceLinks(smallClaimsId)
     // this.props.fetchFaqs()
-    this.props.resources.length === 0 && this.props.fetchResourceLinks(smallClaimsId)
   }
 
   componentDidMount(){

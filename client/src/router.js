@@ -40,6 +40,7 @@ import SmallClaimsParty from './components/pages/topics/smallclaims/smallclaims-
 import SmallClaimsStage from './components/pages/topics/smallclaims/smallclaims-stage';
 import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-subStage';
 import Topic from './components/pages/topics/topic';
+import TopicParty from './components/pages/topics/topic-party';
 // import FamilyHome from './components/pages/topics/family/family-home';
 import Adoption from './components/pages/topics/family/family-adoption';
 
@@ -144,13 +145,14 @@ class AppRouter extends Component {
                   <Route exact path="/small-claims/:party/:stage" component={SmallClaimsStage} />
                   <Route path="/small-claims/:party/:stage/sub/:subcat" component={SmallClaimsSubStage} />
                  
-                  {/*<Route path="/:topic" component={Topic} />*/}
+                  <Route exact path="/:topic" component={Topic} />
+                  <Route exact path="/:topic/:party" component={TopicParty} />
 
-                  <Route path="/guardianship" component={UnderConstruction} />
+                  {/*<Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
                   <Route path="/traffic" component={UnderConstruction} />
                   <Route path="/adoption" component={UnderConstruction} />
-                  <Route path="/family" component={UnderConstruction} />
+                  <Route path="/family-law" component={UnderConstruction} />*/}
 
                   <Route path="/profile" component={RequireAuth(ViewProfile)} />
 

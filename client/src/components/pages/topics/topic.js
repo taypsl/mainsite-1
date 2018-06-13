@@ -37,9 +37,9 @@ import { DEFAULT_LANG } from '../../../actions/types';
 // ]
 
 const pageIds = {
-	"guardianship": "73yw7aSti0YsU6ks60uQaS",
+	"guardianship": "25rk8cpWJeA666YKwumQyu", 
 	"dv": "2rfORKm0KQe4K0uuEuoQci",
-	"family": "4O0eqo7xHOaMMA8WyYW80C",
+	"family-law": "4O0eqo7xHOaMMA8WyYW80C",
 	"eviction": "6qxRrat4HKc8UUk4yCGuSg",
 	"traffic": "2Syl95Uko8IwQqUgi2wSem"
 }
@@ -52,10 +52,6 @@ class Topic extends Component {
   }
 
   componentWillMount() {
-  	//lunch break issue:
-  	// pages aren't updating parties when routed to new topic page
-  	// might have to do with how call deals with multiple refs on a party (see postman)
-  	// or it has to do with react router... but I haven't parsed that out yet
   	console.log('topics page componentWillMount')
 // the next two consts need to be pulled from content
     const url = this.props.match.url.split('/')[1]
@@ -119,12 +115,10 @@ class Topic extends Component {
         ); 
       });
 
-
-
     return (
       <div>
           <div className="Topic">
-            <TitleLine title={currentTitle} />
+            <TitleLine title={currentTitle === "Dv" ? "Domestic Violence" : currentTitle} />
             <div className="grid grid-pad">
               {renderedParties}
               {/*static content, to be linked to faq pages*/}
