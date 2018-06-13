@@ -56,7 +56,7 @@ const stageIds = {
 //   'after': 2
 // }; 
 
-class SmallClaimsStage extends Component {
+class TopicStage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -157,4 +157,4 @@ function mapStateToProps(state) {
     language: state.content.language
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SmallClaimsStage);
+export default connect(mapStateToProps, mapDispatchToProps)(TopicStage);
