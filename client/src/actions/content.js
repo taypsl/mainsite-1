@@ -115,6 +115,7 @@ export function fetchFaqLayout() {
 }
 
 export function fetchFaqs(label, subcat) {
+  // &fields.unit.sys.id=${id, subcat}
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=faq&fields.categoryLabel=${label}&fields.subcategory.sys.id=${subcat}&locale=*`)
     .then( (response) => { 
@@ -180,11 +181,11 @@ export function fetchVideoCategories() {
   };
 }
 
-export function fetchContentByParty(label, party) {
+export function fetchContentByParty(id, party) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.label=${label}&fields.parties.sys.id=${party}&order=sys.createdAt&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&fields.unit.sys.id=${id}&fields.parties.sys.id=${party}&order=sys.createdAt&locale=*`)
     .then( (response) => { 
-      //console.log('fetch stageContent action', response)
+      console.log('fetch stageContent action', response)
       //retrieve essential data      
       const childEntries = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub")
       const selectedTabs = response.data.items.reduce((acc, cur) => {

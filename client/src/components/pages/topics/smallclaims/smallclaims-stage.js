@@ -71,6 +71,8 @@ class SmallClaimsStage extends Component {
     //this.toSentenceCase = this.toSentenceCase.bind(this);
   }
   componentWillMount() {
+    const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
+
     // before component mounts, load content by selected party 
     let _partyId;
     // check if params.party matches the partyId[x].name
@@ -87,7 +89,7 @@ class SmallClaimsStage extends Component {
     }
     // fetch and load content on first landing or when changing party
     if (this.props.stageContent.length === 0 || this.state.selectedParty !== this.props.match.params.party ){
-      this.props.fetchContentByParty('SmallClaims', _partyId);
+      this.props.fetchContentByParty(smallClaimsId, _partyId);
       this.setState({...this.state, selectedParty: this.props.match.params.party});
     }
 

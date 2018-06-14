@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import TitleLine from '../../../template/title-line';
+import TitleLine from '../../template/title-line';
 
-import TextIconBox from '../../../template/text-icon-box';
-import SquareBoxStatic from '../../../template/square-box-static';
+import SquareBoxStatic from '../../template/square-box-static';
 
-import ChecklistIcon from '../../../../img/icn_checklist.svg';
-import InfoBox from '../../../template/info-box';
-import AccordionBoxContainer from '../../../template/accordion-box/accordion-box-container';
-import { fetchContentByParty, fetchStages } from '../../../../actions/content.js';
-import Bot from '../../../chatbot/Bot.jsx'; 
-import { DEFAULT_LANG } from '../../../../actions/types';
+import InfoBox from '../../template/info-box';
+import AccordionBoxContainer from '../../template/accordion-box/accordion-box-container';
+import { fetchContentByParty, fetchStages } from '../../../actions/content.js';
+import { DEFAULT_LANG } from '../../../actions/types';
 import { bindActionCreators } from 'redux';
 
 const partyIds = [
@@ -42,33 +39,12 @@ const partyIds = [
 
 const stageIds = {
    'overview': '4ai240PycUw00eWUQqMwW4',
-   'filing-a-claim': '5iDqJ92Rzqksq88gYWawE4',
-   'responding-to-a-claim': '60tEp7giyceYKSuaoIUgUy',
-   'day-in-court': '4HkTlYlsFqqIgscmGWOCkk',
-   'judges-decision': '1cMyrIaZ680ukwwSi8YscC',
-   'paying-a-judgement': '30KxWcbWQEwgMO8CKYmQCG',
-   'collecting-a-judgement': '2ucYI8L74Qs6mWag6aygCo'
   };
-
-// const stageTitleIdx = {
-//   'before': 0,
-//   'during': 1,
-//   'after': 2
-// }; 
 
 class TopicStage extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      // selectedStageId: this.props.stageId.id,
-      // selectedStageTitle: this.props.stageId.title,
-      // selectedContent: [],
-      selectedParty: '',  
-    }
     this.renderMenuLinks = this.renderMenuLinks.bind(this)
-    // this.filterContent = this.filterContent.bind(this)
-    // this.onStageSelect = this.onStageSelect.bind(this);
-    //this.toSentenceCase = this.toSentenceCase.bind(this);
   }
   componentWillMount() {
     // before component mounts, load content by selected party 
@@ -120,7 +96,6 @@ class TopicStage extends Component {
     console.log("lang: ", this.props.language);
     return this.props.stages.length !== 0 && this.props.stageContent.length !== 0 && (
       <div>
-        <Bot />
         {/*Temporarily removing breadcrumbs while we contend with multple stages */}
         {/*<div className="Stage-top-bar">
           <div className="breadcrumbs">

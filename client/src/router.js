@@ -41,6 +41,7 @@ import SmallClaimsStage from './components/pages/topics/smallclaims/smallclaims-
 import SmallClaimsSubStage from './components/pages/topics/smallclaims/smallclaims-subStage';
 import Topic from './components/pages/topics/topic';
 import TopicParty from './components/pages/topics/topic-party';
+import TopicStage from './components/pages/topics/topic-stage';
 // import FamilyHome from './components/pages/topics/family/family-home';
 import Adoption from './components/pages/topics/family/family-adoption';
 
@@ -147,6 +148,7 @@ class AppRouter extends Component {
                  
                   <Route exact path="/:topic" component={Topic} />
                   <Route exact path="/:topic/:party" component={TopicParty} />
+                  <Route exact path="/:topic/:party/:stage" component={TopicStage} />
 
                   {/*<Route path="/guardianship" component={UnderConstruction} />
                   <Route path="/dv" component={UnderConstruction} />
