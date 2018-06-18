@@ -68,7 +68,7 @@ export function fetchParties(id) {
       const parties = response.data.items.map((party) => ({
         partyId: party.sys.id, 
         id: party.fields.id['en-US'],
-        url: party.fields.url['en-US'],
+        slug: party.fields.slug['en-US'],
         titles: party.fields.title,
         imageId: party.fields.image['en-US'].sys.id,
         category: party.fields.categories['en-US']
