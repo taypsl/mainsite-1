@@ -38,7 +38,9 @@ const partyIds = [
 // ]
 
 const stageIds = {
-   'overview': '4ai240PycUw00eWUQqMwW4',
+   'before': '64dgqWF7dmuqYwCaKqEOUG',
+   'during': '1OHmeVRZ9Cu8EWmQUUQQyW',
+   'after': '5FKid7O1s4oKKAcoAqaSA4'
   };
 
 class TopicStage extends Component {
@@ -49,7 +51,12 @@ class TopicStage extends Component {
   componentWillMount() {
     // before component mounts, load content by selected party 
     let _partyId;
+    console.log(this.props.match.url, "url")
+    // for generic topic, need to get party id from the content first
+    // should I save a topic ID in the last page? but need to be able to 
+    // get data if they just start on this page... 
     // check if params.party matches the partyId[x].name
+
     if (this.props.match.params.party === partyIds[0].name) {
         // whichever name matches, return the id to _partyId
           _partyId = partyIds[0].id

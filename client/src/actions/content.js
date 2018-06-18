@@ -61,7 +61,7 @@ export function fetchCategories() {
 
 export function fetchParties(id) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&fields.category.sys.id=${id}&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=party&fields.categories.sys.id=${id}&locale=*`)
     .then( (response) => { 
       console.log('~~fetchParties~~')
       //return an ordered parties object
@@ -71,7 +71,7 @@ export function fetchParties(id) {
         url: party.fields.url['en-US'],
         titles: party.fields.title,
         imageId: party.fields.image['en-US'].sys.id,
-        category: party.fields.category['en-US']
+        category: party.fields.categories['en-US']
       }))
       .sort((a, b) => a.id - b.id);
 

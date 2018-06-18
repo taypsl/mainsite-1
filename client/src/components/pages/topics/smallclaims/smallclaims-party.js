@@ -47,6 +47,7 @@ class SmallClaimsParty extends Component {
       plaintiff: '2zYmskK1EUW22uukow4CaU',
       defendant: 'mI8A9AawXACAmYEmSyU0g'
     }
+    
     console.log('this.props.stages', this.props.stages)
     const renderedStages = this.props.stages.map((stage) => {
       const currentParty = this.props.match.params.party;
