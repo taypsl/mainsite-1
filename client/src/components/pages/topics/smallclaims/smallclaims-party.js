@@ -38,7 +38,7 @@ class SmallClaimsParty extends Component {
 			return (
 				<div key={item.resourceId}>
           {/*unavailable translations now default to 'en-US'*/}
-					<a href={item.url} target="_blank">{item.titles[lang] || item.titles['en-US']}</a>
+					<a href={item.slug} target="_blank">{item.titles[lang] || item.titles['en-US']}</a>
 				</div>
 			)
 		})
@@ -54,7 +54,7 @@ class SmallClaimsParty extends Component {
       //console.log(currentParty, stage, '====currentParty')
       return (
         <div  className={stage.partyLabel['en-US']  === 'all' || stage.partyLabel['en-US'] === currentParty ? "Square-box-container " : "Square-box-container hidden"} key={stage.id}>
-         <Link to={`${this.props.match.url}/${stage.url}`}>
+         <Link to={`${this.props.match.url}/${stage.slug}`}>
            <SquareBox
              id={stage.id}
              boxTitle={stage.title[lang]}

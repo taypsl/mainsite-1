@@ -52,23 +52,31 @@ class TopicStage extends Component {
     // before component mounts, load content by selected party 
     let _partyId;
     console.log(this.props.match.url, "url")
+    const currentTopic = this.props.match.params.topic;
+    const currentParty = this.props.match.params.party;
+    const current Stage = this.props.match.params.stage;
+    // is it sound practice to parse the url and use it to look up IDs?
     // for generic topic, need to get party id from the content first
     // should I save a topic ID in the last page? but need to be able to 
     // get data if they just start on this page... 
     // check if params.party matches the partyId[x].name
 
-    if (this.props.match.params.party === partyIds[0].name) {
-        // whichever name matches, return the id to _partyId
-          _partyId = partyIds[0].id
-      } else {
-         _partyId = partyIds[1].id
-      }
+    // if (this.props.match.params.party === partyIds[0].name) {
+    //     // whichever name matches, return the id to _partyId
+    //       _partyId = partyIds[0].id
+    //   } else {
+    //      _partyId = partyIds[1].id
+    //   }
     
+
     //fetch stages if not already present in store
     if (this.props.stages.length === 0){
       this.props.fetchStages();
     }
-    // fetch and load content on first landing or when changing party
+    // check for content then fetch and load content on first landing or when changing party
+    if (this.props.content.parties.length === 0 ){
+    	this.props.fetchParties()
+    }
     if (this.props.stageContent.length === 0 || this.state.selectedParty !== this.props.match.params.party ){
       this.props.fetchContentByParty('SmallClaims', _partyId);
       this.setState({...this.state, selectedParty: this.props.match.params.party});
