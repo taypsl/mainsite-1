@@ -54,7 +54,7 @@ class TopicStage extends Component {
     console.log(this.props.match.url, "url")
     const currentTopic = this.props.match.params.topic;
     const currentParty = this.props.match.params.party;
-    const current Stage = this.props.match.params.stage;
+    const currentStage = this.props.match.params.stage;
     // is it sound practice to parse the url and use it to look up IDs?
     // for generic topic, need to get party id from the content first
     // should I save a topic ID in the last page? but need to be able to 
