@@ -67,7 +67,7 @@ class TopicParty extends Component {
       //console.log(currentParty, stage, '====currentParty')
       return (
         <div  className={stage.partyLabel['en-US']  === 'all' || stage.partyLabel['en-US'] === currentParty ? "Square-box-container " : "Square-box-container hidden"} key={stage.id}>
-         <Link to={`${this.props.match.url}/${stage.url}`}>
+         <Link to={`${this.props.match.url}/${stage.slug}`}>
            <SquareBox
              id={stage.id}
              boxTitle={stage.title[lang]}

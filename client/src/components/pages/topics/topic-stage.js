@@ -11,31 +11,48 @@ import { fetchContentByParty, fetchStages } from '../../../actions/content.js';
 import { DEFAULT_LANG } from '../../../actions/types';
 import { bindActionCreators } from 'redux';
 
-const partyIds = [
+const categories = [
   {
-    name: 'defendant',
-    id: 'mI8A9AawXACAmYEmSyU0g' 
+    category: 'guardianship',
+    id: '25rk8cpWJeA666YKwumQyu'
   },
   {
-    name: 'plaintiff',
-    id: '2zYmskK1EUW22uukow4CaU'
-   }
-] 
+    category: 'family-law',
+    id: '4O0eqo7xHOaMMA8WyYW80C'
+  },
+  {
+    category: 'eviction',
+    id: '6qxRrat4HKc8UUk4yCGuSg'
+  },
+  {
+    category: 'dv',
+    id: '2rfORKm0KQe4K0uuEuoQci'
+  },
+  {
+    category: 'traffic/stage',
+    id: '2Syl95Uko8IwQqUgi2wSem'
+  },
+]
 
-// const stageIds = [
-//   {
-//     name: 'before',
-//     id: '1cMyrIaZ680ukwwSi8YscC'
-//   },
-//   {
-//     name: 'during',
-//     id: '5iDqJ92Rzqksq88gYWawE4'
-//   },
-//   {
-//     name: 'after',
-//     id: '4HkTlYlsFqqIgscmGWOCkk'
-//   }
-// ]
+const categoryIds = {
+  'guardianship': '25rk8cpWJeA666YKwumQyu',
+  'family-law': '4O0eqo7xHOaMMA8WyYW80C',
+  'eviction': '6qxRrat4HKc8UUk4yCGuSg',
+  'dv': '2rfORKm0KQe4K0uuEuoQci',
+  'traffic/stage': '2Syl95Uko8IwQqUgi2wSem'
+}
+
+const partyIds = {
+  'defendant': 'mI8A9AawXACAmYEmSyU0g',
+  'plaintiff': '2zYmskK1EUW22uukow4CaU',
+  'other-occupant': 'zRzI8ug932cSgAU2KkIsS',
+  'parent': '5mVZkVVv7GQCCEgAyAiaay',
+  'tenant': '14F7MuQjQCkUiy8gIO48Mc',
+  'landlord': '5ZDpEk6mPeECMCe0oGEe2K',
+  'child': '2qX3uG3lq0iaekEMsqMQcs', 
+  'potential-guardian': '66Lp25CQJaQq2yUUcMacIu',
+  'guardianship': '25rk8cpWJeA666YKwumQyu'
+}
 
 const stageIds = {
    'before': '64dgqWF7dmuqYwCaKqEOUG',
@@ -60,25 +77,27 @@ class TopicStage extends Component {
     // should I save a topic ID in the last page? but need to be able to 
     // get data if they just start on this page... 
     // check if params.party matches the partyId[x].name
-
-    // if (this.props.match.params.party === partyIds[0].name) {
+    // for (let i=0; i < partyIds.length; i++) {
+    //   if (this.props.match.params.party === partyIds[i].name) {
     //     // whichever name matches, return the id to _partyId
-    //       _partyId = partyIds[0].id
-    //   } else {
-    //      _partyId = partyIds[1].id
-    //   }
-    
+    //       _partyId = partyIds[i].id
+    //     } else {
+    //       _partyId = partyIds[1].id
+    //     }
+    // }
+
+    console.log('~~~~~~~~~~~', categoryIds[currentTopic])
 
     //fetch stages if not already present in store
     if (this.props.stages.length === 0){
       this.props.fetchStages();
     }
     // check for content then fetch and load content on first landing or when changing party
-    if (this.props.content.parties.length === 0 ){
-    	this.props.fetchParties()
+    if (this.props.content.stages.length === 0 ){
+    	this.props.fetchStages()
     }
     if (this.props.stageContent.length === 0 || this.state.selectedParty !== this.props.match.params.party ){
-      this.props.fetchContentByParty('SmallClaims', _partyId);
+      this.props.fetchContentByParty(categoryIds[currentTopic], partyIds[currentParty]);
       this.setState({...this.state, selectedParty: this.props.match.params.party});
     }
 
