@@ -6,15 +6,7 @@ import TitleLine from '../../template/title-line';
 import AccordionBox from '../../template/accordion-box/accordion-box-container'
 const ReactMarkdown = require('react-markdown')
 
-// const stage = {
-// 	"2b9rCFvuQ0iyOKQ26uO8ow": "Prepare and File a Claim",
-// 	"6gfGyfVjEcuEuEAEi2OOWI": "Serving Your Court Papers",
-// 	"6NhQ3ae4362oeGSiCwseIa": "After Being Served",
-// 	"5IGXI1SREcyMY6IKYSmoWW": "Rescheduling My Court Date",
-// 	"hAQbOpDcMSqIqswE26iWC": "Appeal, Collect, or Vacate Judgement",
-// 	"3i48AXKI7SQEk4seuY8oAY": "Examples of Small Claims Cases Heard"
-// }
-
+// faqs/:category/:subcategoryId page 
 class FaqsSelectedSubcategory extends Component {
 	constructor() {
 		super()
@@ -29,7 +21,6 @@ class FaqsSelectedSubcategory extends Component {
 
 	toggleClass(id) {
     if (this.state.activeId === id) {
-      console.log(id, 'selected id')
       this.setState({ 
         activeId: id,
         pressed: !this.state.pressed 
@@ -40,7 +31,6 @@ class FaqsSelectedSubcategory extends Component {
         pressed: true 
       });
     } 
-		//console.log(this.state, 'print this.state for toggleClass')
   }
 
 
@@ -63,7 +53,6 @@ class FaqsSelectedSubcategory extends Component {
 			for (var key in faqSubcat[i]) {
 				if (faqSubcat[i].sys.id == currentStage) {
 					subcatTitle = faqSubcat[i].fields.title[lang]
-					console.log(subcatTitle, "SubcatTitle")
 				}
 			}
 		}
@@ -77,10 +66,8 @@ class FaqsSelectedSubcategory extends Component {
       </div>
     )
 	}
-	
  
 	render() {
-
 		const lang = this.props.language;
 		const renderedContent = this.props.faqs.map((faq) => {
 			return (
@@ -119,9 +106,10 @@ class FaqsSelectedSubcategory extends Component {
 }
 
 function mapStateToProps(state) {
-  return { faqs: state.content.faqs,
-  				 language: state.content.language,
-  				 faqSubcat: state.content.faqSubcategories  }
+  return { 
+  	faqs: state.content.faqs,
+		language: state.content.language,
+		faqSubcat: state.content.faqSubcategories  }
 }
 
 export default connect(mapStateToProps, { fetchFaqs })(FaqsSelectedSubcategory)

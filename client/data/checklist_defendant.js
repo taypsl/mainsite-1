@@ -1,5 +1,4 @@
 // content for small claims checklist/defendant
-
 import { SMALL_CLAIMS, GUARDIANSHIP } from '../src/actions/types.js'; 
 const checklistTemplateDefendant = {
 	'smallClaims' : 

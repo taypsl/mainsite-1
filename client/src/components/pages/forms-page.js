@@ -1,13 +1,9 @@
 import React from "react";
 import matchSorter from 'match-sorter'
 import TitleLine from '../template/title-line';
-
-// Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import formData from '../../../data/jcFormsSC.js'
-// const test_server = "http://45.33.45.17:3000";
-// const dev_server = "http://dev-eforms-viewer.ad.cc-courts.org";
 
 export default class FormsHome extends React.Component {
   constructor() {
@@ -74,87 +70,14 @@ export default class FormsHome extends React.Component {
                   accessor: d => d.dateRevised,
                   filterable: false //to disable filter input box 
                 }, 
-                // {
-                //   Header: "Links",
-                //   id: "links",
-                //   accessor: d => d.link, 
-                //   filterMethod: (filter, rows) =>
-                //     matchSorter(rows, filter.value, { keys: ["link"] }),
-                //   filterAll: true
-                // }
               ]
             },
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
-          // getTdProps={(state, rowInfo, column, instance) => {
-          //   return {
-          //     onClick: (e) => {
-          //       const formName =  rowInfo.original.formName.toLowerCase().split("-").join("");
-          //       console.log("Form Name:", formName);
-          //       axios.post("")
-          //     }
-          //   }
-          // }}
         />
         <br />
       </div>
     );
   }
 }
-
-
-
-// const Tips = () =>
-//   <div style={{ textAlign: "center" }}>
-//     <em>Tip: Hold shift when sorting to multi-sort!</em>
-//   </div>;
-
-// import namor from "namor";
-
-// const range = len => {
-//   const arr = [];
-//   for (let i = 0; i < len; i++) {
-//     arr.push(i);
-//   }
-//   return arr;
-// };
-
-// const newPerson = () => {
-//   const statusChance = Math.random();
-//   return {
-//     firstName: namor.generate({ words: 1, numbers: 0 }),
-//     lastName: namor.generate({ words: 1, numbers: 0 }),
-//     age: Math.floor(Math.random() * 30),
-//     visits: Math.floor(Math.random() * 100),
-//     progress: Math.floor(Math.random() * 100),
-//     status:
-//       statusChance > 0.66
-//         ? "relationship"
-//         : statusChance > 0.33 ? "complicated" : "single"
-//   };
-// };
-
-// export function makeData(len = 5553) {
-//   return range(len).map(d => {
-//     return {
-//       ...newPerson(),
-//       children: range(10).map(newPerson)
-//     };
-//   });
-// }
-
-/* 
-Cell: ({ value }) => (value >= 21 ? "Yes" : "No"),
-                  filterMethod: (filter, row) => {
-                    if (filter.value === "all") {
-                      return true;
-                    }
-                    if (filter.value === "true") {
-                      return row[filter.id] >= 21;
-                    }
-                    return row[filter.id] < 21;
-                  },
-
-                  */
-

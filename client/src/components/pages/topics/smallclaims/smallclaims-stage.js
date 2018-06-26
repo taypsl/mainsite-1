@@ -1,11 +1,11 @@
+// small claims stage content has custom component to handle custom content
+// other categories content are loaded on topic-stage.js component
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import TitleLine from '../../../template/title-line';
-
 import TextIconBox from '../../../template/text-icon-box';
 import SquareBoxStatic from '../../../template/square-box-static';
-
 import ChecklistIcon from '../../../../img/icn_checklist.svg';
 import InfoBox from '../../../template/info-box';
 import AccordionBoxContainer from '../../../template/accordion-box/accordion-box-container';
@@ -23,22 +23,7 @@ const partyIds = [
     name: 'plaintiff',
     id: '2zYmskK1EUW22uukow4CaU'
    }
-] 
-
-// const stageIds = [
-//   {
-//     name: 'before',
-//     id: '1cMyrIaZ680ukwwSi8YscC'
-//   },
-//   {
-//     name: 'during',
-//     id: '5iDqJ92Rzqksq88gYWawE4'
-//   },
-//   {
-//     name: 'after',
-//     id: '4HkTlYlsFqqIgscmGWOCkk'
-//   }
-// ]
+]
 
 const stageIds = {
    'overview': '4ai240PycUw00eWUQqMwW4',
@@ -50,29 +35,17 @@ const stageIds = {
    'collecting-a-judgement': '2ucYI8L74Qs6mWag6aygCo'
   };
 
-// const stageTitleIdx = {
-//   'before': 0,
-//   'during': 1,
-//   'after': 2
-// }; 
-
 class SmallClaimsStage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // selectedStageId: this.props.stageId.id,
-      // selectedStageTitle: this.props.stageId.title,
-      // selectedContent: [],
       selectedParty: '',  
     }
     this.renderMenuLinks = this.renderMenuLinks.bind(this)
-    // this.filterContent = this.filterContent.bind(this)
-    // this.onStageSelect = this.onStageSelect.bind(this);
-    //this.toSentenceCase = this.toSentenceCase.bind(this);
   }
+
   componentWillMount() {
     const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
-
     // before component mounts, load content by selected party 
     let _partyId;
     // check if params.party matches the partyId[x].name
@@ -92,7 +65,6 @@ class SmallClaimsStage extends Component {
       this.props.fetchContentByParty(smallClaimsId, _partyId);
       this.setState({...this.state, selectedParty: this.props.match.params.party});
     }
-
   }
 
   renderMenuLinks(lang) {
@@ -106,24 +78,11 @@ class SmallClaimsStage extends Component {
     })
   }
 
-  // toSentenceCase(str) {
-  //   return str.split('-').map(function(word) {
-  //     return (word.charAt(0).toUpperCase() + word.slice(1));
-  //   }).join(' ');
-  // }
-  
   render() {
-    //const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
-    //const currentSlug = this.props.match.params.stage
-    //const slugTitle = this.toSentenceCase(currentSlug);
-    //const currentSection = this.props.match.params.party
-    console.log('state.content.tabs', this.props.stageContent)
-    console.log("current stage: ", this.props.stages);
-    console.log("lang: ", this.props.language);
     return this.props.stages.length !== 0 && this.props.stageContent.length !== 0 && (
       <div>
         <Bot />
-        {/*Temporarily removing breadcrumbs while we contend with multple stages */}
+        {/*Temporarily commenting out breadcrumbs while we contend with multiple stages */}
         {/*<div className="Stage-top-bar">
           <div className="breadcrumbs">
             <Link to="/">Home</Link>
@@ -136,7 +95,8 @@ class SmallClaimsStage extends Component {
             {this.renderMenuLinks(this.props.language)}
           </div>
         </div>*/}
-      {/* place holder, need to work out how to display the title w/out relying on redux store */}
+
+        {/* place holder, need to work out how to display the title w/out relying on redux store */}
         <TitleLine title={this.props.stages.find(stage => stage.slug === this.props.match.params.stage).title[this.props.language]} />
         <AccordionBoxContainer stageUrl={this.props.match.params.stage} stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })

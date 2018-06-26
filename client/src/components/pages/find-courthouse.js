@@ -1,3 +1,4 @@
+// component not used; previously was a menu linked page
 import React, { Component } from 'react';
 import TitleLine from '../template/title-line';
 

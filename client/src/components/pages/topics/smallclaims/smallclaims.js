@@ -1,23 +1,20 @@
+// right now hard coding small claims pages to accomodate changes to content structure and subcategories
+// other topic pages dynamically load content to topic.js component
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import TitleLine from '../../../template/title-line';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import Squarebox from '../../../template/square-box';
 import Bannerbox from '../../../template/banner-box';
 import Infobox from '../../../template/info-box';
 import { fetchParties } from '../../../../actions/content.js';
 import { fetchFaqs } from '../../../../actions/content.js';
 import { fetchResourceLinks } from '../../../../actions/content.js';
-
 // Bot temporarily lives only in Small Claims until all case types are functional in bot
 import Bot from '../../../chatbot/Bot.jsx';
 import client from '../../../../services/contentful-client'
-
 import { DEFAULT_LANG } from '../../../../actions/types';
-
-//3WOs1Yx3FKWAOwSYg4WsK2 smallclaims id
 
 const temporaryFaqs = [
   {
@@ -55,16 +52,13 @@ class SmallClaims extends Component {
   componentWillMount() {
     const unitLabel = "SmallClaims"
     const smallClaimsId = "5iJkGCIR2gUoMKaeQOqo6W"
-    // this.props.parties.length === 0 && this.props.fetchParties(smallClaimsId)    
-    // this.props.resources.length === 0 && this.props.fetchResourceLinks(smallClaimsId)
     this.props.fetchParties(smallClaimsId)    
     this.props.fetchResourceLinks(smallClaimsId)
-    // this.props.fetchFaqs()
   }
 
   componentDidMount(){
-    // this is to display chatbot pop up on first visit of /small-claims page
-    //check if they've visited
+    // display chatbot pop up on first visit of /small-claims page
+    // check if they've visited
     let visited = localStorage["alreadyVisited"];
     if(visited) {
      this.setState({ viewPopup: false })
@@ -78,14 +72,11 @@ class SmallClaims extends Component {
 
   onPartyClick(_id, e){
     this.props.storePartyId(_id)
-    console.log('onpartyclick, id', _id)
     e.stopPropagation();
     this.setState({partyId: _id})
   }
 
   render() {
-        console.log('~~~~~this.props.content', this.props.content)
-
     const lang = this.props.language;
     const faqs = temporaryFaqs.map((faq, index) => {
       return (
@@ -106,9 +97,6 @@ class SmallClaims extends Component {
       )
     })
 
-  // right now hard coding for smallclaims;
-  // in future, should make this dynamic so the whole site can be run
-  // on a few topics components
     const currentUnit = this.props.match.url.split('/')[1];
     const renderedParties = this.props.parties.map((party) => {
         return (
@@ -168,12 +156,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SmallClaims);
-
-/*
-          <Link to={`/smallclaims/${party.url}`}>
-            <Squarebox
-              boxTitle={party.title}
-              imgSrc={party.img} 
-            />
-          </Link>
-*/

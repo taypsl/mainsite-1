@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import SquareBox from '../template/square-box.js';
 import SquareBoxStatic from '../template/square-box-static.js';
 import ViewProfile from '../profile/view-profile';
 import Upcoming from '../calendar/upcoming';
 import MyForms from './FormsBoxes/my-forms';
 import MyCases from '../cases/my-cases';
 import TitleLine from '../template/title-line';
-
-// import ViewTodo from '../todo/view-todo';
 import { API_URL, fetchUser, fetchAzureUser } from '../../actions/index';
-// import axios from 'axios';
-// import Cookies from 'universal-cookie';
-// const cookie = new Cookies();
-
 import SearchIcon from '../../img/icn_search.svg';
 import LoginIcon from '../../img/icn_login.svg';
 import Cookies from 'universal-cookie';
 const cookie = new Cookies();
+
 class AzurePortalView extends Component {
 
   renderLinks() {

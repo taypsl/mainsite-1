@@ -4,6 +4,7 @@ import TitleLine from '../../template/title-line';
 import { fetchFaqSubcategories } from '../../../actions/content';
 import { connect } from 'react-redux';
 
+// faq/:category page
 class SelectedFaqPage extends Component {
 	constructor() {
 		super()
@@ -26,7 +27,7 @@ class SelectedFaqPage extends Component {
 						<hr className="cat-line"/>
 						<li className="Filter-topic">
 							<Link to={`/faqs/${this.props.match.params.page}/${subcat.sys.id}`}>
-							{subcat.fields.title[lang]}<i className="material-icons Filter-topic-icon">keyboard_arrow_right</i>
+								{subcat.fields.title[lang]}<i className="material-icons Filter-topic-icon">keyboard_arrow_right</i>
 							</Link>
 						</li>
 					</div>
