@@ -68,11 +68,9 @@ class Register extends Component {
   }
 
   handleFormSubmit(formProps) {
-    // console.log("FormProps:", formProps);
     if (this.props.authenticated) {
       //existing profile
       console.log("existing profile");
-      // const uid = cookie.get('user')._id;
       if (user){
         postData(FETCH_USER, null, true, `/user/${user._id}/updateProfile`, this.props.dispatch, formProps);
         window.location.href = `${CLIENT_ROOT_URL}/portal`; 

@@ -1,5 +1,4 @@
 import React from 'react';
-// import ReactHtmlParser from 'react-html-parser';
 
 class ImageViewer extends React.Component {
   constructor(props) {
@@ -11,8 +10,6 @@ class ImageViewer extends React.Component {
   openModal() {
     this.myModal.style.display = 'block';
     this.modalImg.src = this.smallImg.src;
-    // this.caption.innerHtml=this.smallImg.alt;
-    // console.log(this.smallImg.alt);
   }
   closeModal() {
     this.myModal.style.display = 'none';

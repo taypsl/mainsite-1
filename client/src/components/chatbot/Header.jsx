@@ -41,9 +41,12 @@ class Header extends React.Component {
               </i>
             </button>
 
-         {/* <div>
-            {this.props.ai.caseType}
-          </div> */}
+         {/*
+            case type selection button -- removed for small claims bot 
+            <div>
+              {this.props.ai.caseType}
+            </div> 
+          */}
 
             <button id="email" className="button-chatbot-email">
               <i className="material-icons" style={{ fontSize: '2.5em' }}>
@@ -89,7 +92,6 @@ const mapDispatchToProps = dispatch => ({
     if (event.currentTarget.id === 'refresh-button') {
       if (confirm("You will lose all previous conversations on refresh. Do you wish to proceed?")){
         //save all user input to database
-
         dispatch({ type: 'RESET_BOT' });
         dispatch({ type: 'General' });
         this.props.resetSession();

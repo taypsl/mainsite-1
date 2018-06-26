@@ -1,3 +1,5 @@
+// this feature was not scoped for V1
+// component incomplete
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -31,14 +33,6 @@ class Upcoming extends Component {
     );
   }
 }
- 
-// function mapStateToProps(state) {
-//  console.log(state.user)
-//   return {
-//     profile: state.user.profile,
-//   };
-// }
 
 export default Upcoming
-// export default connect(mapStateToProps, { fetchUser })(ViewProfile);
 

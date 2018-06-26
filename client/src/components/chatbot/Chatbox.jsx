@@ -13,19 +13,16 @@ class Chatbox extends React.Component {
 
   scrollToView() {
     console.log("ref: ", this.msgBegins);
-    // this.newMsgRef.current && this.newMsgRef.current.scrollIntoView({ behavior: 'instant' });
-    // this.msgBegins && this.msgBegins.scrollIntoView({behavior: 'instant'}); //scroll to the center
-    this.msgBegins && this.msgBegins.scrollIntoView(true); //set to scroll to the top 
+    //set to scroll to the top 
+    this.msgBegins && this.msgBegins.scrollIntoView(true); 
   }
 
   componentDidMount() {
     this.scrollToView();
-    // this.setState({ key: this.props.chatlog.length })
   }
 
   componentDidUpdate() {
     this.scrollToView();
-    // this.setState({ key: this.props.chatlog.length })
   }
   render() {
     let className = '';
@@ -45,7 +42,8 @@ class Chatbox extends React.Component {
          
           return (
             <div key={msg.id}>
-              {this.props.currentView.id === msg.id && <div ref={el => this.msgBegins = el} style={{paddingTop: 35}} />}  {/*set inline style to account for header height*/}
+              {/*set inline style to account for header height*/}
+              {this.props.currentView.id === msg.id && <div ref={el => this.msgBegins = el} style={{paddingTop: 35}} />}  
               <ChatBubble
                 {...msg} // spread operator                
                 sessionId={this.props.sessionId}
@@ -54,14 +52,6 @@ class Chatbox extends React.Component {
             </div>
             );
         })}
-
-       {/* <div
-          className="clear"
-          ref={(el) => {
-            this.messagesEnd = el;
-          }}
-        /> */} 
-
         
       </div>
     );

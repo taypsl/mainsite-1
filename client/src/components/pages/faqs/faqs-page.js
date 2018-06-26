@@ -4,17 +4,31 @@ import { Link } from 'react-router-dom';
 import { fetchFaqLayout } from '../../../actions/content';
 import { connect } from 'react-redux';
 
+//faqs main landing page
 class FAQs extends Component {
 	constructor() {
 		super()
 	}
 
 	componentWillMount() {
+		// before component mounts, fetch the layout object for the faq page
+		// this object contains layout information like title, subheadings, and topics list
 		this.props.fetchFaqLayout()
 	}
 
 	render() {
 		const lang = this.props.language;
+		// grab title from faqLayout content object in state
+		const renderedTitle = this.props.faqLayout.map((text) => {
+			return ( <TitleLine key={text.sys.id} title={text.fields.title[lang]} />)
+		})
+		// grab list of subheadings from faqLayout content object in state
+		const renderedSubHeading = this.props.faqLayout.map((text) => {
+			return (
+					<h3 key={text.sys.id}>{text.fields.subHeading[lang]}</h3>
+			)
+		})
+		// render list of topics in link form
 		const renderedTopics = this.props.faqTopics.map((topic) => {
 			return (
 				<div className="Filter-list-group" key={topic.sys.id}>
@@ -24,16 +38,6 @@ class FAQs extends Component {
 					</li>
 				</div>
 			)
-		})
-
-		const renderedSubHeading = this.props.faqLayout.map((text) => {
-			return (
-					<h3 key={text.sys.id}>{text.fields.subHeading[lang]}</h3>
-			)
-		})
-
-		const renderedTitle = this.props.faqLayout.map((text) => {
-			return ( <TitleLine key={text.sys.id} title={text.fields.title[lang]} />)
 		})
 
 		return (

@@ -32,8 +32,6 @@ class OpenBot extends React.Component {
     this.onTouchStart = this.handleTouchStart.bind(this);
     this.onTouchMove = this.handleTouchMove.bind(this);
     this.onTouchEnd = this.handleTouchEnd.bind(this);
-    // this.toggleSwiped = this.toggleSwiped.bind(this);
-    // this.state = {swiped : false};
     this.swipe = {};
     this.minDistance = 50;
   }
@@ -41,8 +39,6 @@ class OpenBot extends React.Component {
   handleTouchStart(e){
     let touchObj = e.touches[0];
     this.swipe = {x:touchObj.clientX};
-    // swiped = false;
-    // this.setState(this.toggleSwiped(false));
   }
 
   handleTouchMove(e){
@@ -56,17 +52,10 @@ class OpenBot extends React.Component {
     const touchObj = e.changedTouches[0];
     const dist = touchObj.clientX - this.swipe.x;
     if (this.props.visible && this.swipe.swiping && dist>this.minDistance){
-      // this.setState(this.toggleSwiped(true));
-      // swiped = true;
       this.props.onSwipe();
-      // console.log("swiped", swiped);
     }
     this.swipe = {};
   }
-
-  // toggleSwiped(toggle){
-  //   return (prevState, toggle) => ({swiped: prevState.swiped && toggle  });
-  // }
 
   render() {
     return (
@@ -100,7 +89,6 @@ const mapDispatchToProps = dispatch => ({
 
   handleClickOutside (event, wrapperRef) {
     if (wrapperRef && event.target.tagName !== 'HTML' && !wrapperRef.contains(event.target) ){
-      // console.log(event.target.tagName);
       dispatch({type: "TOGGLE_BOT"});
     }
   }, 

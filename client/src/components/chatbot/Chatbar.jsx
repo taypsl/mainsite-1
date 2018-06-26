@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect, dispatch } from 'react-redux';
-
 import axios from 'axios';
-// import ChatButton from './ChatButton.jsx';
 const uuid = require('uuid/v4');
+
 // import and set up SpeechRecognition object
 let recognition,
   synth,
@@ -73,7 +72,6 @@ class Chatbar extends React.Component {
             <button
               type="button"
               value="speak"
-              // ref="rec" //a react attrib
               className="mic"
               onClick={this.props.onClick.bind(this)}
             >
@@ -89,8 +87,6 @@ class Chatbar extends React.Component {
               type="text"
               placeholder="Type your message here"
               ref={input => (this.textInput = input)}
-              // onChange={this.props.onChange.bind(this)}
-              // onKeyUp={(e) => this.props.onKeyUp.bind(this, e, e.target.value)()}
               onKeyUp={this.props.onKeyUp.bind(this)}
             />
           </div>
@@ -98,7 +94,6 @@ class Chatbar extends React.Component {
           <div>
             <button
               type="button"
-              // ref="sendButton" //a react attrib
               value="send"
               className="circle-x"
               onClick={this.props.onClick.bind(this)}
@@ -115,13 +110,11 @@ class Chatbar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  // userInput: state.chat.input,
   ai: state.chat.ai,
 });
 
 const mapDispatchToProps = (dispatch) => {
   // let msg, recognition, synth, voices, utt;
-
   // send post requests to api.ai, process response, and dispatch action to reducers
 
   const postAndDispatch = function (data, sessionId, speak, caseTypeSelected) {
@@ -137,7 +130,6 @@ const mapDispatchToProps = (dispatch) => {
 
     const inputData = { payload: data, id: sessionId };
     if (!caseTypeSelected) {
-      // dispatch({type: data.message.toLowerCase()});
       inputData.ai = false;
     } else {
       inputData.ai = true;

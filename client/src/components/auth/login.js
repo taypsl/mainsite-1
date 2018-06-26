@@ -37,8 +37,6 @@ class Login extends Component {
             {/*<!-- test openID login -->*/}
             <p>Sign in with Microsoft Azure</p>
             <a className="Login-azure" href="/api/auth/azure-login"> Azure Login </a>
-            {/*<Link to="azure-login">Azure Login</Link>*/}
-            {/*<button type="button" onClick={ oidcLoginUser }> Azure Login </button>*/}
           </div>
           <div className="Login-option">
             <p>Or sign in with your email address</p>
@@ -58,12 +56,8 @@ class Login extends Component {
           </div>
         </div>
         <div>
-          
           <h3>Don't have an account? Register <Link to="register">here.</Link></h3>
-          
         </div>
-
-        
       </div>
     );
   }

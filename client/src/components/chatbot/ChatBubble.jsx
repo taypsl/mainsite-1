@@ -100,12 +100,6 @@ class ChatBubble extends React.Component {
     return (
       <div className={className} /* onClick={this.props.onClick}*/>
         {ReactHtmlParser(this.props.message)}
-        {/* this.props.source === 'dialogflow' 
-        && <p className="feedback">
-          Is this response helpful?
-        <input type="submit" value="Yes" />
-        <input type="submit" value="No" />
-        </p> */}
       </div>
     );
   }
@@ -140,10 +134,8 @@ const mapDispatchToProps = dispatch => ({
     const data = { message: this.props.message, type: this.props.type, isBot: this.props.isBot };
     console.log('SESSIONID: ', this.props.sessionId);
     const inputData = { payload: data, id: this.props.sessionId };
-    // console.log("ai: ", this);
     if (!this.props.ai.selected || this.props.message in CASETYPES) {
       inputData.ai = false;
-      // dispatch({type: 'SELECT_CASE_TYPE'});
     } else {
       inputData.ai = true;
     }
@@ -160,7 +152,6 @@ const mapDispatchToProps = dispatch => ({
               type: 'SET_FOCUS',
               payload: {id} 
             }) 
-            // newMsg = false;
           }
           if (ffmtMsg.message === 'text'){ //text response
             dispatch({
@@ -174,7 +165,6 @@ const mapDispatchToProps = dispatch => ({
               }
             });
           }else if (ffmtMsg.message == 'payload'){ // payload response
-            // console.log("payload buttons: ", ffmtMsg.payload.fields.buttons)
             //if buttons in payload
             ffmtMsg.payload.fields.buttons &&
             ffmtMsg.payload.fields.buttons.listValue.values.forEach((btn) => {

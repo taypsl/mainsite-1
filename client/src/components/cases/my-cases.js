@@ -45,6 +45,5 @@ function mapStateToProps(state) {
   };
 }
 
-// export default MyCases
 export default connect(mapStateToProps, { getData })(MyCases);
 MyCases.defaultProps = { classStyle: 'Box Grey-background ' };  //Portal-box  

@@ -40,7 +40,6 @@ class ResetPassword extends Component {
   }
 
   componentWillMount() {
-    // console.log("reset password component mounted");
     if (this.props.authenticated) {
       this.context.router.history.push('/portal');
     }
