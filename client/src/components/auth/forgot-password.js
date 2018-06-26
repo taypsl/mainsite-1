@@ -14,7 +14,6 @@ class ForgotPassword extends Component {
   }
 
   componentWillMount() {
-    // console.log("Forgot_Password Mounted");
     if (this.props.authenticated) {
       this.context.router.history.push('/portal');
     }

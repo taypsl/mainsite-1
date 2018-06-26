@@ -1,3 +1,5 @@
+// content for small claims checklist/plaintiff
+
 import { SMALL_CLAIMS, GUARDIANSHIP } from '../src/actions/types.js'; 
 console.log('SMALL_CLAIMS: ', SMALL_CLAIMS);
 

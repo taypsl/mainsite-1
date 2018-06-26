@@ -2,7 +2,6 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import Cookies from 'universal-cookie';
 const cookie = new Cookies();
-// import cookie from 'react-cookie';
 import { API_URL, CLIENT_ROOT_URL, errorHandler } from './index';
 import { AUTH_LOCAL_USER, AUTH_AZURE_USER, AUTH_ERROR, UNAUTH_USER, FORGOT_PASSWORD_REQUEST, RESET_PASSWORD_REQUEST, PROTECTED_TEST } from './types';
 
@@ -35,19 +34,6 @@ export function oidcLoginUser() {
     method: 'get',
   }).
   then((response) => {console.log("sucess: ", response);});
-  // axios.get('/login')
-  //     .then((response) => {
-  //       console.log("sucess: ", response);
-  //     }); 
-  // return function (dispatch) {
-    // axios.get('/login')
-    // .then(function (response) {
-    //   console.log("Response from IDProvider: ", response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-  // }
 }
 
 

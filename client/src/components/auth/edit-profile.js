@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-// import { registerUser } from '../../actions/auth';
 import { postData } from '../../actions/index';
 
 const form = reduxForm({

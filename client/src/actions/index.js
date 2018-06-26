@@ -1,13 +1,9 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 const cookie = new Cookies();
-// import cookie from 'react-cookie';
 import { logoutUser } from './auth';
 import { STATIC_ERROR, FETCH_USER, FETCH_PAGE_DATA, LOAD_CHECKLIST, GET_ALL_TASKS, CHANGE_STATUS, ERROR_RESPONSE, POST_DATA, AUTH_LOCAL_USER, AUTH_AZURE_USER } from './types';
 import { fetchData } from "../data/mockDataAPI";
-
-// import siteData from "../data/smallClaimsData";
-
 const SITE_DATA_PATH = '../data/cleanSiteData.json'
 export const API_URL = '/api'; 
 export const COSMOS_EMU_URL = 'https://localhost:8081';// cosmos db emulator URL
@@ -17,9 +13,7 @@ export const CLIENT_ROOT_URL = '';
 // Utility actions
 //= ===============================
 export function fetchUser(uid) {
-  // console.log(uid)
   return function (dispatch) {
-
     const thisToken = cookie.get('token')
     axios.get(`${API_URL}/user/${uid}`, { 
       headers: { Authorization: thisToken }, 
@@ -36,8 +30,6 @@ export function fetchUser(uid) {
 
 export function fetchAzureUser() {
   return function (dispatch) {
-
-    // const thisToken = cookie.get('token')
     axios.get(`${API_URL}/azure-user`)
     .then((response) => {
       console.log('promise called first time. Response: ', response);      
@@ -55,7 +47,6 @@ export function fetchAzureUser() {
   };
 }
 
-
 // load page data from local file
 export function loadPageData() {  
   return dispatch => {
@@ -69,7 +60,6 @@ export function loadPageData() {
     })
   }
 }
-
 
 // todo component actions from todo redux basics tutorial
 let nextTodoId = 0
@@ -110,28 +100,6 @@ export const addUserCase = (caseType) => {
   }
 }
 
-
-///////////
-
-// export const loadChecklist = () => dispatch => {
-//   axios.get('./checklist_smallClaims.json')
-//     .then((response) => {
-//       console.log(response.data.smallClaims, 'checking first then response')
-//       return response.data.smallClaims
-//     })
-//     .then((data) => {
-//       dispatch({
-//         type: LOAD_CHECKLIST,
-//         payload: data
-//       }); 
-//     })
-//   .catch((err) => {
-//       console.error.bind(err);
-//   })
-// }
-
-///////////
-
 export function errorHandler(dispatch, error, type) {
   console.log('Error type: ', type);
   console.log(error);
@@ -154,60 +122,6 @@ export function errorHandler(dispatch, error, type) {
 export function postData(action, errorType, isAuthReq, url, dispatch, data) {
   console.log("URL: ", url);
   console.log("Data: ", data);
-  // console.log("Dispatch: ", dispatch);
-  // return function (dispatch) {
-    const requestUrl = API_URL + url;
-    let headers = {};
-
-
-    if (isAuthReq) {
-      headers = { headers: { Authorization: cookie.get('token') } };
-    }
-
-    axios.post(requestUrl, data, headers)
-    .then((response) => {
-      console.log("Repsonse Received: ", response.data);
-      dispatch({
-        type: action,
-        payload: response.data.payload,
-      });
-      
-    })
-    .catch((error) => {
-      console.log("Error", error);
-      errorHandler(dispatch, error.response, errorType);
-    });
-  // };
-}
-
-// Get Request
-export function getData(action, errorType, isAuthReq, url, dispatch) {
-  // return function (dispatch) {
-    const requestUrl = API_URL + url;
-    let headers = {};
-
-    if (isAuthReq) {
-      headers = { headers: { Authorization: cookie.get('token') } };
-    }
-
-    axios.get(requestUrl, headers)
-    .then((response) => {
-      console.log("Response.Data: ", response.data);
-      console.log("Action type: ", action);
-      dispatch({
-        type: action,
-        payload: response.data.payload,
-      });
-    })
-    .catch((error) => {
-      console.log("error handler is invoked");
-      errorHandler(dispatch, error.response, errorType);
-    });
-  // };
-}
-
-// Put Request
-export function putData(action, errorType, isAuthReq, url, dispatch, data) {
   const requestUrl = API_URL + url;
   let headers = {};
 
@@ -215,6 +129,52 @@ export function putData(action, errorType, isAuthReq, url, dispatch, data) {
     headers = { headers: { Authorization: cookie.get('token') } };
   }
 
+  axios.post(requestUrl, data, headers)
+  .then((response) => {
+    console.log("Repsonse Received: ", response.data);
+    dispatch({
+      type: action,
+      payload: response.data.payload,
+    });
+    
+  })
+  .catch((error) => {
+    console.log("Error", error);
+    errorHandler(dispatch, error.response, errorType);
+  });
+}
+
+// Get Request
+export function getData(action, errorType, isAuthReq, url, dispatch) {
+  const requestUrl = API_URL + url;
+  let headers = {};
+
+  if (isAuthReq) {
+    headers = { headers: { Authorization: cookie.get('token') } };
+  }
+
+  axios.get(requestUrl, headers)
+  .then((response) => {
+    console.log("Response.Data: ", response.data);
+    console.log("Action type: ", action);
+    dispatch({
+      type: action,
+      payload: response.data.payload,
+    });
+  })
+  .catch((error) => {
+    console.log("error handler is invoked");
+    errorHandler(dispatch, error.response, errorType);
+  });
+}
+
+// Put Request
+export function putData(action, errorType, isAuthReq, url, dispatch, data) {
+  const requestUrl = API_URL + url;
+  let headers = {};
+  if (isAuthReq) {
+    headers = { headers: { Authorization: cookie.get('token') } };
+  }
   axios.put(requestUrl, data, headers)
   .then((response) => {
     dispatch({

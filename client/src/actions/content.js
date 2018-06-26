@@ -22,11 +22,15 @@ import { FETCH_ASSET } from './types'
 import { STORE_STAGE_ID } from './types'
 import { FETCH_CHECKLIST } from './types'
 
+// protected environment variables
 const API_BASE_URL = process.env.API_BASE_URL;
 const API_SPACE_ID = process.env.API_SPACE_ID;
 const API_TOKEN = process.env.API_TOKEN;
 const SMALL_CLAIMS_ID = process.env.SMALL_CLAIMS_ID;
 
+// =========================================================
+// Functions to load different content types from contentful
+// =========================================================
 export function fetchContact() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=contact&locale=*`)
@@ -38,11 +42,9 @@ export function fetchContact() {
 }
 
 export function fetchCategories() {
-  //console.log('fetch categories action')
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=category&locale=*`)
     .then( (response) => { 
-      //console.log("fetch categories response: ", response);
       const categories = response.data.items.map((category) => ({
         categoryId: category.sys.id,
         slug: category.fields.slug['en-US'],
@@ -51,7 +53,6 @@ export function fetchCategories() {
         imageId: category.fields.image['en-US'].sys.id
       }))
     .sort((a, b) => a.id - b.id);
-
       dispatch({type: FETCH_CATEGORIES, payload: categories});
 
       })
@@ -74,10 +75,8 @@ export function fetchParties(id) {
         category: party.fields.categories['en-US']
       }))
       .sort((a, b) => a.id - b.id);
-
       dispatch({type: FETCH_PARTIES, payload: parties});
       })
-
     .catch((error) => console.log("err: ", error));
   }
 }
@@ -86,9 +85,8 @@ export function fetchFormLayout() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=formLayout&locale=*`)
     .then( (response) => { 
-      //console.log('response', response)
       dispatch({type: FETCH_FORM_LAYOUT, payload: response});
-      })
+    })
     .catch((error) => console.log('err: ', error));
   }
 }
@@ -107,7 +105,6 @@ export function fetchFaqLayout() {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=faqLayout&locale=*`)
     .then( (response) => { 
-      //console.log('response', response)
       dispatch({type: FETCH_FAQ_LAYOUT, payload: response});
       })
     .catch((error) => console.log('err: ', error));
@@ -115,7 +112,6 @@ export function fetchFaqLayout() {
 }
 
 export function fetchFaqs(label, subcat) {
-  // &fields.unit.sys.id=${id, subcat}
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=faq&fields.categoryLabel=${label}&fields.subcategories.sys.id=${subcat}&locale=*`)
     .then( (response) => { 
@@ -126,7 +122,6 @@ export function fetchFaqs(label, subcat) {
 }
 
 export function fetchFaqSubcategories(label) {
-
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=faqSubcategory&fields.categoryLabel=${label}&order=fields.order&locale=*`)
     .then( (response) => { 
@@ -140,7 +135,6 @@ export function fetchStages(id) {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stage&fields.categories.sys.id=${id}&order=fields.order&locale=*`)
     .then((response) => {
-      //console.log('action fetchStages response', response)
        const stages = response.data.items.map((stage) => ({
           partyLabel: stage.fields.partyLabel, 
           parties: stage.fields.parties, 
@@ -162,7 +156,6 @@ export function fetchStages(id) {
 
 export function fetchVideos() {
   const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=video`)
-  //console.log('fetchVideos action')
   return {
     type: FETCH_VIDEOS,
     payload: request
@@ -171,7 +164,6 @@ export function fetchVideos() {
 
 export function fetchVideoLinks() {
   const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=videoLink`)
-  //console.log('fetchVideoLinks action')
   return {
     type: FETCH_VIDEO_LINKS,
     payload: request
@@ -180,7 +172,6 @@ export function fetchVideoLinks() {
 
 export function fetchVideoCategories() {
   const request = axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=videoSubcategory`)
-  //console.log('fetchVideoCategories action')
   return {
     type: FETCH_VIDEO_CATEGORIES,
     payload: request
@@ -206,7 +197,6 @@ export function fetchContentByParty(id, party) {
               children: cur.fields.children});
         }
         return acc;
-        
       }, []);
       let tabs = [{"children": childEntries}, {"tabs": selectedTabs}]
       dispatch({type: FETCH_CONTENT, payload: tabs});
@@ -215,18 +205,10 @@ export function fetchContentByParty(id, party) {
   }
 }
 
-export function saveId(id) {
-   return {
-    type: SAVE_ID,
-    payload: id
-   }
-}
-
 export function fetchSubContentById(id) {
   return function(dispatch) {
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=stageContent&sys.id=${id}&locale=*`)
     .then((response) => {
-      //console.log('fetch subcategories content by id', response)
       const subContent = response.data.includes.Entry.filter(ent => ent.sys.contentType.sys.id === "stageContentSub").map(item => item.fields)
       dispatch({type: FETCH_SUBCONTENT, payload: subContent})
     })
@@ -237,7 +219,6 @@ export function fetchResourceLinks(id) {
   return function(dispatch){
     axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/entries?access_token=${API_TOKEN}&content_type=resource&fields.categories.sys.id=${id}&locale=*`)
       .then((response) => {
-        //console.log(response.data.items);
         const resources = response.data.items.map(resource => ({
           slug: resource.fields.slug['en-US'], titles: resource.fields.title, resourceId: resource.sys.id
         }));
@@ -310,17 +291,26 @@ export function fetchAsset(id) {
      axios.get(`${API_BASE_URL}/spaces/${API_SPACE_ID}/assets/${id}?access_token=${API_TOKEN}`)
      .then((response) => {
       const asset = {
-            assetId: response.data.sys.id,
-            url: response.data.fields.file.url,
-            alt: response.data.fields.file.fileName,
+        assetId: response.data.sys.id,
+        url: response.data.fields.file.url,
+        alt: response.data.fields.file.fileName,
      };
       dispatch({
         type: FETCH_ASSET,
         payload: asset })
     })
      .catch((error) => console.log("err: ", error))
-  //console.log('fetch assets action');
  }
+}
+
+// =======================================
+// actions related to content manipulation
+// =======================================
+export function saveId(id) {
+   return {
+    type: SAVE_ID,
+    payload: id
+   }
 }
 
 export const storeStageId = (title, id) => {
@@ -335,7 +325,6 @@ export const storeStageId = (title, id) => {
 }
 
 export function toggleLanguages(lang){
-  console.log("language toggled");
   return function(dispatch) {
     dispatch({ type: "TOGGLE_LANGUAGE", language: lang})
   }
