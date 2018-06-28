@@ -39,7 +39,7 @@ const categoryIds = {
   'family-law': '4O0eqo7xHOaMMA8WyYW80C',
   'eviction': '6qxRrat4HKc8UUk4yCGuSg',
   'dv': '2rfORKm0KQe4K0uuEuoQci',
-  'traffic/stage': '2Syl95Uko8IwQqUgi2wSem'
+  'traffic': '2Syl95Uko8IwQqUgi2wSem'
 }
 
 const partyIds = {
@@ -55,15 +55,21 @@ const partyIds = {
 }
 
 const stageIds = {
-   'before': '64dgqWF7dmuqYwCaKqEOUG',
-   'during': '1OHmeVRZ9Cu8EWmQUUQQyW',
-   'after': '5FKid7O1s4oKKAcoAqaSA4'
+   'before-your-case': '4HkTlYlsFqqIgscmGWOCkk',//'64dgqWF7dmuqYwCaKqEOUG',
+   'during-your-case': '1OHmeVRZ9Cu8EWmQUUQQyW',
+   'after-your-case': '5KMyDPAZq0ui4oGUUo2cCe',//'5FKid7O1s4oKKAcoAqaSA4'
+   'information': '24PsFOM7Buy6eYScEkAm8w',
+   
   };
 
 class TopicStage extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      selectedParty: '',  
+    }
     this.renderMenuLinks = this.renderMenuLinks.bind(this)
+    this.renderTitle = this.renderTitle.bind(this)
   }
   componentWillMount() {
     // before component mounts, load content by selected party 
@@ -87,6 +93,8 @@ class TopicStage extends Component {
     // }
 
     console.log('~~~~~~~~~~~', categoryIds[currentTopic])
+    console.log('partyIds[currentParty', partyIds[currentParty])
+    console.log('this.props.stages', this.props.stages)
 
     //fetch stages if not already present in store
     if (this.props.stages.length === 0){
@@ -108,18 +116,19 @@ class TopicStage extends Component {
     .map((stage) => {
       return stage.url !== this.props.match.params.stage && (
         <div className="Stage-menu-item" key={stage.id}>
-          <Link to={stage.url}>{stage.titles[lang]}</Link>
+          <Link to={stage.url}>{stage.title[lang]}</Link>
         </div>
       )
     })
   }
-
-  // toSentenceCase(str) {
-  //   return str.split('-').map(function(word) {
-  //     return (word.charAt(0).toUpperCase() + word.slice(1));
-  //   }).join(' ');
-  // }
   
+  renderTitle() {
+    const title = this.props.match.params.stage;
+    return title.split('-').map(function(word) {
+      return (word.charAt(0).toUpperCase() + word.slice(1));
+    }).join(' ');
+  }
+
   render() {
     //const currentTitle = this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]
     //const currentSlug = this.props.match.params.stage
@@ -144,7 +153,7 @@ class TopicStage extends Component {
           </div>
         </div>*/}
       {/* place holder, need to work out how to display the title w/out relying on redux store */}
-        <TitleLine title={this.props.stages.find(stage => stage.url === this.props.match.params.stage).title[this.props.language]} />
+        <TitleLine title={this.renderTitle()} />
         <AccordionBoxContainer stageUrl={this.props.match.params.stage} stageContent={ 
           this.props.stageContent.filter(tab => { return tab.stageId === stageIds[this.props.match.params.stage] })
             .sort((a, b) => a.id - b.id )} />
