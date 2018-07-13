@@ -28,9 +28,8 @@ const API_SPACE_ID = process.env.API_SPACE_ID;
 const API_TOKEN = process.env.API_TOKEN;
 const SMALL_CLAIMS_ID = process.env.SMALL_CLAIMS_ID;
 
-const TEST_SPACE_ID = 'esxupp73rdsl';
-// const TEST_CONTENT_PREVIEW_TOKEN = 'dac6424c1bb835f443dfba010833c590acdaf14b694b4791a7ca5557e3828b9d';
-const TEST_CONTENT_PREVIEW_TOKEN = '42a64346e5d6accb81ec5e791f13035c459bbeb176b72d744df5d30fd86260df';
+const TEST_SPACE_ID = process.env.TEST_SPACE_ID;
+const TEST_CONTENT_PREVIEW_TOKEN = process.env.TEST_CONTENT_PREVIEW_TOKEN;
 
 // =========================================================
 // Functions to load different content types from contentful
@@ -116,12 +115,22 @@ export function fetchFaqLayout() {
 }
 
 export function fetchFaqs(label, subcat) {
-  return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${TEST_SPACE_ID}/entries?access_token=${TEST_CONTENT_PREVIEW_TOKEN}&content_type=faq&fields.category.sys.id=${label}&fields.subcategories.sys.id=${subcat}&locale=*`)
-    .then( (response) => { 
-      dispatch({type: FETCH_FAQS, payload: response});
-      })
-    .catch((error) => console.log('err: ', error));
+  if (subcat == "general") {
+    return function(dispatch){
+      axios.get(`${API_BASE_URL}/spaces/${TEST_SPACE_ID}/entries?access_token=${TEST_CONTENT_PREVIEW_TOKEN}&content_type=faq&fields.category.sys.id=${label}&locale=*`)
+      .then( (response) => { 
+        dispatch({type: FETCH_FAQS, payload: response});
+        })
+      .catch((error) => console.log('err: ', error));
+    }
+  } else {
+    return function(dispatch){
+      axios.get(`${API_BASE_URL}/spaces/${TEST_SPACE_ID}/entries?access_token=${TEST_CONTENT_PREVIEW_TOKEN}&content_type=faq&fields.category.sys.id=${label}&fields.subcategories.sys.id=${subcat}&locale=*`)
+      .then( (response) => { 
+        dispatch({type: FETCH_FAQS, payload: response});
+        })
+      .catch((error) => console.log('err: ', error));
+    }
   }
 }
 
