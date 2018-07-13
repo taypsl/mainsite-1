@@ -51,7 +51,11 @@ const partyIds = {
   'landlord': '5ZDpEk6mPeECMCe0oGEe2K',
   'child': '2qX3uG3lq0iaekEMsqMQcs', 
   'potential-guardian': '66Lp25CQJaQq2yUUcMacIu',
-  'guardianship': '25rk8cpWJeA666YKwumQyu'
+  'guardianship': '25rk8cpWJeA666YKwumQyu',
+  'person-accused-of-abuse': '6hzNHOCpUWO8AuUISAyUo2', 
+  'person-seeking-protection': '6yqV1xQ4fuQWs0U2SY6smW',
+  'other-protected-person': '6zmut3k6ruyIucIwGaoge4',
+  'party': '5PSEN0jq12KU6C0oIyCaq6'
 }
 
 const stageIds = {

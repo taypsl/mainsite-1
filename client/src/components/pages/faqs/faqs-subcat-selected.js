@@ -7,6 +7,18 @@ import AccordionBox from '../../template/accordion-box/accordion-box-container'
 const ReactMarkdown = require('react-markdown')
 
 // faqs/:category/:subcategoryId page 
+
+const categoryIds = {
+   'guardianship': '25rk8cpWJeA666YKwumQyu',
+   'eviction': '6qxRrat4HKc8UUk4yCGuSg', //'40LEWPHtDOyySwoYGisMkg', //
+   'dv': '2rfORKm0KQe4K0uuEuoQci', //'6hxHMV13lS2qOMWi2q2wEq',
+   'traffic': '2Syl95Uko8IwQqUgi2wSem',
+   'small-claims': '5iJkGCIR2gUoMKaeQOqo6W',
+   'family': '4O0eqo7xHOaMMA8WyYW80C',
+   'general': '2ucYI8L74Qs6mWag6aygCo'
+ };
+
+
 class FaqsSelectedSubcategory extends Component {
 	constructor() {
 		super()
@@ -33,9 +45,9 @@ class FaqsSelectedSubcategory extends Component {
     } 
   }
 
-
 	componentWillMount() {
-		const label = this.props.match.params.page
+		const currentSubcat = this.props.match.params.page
+		const label = categoryIds[currentSubcat]
 		const subcatId = this.props.match.params.subcat
 		this.props.fetchFaqs(label, subcatId)
 	}
@@ -56,6 +68,7 @@ class FaqsSelectedSubcategory extends Component {
 				}
 			}
 		}
+
 		return (
 			<div className="breadcrumbs">
         <Link to="/faqs">FAQs</Link>
@@ -90,8 +103,7 @@ class FaqsSelectedSubcategory extends Component {
 				</div>
 			)    
 		})
-			
-
+		
 		return (
 			<div>
 				<TitleLine title={this.props.language == "en-US" ? "Frequently Asked Questions" : "Preguntas frecuentes" }  />

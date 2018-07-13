@@ -117,7 +117,7 @@ export function fetchFaqLayout() {
 
 export function fetchFaqs(label, subcat) {
   return function(dispatch){
-    axios.get(`${API_BASE_URL}/spaces/${TEST_SPACE_ID}/entries?access_token=${TEST_CONTENT_PREVIEW_TOKEN}&content_type=faq&fields.categoryLabel=${label}&fields.subcategories.sys.id=${subcat}&locale=*`)
+    axios.get(`${API_BASE_URL}/spaces/${TEST_SPACE_ID}/entries?access_token=${TEST_CONTENT_PREVIEW_TOKEN}&content_type=faq&fields.category.sys.id=${label}&fields.subcategories.sys.id=${subcat}&locale=*`)
     .then( (response) => { 
       dispatch({type: FETCH_FAQS, payload: response});
       })
